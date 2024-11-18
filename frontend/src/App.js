@@ -1,17 +1,30 @@
-import React, { useEffect } from 'react';
+import './App.css';
+import React from 'react'
+import Login from './components/login';
+import {useEffet, useState} from 'react'
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
+
 
 function App() {
-  useEffect(() => {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    console.log("API URL:", apiUrl);
-    // Ví dụ gọi API
-    fetch(`${apiUrl}/some-endpoint`)
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error("Error fetching data:", error));
-  }, []);
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [email, setEmail] = useState('')
 
-  return <div className="App">My React App</div>;
+  return (
+    <>
+      <div className='App-header'>
+        header
+      </div>
+
+      <div className='nav-bar'>
+        Trang chủ > Đăng nhập
+      </div>
+  
+      <div className="Login">
+        <Login/>
+      </div>
+    </>
+    
+  )
 }
-
+document.body.style.backgroundColor = 'darkgreen'
 export default App;
