@@ -14,7 +14,6 @@ function App() {
       <div className='App-header'>
         header
       </div>
-
       <div className='nav-bar'>
         Trang chủ > Đăng nhập
       </div>

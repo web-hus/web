@@ -69,7 +69,6 @@
   border:transparent;
   width:200px;
   height:50px
-
 }
 
 .react-tabs {
@@ -102,7 +101,6 @@
     background: transparent;
     border-color: transparent;
     color: #D69C52;
-    border-radius: 5px 5px 0 0;
   }
   
   .react-tabs__tab--disabled {

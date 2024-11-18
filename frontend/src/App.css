@@ -45,13 +45,9 @@
     transform: rotate(360deg);
   }
 }
-
 .Login{
   background-color: #143B36;
   justify-content: center;
   align-items: center;
   display: flex;
 }
-
-
-
