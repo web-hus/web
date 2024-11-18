@@ -1,19 +1,30 @@
-import React, { useEffect } from 'react';
+import "./App.css";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Menu from "./pages/Menu";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import SetTable from "./pages/Set_table";
+import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import React from 'react';
 
 function App() {
-  useEffect(() => {
-    const apiUrl = process.env.REACT_APP_API_URL;
-    console.log("API URL:", apiUrl);
-    // Ví dụ gọi API
-    fetch(`${apiUrl}/some-endpoint`)
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error("Error fetching data:", error));
-  }, []);
-
-  return <div className="App">My React App</div>;
+  return (
+    <div className="App">
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/menu" exact element={<Menu />} />
+          <Route path="/about" exact element={<About />} />
+          <Route path="/contact" exact element={<Contact />} />
+          <Route path="/set_table" exact element={<SetTable />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </div>
+  );
 }
-
-document.body.style.backgroundColor = '#143B36'
 
 export default App;
