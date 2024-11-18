@@ -54,10 +54,6 @@ const Login = () =>{
                             <input className={'inputButton'} type='button' value={'Log in'}/> 
                         </div>
                         <div>
-<<<<<<< Updated upstream
-                            <a href="">Quên mật khẩu?</a>
-                        </div>
-=======
                             <a className='text' href="">Quên mật khẩu?</a>
                             <div className='text'>Hoặc đăng nhập bằng</div>
                             <br/>
@@ -68,7 +64,6 @@ const Login = () =>{
                                 
                         </div>
                         <br/>
->>>>>>> Stashed changes
                     </TabPanel>
                     <TabPanel>
                         <div className={'titleContainer'}>
