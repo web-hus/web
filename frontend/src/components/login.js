@@ -56,12 +56,6 @@ const Login = () =>{
                         <br/>
                         <div>
                             <a className='text' href="">Quên mật khẩu?</a>
-                            <div className='text'>Hoặc đăng nhập bằng</div>
-                            <br/>
-                            <div className='text'>
-                                <button className='facebook'>Facebook</button>
-                                <button className='google'>Google</button>
-                            </div>
                                 
                         </div>
                         <br/>
