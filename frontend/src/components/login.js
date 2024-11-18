@@ -7,6 +7,12 @@ const Login = () =>{
     const [loginPassword, setLoginPassword] = useState('')
     const [signupPassword, setSignupPassword] = useState('')
     const [signupEmail, setSignupEmail] = useState('')
+    const [lastname, setLastName] = useState('')
+    const [firstname, setFirstName] = useState('')
+    const [phonenum, setPhoneNum] = useState('')
+    
+
+
 
     return(
         <div className={'mainContainer'}>
@@ -16,6 +22,7 @@ const Login = () =>{
                         <Tab>ĐĂNG NHẬP</Tab>
                         <Tab>ĐĂNG KÝ</Tab>
                     </TabList>
+
                     <TabPanel>
                         <div className={'titleContainer'}>
                             ĐĂNG NHẬP
