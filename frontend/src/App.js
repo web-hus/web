@@ -26,5 +26,5 @@ function App() {
     
   )
 }
-document.body.style.backgroundColor = 'darkgreen'
+document.body.style.backgroundColor = '#143B36'
 export default App;

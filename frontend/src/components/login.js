@@ -31,7 +31,7 @@ const Login = () =>{
                         <div className={'inputContainer'}>
                             <input
                                 value={loginEmail}
-                                placeholder="Enter email here..."
+                                placeholder="Email"
                                 onChange={(ev) => setLoginEmail(ev.target.value)}
                                 className={'inputBox'}
                             />
@@ -42,7 +42,7 @@ const Login = () =>{
                         <div className={'inputContainer'}>
                             <input
                                 value={loginPassword}
-                                placeholder="Enter Password here..."
+                                placeholder="Mật khẩu"
                                 onChange={(ev) => setLoginPassword(ev.target.value)}
                                 className={'inputBox'}
                             />
@@ -51,8 +51,9 @@ const Login = () =>{
                         <br/>
 
                         <div className={'inputContainer'}>
-                            <input className={'inputButton'} type='button' value={'Log in'}/> 
+                            <input className={'inputButton'} type='button' value={'ĐĂNG NHẬP'}/> 
                         </div>
+                        <br/>
                         <div>
                             <a className='text' href="">Quên mật khẩu?</a>
                             <div className='text'>Hoặc đăng nhập bằng</div>
@@ -111,7 +112,7 @@ const Login = () =>{
                         <div className={'inputContainer'}>
                             <input
                                 value={signupPassword}
-                                placeholder="New Password"
+                                placeholder="Đặt mật khẩu"
                                 onChange={(ev) => setSignupPassword(ev.target.value)}
                                 className={'inputBox'}
                             />
@@ -120,10 +121,11 @@ const Login = () =>{
                         <br/>
 
                         <div className={'inputContainer'}>
-                            <input className={'inputButton'} type='button' value={'Sign Up'}/> 
+                            <input className={'inputButton'} type='button' value={'ĐĂNG KÝ'}/> 
                         </div>
                     </TabPanel>
                 </Tabs>
+                <br/>
             </div>
             
         </div>
