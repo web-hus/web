@@ -3,8 +3,10 @@ import './login.css'
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs'
 
 const Login = () =>{
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [loginEmail, setLoginEmail] = useState('')
+    const [loginPassword, setLoginPassword] = useState('')
+    const [signupEmail, setSignupEmail] = useState('')
+    const [signupPassword, setSignupPassword] = useState('')
     const [lastname, setLastName] = useState('')
     const [firstname, setFirstName] = useState('')
     const [phonenum, setPhoneNum] = useState('')
@@ -28,9 +30,9 @@ const Login = () =>{
                         
                         <div className={'inputContainer'}>
                             <input
-                                value={email}
+                                value={loginEmail}
                                 placeholder="Enter email here..."
-                                onChange={(ev) => setEmail(ev.target.value)}
+                                onChange={(ev) => setLoginEmail(ev.target.value)}
                                 className={'inputBox'}
                             />
                         </div>
@@ -39,9 +41,9 @@ const Login = () =>{
 
                         <div className={'inputContainer'}>
                             <input
-                                value={password}
+                                value={loginPassword}
                                 placeholder="Enter Password here..."
-                                onChange={(ev) => setPassword(ev.target.value)}
+                                onChange={(ev) => setLoginPassword(ev.target.value)}
                                 className={'inputBox'}
                             />
                         </div>
@@ -89,9 +91,9 @@ const Login = () =>{
 
                         <div className={'inputContainer'}>
                             <input
-                                value={email}
+                                value={signupEmail}
                                 placeholder="Email"
-                                onChange={(ev) => setEmail(ev.target.value)}
+                                onChange={(ev) => setSignupEmail(ev.target.value)}
                                 className={'inputBox'}
                             />
                         </div>
@@ -108,9 +110,9 @@ const Login = () =>{
 
                         <div className={'inputContainer'}>
                             <input
-                                value={password}
+                                value={signupPassword}
                                 placeholder="New Password"
-                                onChange={(ev) => setPassword(ev.target.value)}
+                                onChange={(ev) => setSignupPassword(ev.target.value)}
                                 className={'inputBox'}
                             />
                         </div>
