@@ -13,5 +13,9 @@ function App() {
 
   return <div className="App">My React App</div>;
 }
+<<<<<<< Updated upstream
 
+=======
+document.body.style.backgroundColor = '#143B36'
+>>>>>>> Stashed changes
 export default App;
