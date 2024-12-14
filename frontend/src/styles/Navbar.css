@@ -1,108 +1,99 @@
+/* CSS cho .navbar */
 .navbar {
   width: 100%;
   height: 100px;
   background-color: #121619;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start; /* Dịch tất cả phần tử trong navbar sang trái */
+  justify-content: space-between;
+  align-items: center;
 }
 
+/* CSS cho .leftSide */
 .navbar .leftSide {
-  flex: 50%;
-  height: 100%;
+  flex: 1;
   display: flex;
   align-items: center;
-  padding-left: 50px;  /* Giảm padding-left nếu muốn dịch các phần tử sang trái thêm */
+  padding-left: 50px;
 }
 
 .navbar .leftSide img {
   width: 70px;
 }
 
+/* CSS cho .rightSide */
 .navbar .rightSide {
-  flex: 50%;
-  height: 100%;
+  flex: 1;
   display: flex;
+  justify-content: center; /* Căn giữa các liên kết */
   align-items: center;
-  justify-content:center;
+  gap: 20px;
 }
 
 .navbar a {
   text-decoration: none;
   color: pink;
-  display: inline-block;
-  background-color: pink;
-  color: black;
   font-size: 16px;
   padding: 5px 10px;
-  border: none;
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
-  margin: 0px 15px 0px 0px;
 }
 
 .navbar a:hover {
   background-color: #ff66b2;
-  /* Tăng cường hiệu ứng hover cho nút */
   color: white;
-  /* Đổi màu chữ khi hover */
 }
 
-.navbar .rightSide button {
-  background-color: transparent;
-  border: none;
+/* CSS cho .Icon */
+.navbar .Icon {
+  display: flex;
+  justify-content: flex-end; /* Đảm bảo phần icon nằm bên phải */
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar .rightSide .Icon {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 30px; /* Khoảng cách giữa các icon */
+  margin-right: 60px;
+}
+
+.navbar .rightSide .Icon a {
+  text-decoration: none;
   color: white;
-  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  padding: 0;
+  margin: 0;
 }
 
 .navbar .rightSide svg {
-  font-size: 40px;
+  font-size: 30px;
 }
 
-.navbar #open {
-  padding-left: 0px;
-}
-
-.navbar #open img {
-  display: none;
-}
-
-.navbar #close img {
-  display: inherit;
-}
-
-.navbar #open .hiddenLinks {
-  display: inherit;
-  margin-left: 30px;
-}
-
-.navbar #close .hiddenLinks {
-  display: none;
-}
-
-.navbar #open a {
-  width: 70px;
-  margin: 5px;
-}
-
+/* Media query cho thiết bị có chiều rộng nhỏ hơn 900px */
 @media only screen and (max-width: 900px) {
+  .navbar .rightSide {
+    justify-content: flex-start; /* Điều chỉnh căn giữa lại khi màn hình nhỏ */
+  }
+  
   .navbar .rightSide a {
-    width: 70px;
+    font-size: 14px; /* Giảm kích thước font chữ cho màn hình nhỏ */
   }
 
-  .navbar .leftSide {
-    flex: 50%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding-left: 50px;
+  .navbar .rightSide .Icon a {
+    font-size: 25px; /* Giảm kích thước icon khi màn hình nhỏ */
   }
 }
 
+/* Media query cho thiết bị có chiều rộng nhỏ hơn 600px */
 @media only screen and (max-width: 600px) {
   .navbar .rightSide a {
-    display: none;
+    display: none; /* Ẩn các liên kết khi màn hình quá nhỏ */
   }
 
   .navbar .rightSide {
@@ -110,17 +101,30 @@
     padding-right: 50px;
   }
 
-  .navbar .rightSide button {
-    display: inherit;
+  .navbar .Icon {
+    gap: 15px; /* Giảm khoảng cách giữa các icon */
+  }
+  
+  .navbar .Icon a {
+    font-size: 25px; /* Giảm kích thước icon */
   }
 }
 
-@media only screen and (min-width: 600px) {
-  .navbar .rightSide button {
-    display: none;
-  }
+.navbar .rightSide .links {
+  margin-right: 250px; /* Lùi phần links sang trái 500px */
+  display: flex;
+  gap: 40px; /* Khoảng cách giữa các liên kết */
+  align-items: center; /* Căn giữa các liên kết theo chiều dọc */
+  flex-wrap: nowrap; /* Đảm bảo các liên kết không xuống dòng */
+}
 
-  .hiddenLinks {
-    display: none;
-  }
+.navbar .rightSide .links a {
+  text-decoration: none;
+  /* color: pink; */
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap; /* Ngăn không cho chữ bị xuống dòng */
 }

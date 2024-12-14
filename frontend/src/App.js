@@ -6,6 +6,7 @@ import Menu from "./pages/Menu";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import SetTable from "./pages/Set_table";
+import LogSignIn from "./pages/Log_Sign_In";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import React from 'react';
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/about" exact element={<About />} />
           <Route path="/contact" exact element={<Contact />} />
           <Route path="/set_table" exact element={<SetTable />} />
+          <Route path="/log_sign_in" exact element={<LogSignIn />} />
         </Routes>
         <Footer />
       </Router>

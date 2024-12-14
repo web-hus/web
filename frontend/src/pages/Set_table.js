@@ -22,10 +22,17 @@ function SetTable() {
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      // Xử lý gửi form hoặc lưu dữ liệu ở đây
+    
+      // Kiểm tra định dạng email
+      if (!formData.email.includes("@")) {
+        alert("Email không hợp lệ. Vui lòng nhập email có ký tự '@'.");
+        return;
+      }
+    
+      // Xử lý gửi form hoặc lưu dữ liệu
       alert("Đặt bàn thành công!");
     };
-  
+    
     return (
         <div className="setTablePage">
       <div className="setTableContainer">
@@ -38,6 +45,7 @@ function SetTable() {
               id="name"
               name="name"
               placeholder="Tên của bạn..."
+              required
               value={formData.name}
               onChange={handleChange}
             />
@@ -49,6 +57,7 @@ function SetTable() {
               id="email"
               name="email"
               placeholder="Email"
+              required
               value={formData.email}
               onChange={handleChange}
             />
@@ -60,6 +69,7 @@ function SetTable() {
               id="phone"
               name="phone"
               placeholder="Số điện thoại..."
+              required
               value={formData.phone}
               onChange={handleChange}
             />
@@ -70,6 +80,8 @@ function SetTable() {
               type="date"
               id="date"
               name="date"
+              required
+              min={new Date().toISOString().split('T')[0]}
               value={formData.date}
               onChange={handleChange}
             />
@@ -81,6 +93,8 @@ function SetTable() {
               id="numberOfPeople"
               name="numberOfPeople"
               placeholder="Số người..."
+              min="1"
+              required
               value={formData.numberOfPeople}
               onChange={handleChange}
             />
@@ -91,8 +105,11 @@ function SetTable() {
               type="time"
               id="time"
               name="time"
-              value={formData.time}
+              required
+              value={formData.time || "09:00"} // Mặc định thời gian là 09:00
               onChange={handleChange}
+              min="09:00" // Giới hạn giờ bắt đầu
+              max="23:00" // Giới hạn giờ kết thúc (11:00 PM)
             />
           </div>
           <div className="note">
