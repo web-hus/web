@@ -21,10 +21,10 @@ function Navbar() {
       </div>
       <div className="rightSide">
         <div className="links">
-          <Link to="/">Home</Link>
-          <Link to="/menu">Menu</Link>
-          <Link to="/about">About</Link>
-          <Link to="/contact">Contact</Link>
+          <Link to="/">Trang chủ</Link>
+          <Link to="/menu">Thực Đơn</Link>
+          <Link to="/about">Giới thiệu</Link>
+          <Link to="/contact">Liên Hệ</Link>
           <Link to="/set_table">Đặt bàn</Link>
         </div>
         <div className="Icon">

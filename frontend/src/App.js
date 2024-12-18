@@ -9,6 +9,8 @@ import SetTable from "./pages/Set_table";
 import LogSignIn from "./pages/Log_Sign_In";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import React from 'react';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function App() {
   return (
