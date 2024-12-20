@@ -65,10 +65,13 @@ function SetTable() {
           <div className="inputGroup">
             <label htmlFor="phone">Số điện thoại của bạn:</label>
             <input
-              type="text"
+              type="tel"
               id="phone"
               name="phone"
               placeholder="Số điện thoại..."
+              pattern="0[0-9]{9,10}" 
+              minLength="10"
+              maxLength="11"
               required
               value={formData.phone}
               onChange={handleChange}

@@ -1,62 +1,92 @@
-.menu {
-  width: 100%;
-  height: auto;
+.menuPage {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  font-family: Arial, sans-serif;
 }
-.menu .menuTitle {
-  font-family: cursive;
-  font-size: 60px;
+
+.menuSidebar {
+  width: 20%;
+  background-color: #f5f5f5;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.menuSidebar h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.menuSidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menuSidebar ul li {
+  margin: 10px 0;
+}
+
+.filter label {
+  display: block;
+  margin: 5px 0;
+}
+
+.menuContent {
+  width: 80%;
+  padding: 20px;
+}
+
+.menuTitle {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 .menuList {
-  width: 70vw;
-  height: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  place-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
 }
-
-/* MENU ITEM STYLING */
 
 .menuItem {
-  border-radius: 15px;
-  width: 300px;
-  height: 350px;
-  margin: 20px;
-  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
-}
-.menuItem:hover {
-  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.5);
-  transition: 0.3s ease-in;
-  cursor: pointer;
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  background-color: #fff;
+  position: relative;
 }
 
-.menuItem div {
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+.menuItemImage {
   width: 100%;
   height: 200px;
-  background-position: center;
-  background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
+  margin-bottom: 10px;
 }
 
-.menuItem h1,
-.menuItem p {
-  margin-left: 20px;
+.discount {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: red;
+  color: white;
+  padding: 5px;
+  font-size: 12px;
 }
 
-@media only screen and (max-width: 1300px) {
-  .menuList {
-    grid-template-columns: 1fr 1fr;
-  }
+.menuItemName {
+  font-size: 18px;
+  margin: 10px 0;
 }
 
-@media only screen and (max-width: 800px) {
-  .menuList {
-    grid-template-columns: 1fr;
-  }
+.menuItemPrice {
+  color: green;
+  font-weight: bold;
+}
+
+.menuItemButton {
+  padding: 10px 15px;
+  background-color: orange;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
 }
