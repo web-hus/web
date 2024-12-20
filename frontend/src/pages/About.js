@@ -1,9 +1,9 @@
 import React from "react";
-import Res1 from "../assets/banner/1.png";
-import Res2 from "../assets/banner/2.png";
-import Res3 from "../assets/banner/3.png";
-import Res4 from "../assets/banner/4.png";
-import Res5 from "../assets/banner/5.png";
+import Res1 from "../assets/banner_sample/1.png";
+import Res2 from "../assets/banner_sample/2.png";
+import Res3 from "../assets/banner_sample/3.png";
+import Res4 from "../assets/banner_sample/4.png";
+import Res5 from "../assets/banner_sample/5.png";
 import "../styles/About.css";
 
 function About() {
@@ -13,7 +13,7 @@ function About() {
         id="carouselExampleAutoplaying"
         className="carousel slide"
         data-bs-ride="carousel"
-        data-bs-interval="5000"
+        data-bs-interval="3000"
       >
         <div className="carousel-inner">
           <div className="carousel-item active">

@@ -23,7 +23,7 @@ function Footer() {
           <LinkedInIcon />
         </a>
       </div>
-      <p> Let's follow us to receive exclusive offers! </p>
+      <p> Theo dõi chúng tôi để nhận nhiều ưu đãi hấp dẫn nhé! </p>
     </div>
   );
 }
