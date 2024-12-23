@@ -96,7 +96,8 @@ function SetTable() {
               id="numberOfPeople"
               name="numberOfPeople"
               placeholder="Số người..."
-              min="1"
+              min = "1"
+              max = "50"
               required
               value={formData.numberOfPeople}
               onChange={handleChange}
@@ -112,7 +113,7 @@ function SetTable() {
               value={formData.time || "09:00"} // Mặc định thời gian là 09:00
               onChange={handleChange}
               min="09:00" // Giới hạn giờ bắt đầu
-              max="23:00" // Giới hạn giờ kết thúc (11:00 PM)
+              max="22:00" // Giới hạn giờ kết thúc (11:00 PM)
             />
           </div>
           <div className="note">
