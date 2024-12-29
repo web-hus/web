@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import SetTable from "./pages/Set_table";
 import LogSignIn from "./pages/Log_Sign_In";
+import News from "./pages/News"
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import React from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -24,6 +25,7 @@ function App() {
           <Route path="/contact" exact element={<Contact />} />
           <Route path="/set_table" exact element={<SetTable />} />
           <Route path="/log_sign_in" exact element={<LogSignIn />} />
+          <Route path="/news" exact element={<News />} />
         </Routes>
         <Footer />
       </Router>

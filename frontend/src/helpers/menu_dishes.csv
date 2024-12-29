@@ -1,0 +1,57 @@
+dish_name,category,dish_id,price,description,created_at,availability
+Súp gà rau củ,Khai vị,1,30000,"Món súp gà với nước dùng thanh ngọt, nấu từ gà thả vườn hầm kỹ, kết hợp với nấm và bắp ngọt tạo nên vị dịu nhẹ và ấm áp. Thịt gà mềm, thơm, đem lại cảm giác dễ chịu và bổ dưỡng, giúp kích thích vị giác cho bữa ăn thêm ngon miệng.",2024-11-13 22:55:33,True
+Nộm gà hoa chuối,Khai vị,2,60000,"Hoa chuối bào sợi giòn giòn, thịt gà xé nhỏ thấm đều gia vị, cùng với đậu phộng rang và rau thơm tạo nên một món nộm hấp dẫn. Món ăn có vị chua ngọt vừa phải, thơm lừng, kích thích vị giác, đem lại cảm giác dân dã và đậm đà cho bữa ăn.",2024-11-13 22:55:33,True
+Bún rối,Món phụ,3,5000,"Những sợi bún trắng ngần, mềm mại và dẻo dai, thường dùng để ăn kèm với các món nước chấm hoặc nước lèo, giúp tăng thêm hương vị và tạo cảm giác ngon miệng, dễ ăn, phù hợp trong các bữa cơm gia đình Việt.",2024-11-13 22:55:33,True
+Mì tôm,Món phụ,4,5000,"Mì tôm vàng óng, dai và nhanh chín, là món ăn nhanh quen thuộc và dễ chế biến. Khi kết hợp với các nguyên liệu khác như thịt, rau xanh, hay trứng, mì tôm tạo ra một bữa ăn đơn giản nhưng vẫn ngon lành, tiện lợi.",2024-11-13 22:55:33,True
+Miến rong,Món phụ,5,9000,"Miến rong với sợi trong suốt, dai và giòn tự nhiên, thường được chế biến trong các món nước hoặc xào. Miến rong là lựa chọn hoàn hảo cho những ai muốn một món ăn nhẹ nhàng, không gây cảm giác nặng nề nhưng vẫn no lâu.",2024-11-13 22:55:33,True
+Sung muối xả ớt,Món phụ,6,10000,"Sung được muối chua với hương thơm đặc trưng của xả và chút cay nhẹ từ ớt. Món sung muối giòn tan, vị chua cay dễ chịu, là món ăn kèm giúp tăng thêm phần hấp dẫn cho bữa cơm, đặc biệt khi dùng chung với thịt cá.",2024-11-13 22:55:33,True
+Cà pháo ,Món phụ,7,7000,"Cà pháo nhỏ nhắn, giòn rụm được muối chua với vị đậm đà vừa ăn, thường là món ăn dân dã quen thuộc. Với hương vị thơm mát, cà pháo giúp kích thích vị giác, tăng sự hấp dẫn khi ăn cùng cơm hoặc các món canh.",2024-11-13 22:55:33,True
+Dưa chua,Món phụ,8,8000,"Dưa chua làm từ cải bẹ xanh được muối lên men tự nhiên, có vị chua nhẹ, thơm nồng. Món dưa chua không chỉ là món ăn kèm dễ ăn, giúp giải ngán, mà còn có thể tặng hương vị thơm dịu cho các món canh độc đáo.",2024-11-13 22:55:33,True
+Bánh tráng,Món phụ,9,10000,"Bánh tráng mỏng và dai nhẹ, có thể được ăn kèm hoặc dùng để cuốn các loại rau, thịt. Với hương vị đơn giản nhưng thơm bùi, bánh tráng làm tăng thêm phần hấp dẫn cho các món cuốn Việt Nam, đặc biệt khi chấm kèm nước chấm đậm đà.",2024-11-13 22:55:33,True
+Tóp mỡ,Món phụ,10,10000,"Tóp mỡ là một món chiên vô cùng thơm ngon, được chiên ngập dầu cho đến khi vàng ruộm, giòn rụm. Với hương vị béo ngậy đặc trưng, tóp mỡ là món ăn kèm thú vị cho món cơm, hay bún.",2024-11-13 22:55:33,True
+Đậu phụ rán ,Món phụ,11,5000,"Đậu phụ rán vàng, lớp ngoài giòn rụm, bên trong mềm mịn, ngọt bùi, là món ăn dân dã mà hấp dẫn. Đậu phụ rán thường chấm với nước tương hoặc mắm tỏi ớt hay ăn kèm trong các món bún, đem lại cảm giác thanh đạm nhưng vẫn rất ngon miệng.",2024-11-13 22:55:33,True
+Súp hải sản,Khai vị,12,35000,"Súp hải sản là sự kết hợp giữa các loại hải sản tươi như tôm, cua, mực cùng với rau củ, tạo nên vị ngọt đậm đà. Nước dùng trong vắt và sánh mịn, hương vị thơm ngon hòa quyện với độ dai của hải sản, đem lại trải nghiệm tròn vị cho thực khách.",2024-11-13 22:55:33,True
+Giò lụa,Món phụ,13,8000,"Giò lụa được làm từ hai nguyên liệu cơ bản là thịt nạc thăn lợn giã nhuyễn kết hợp với nước mắm ngon, hương thơm nhẹ được gói trong lá chuối và luộc chín và độ giòn vừa phải. Đây là món ăn truyền thống quen thuộc trong mâm cỗ Việt, có thể ăn trực tiếp hoặc kết hợp với các món khác, mang đến hương vị hài hòa, tinh tế.",2024-11-13 22:55:33,True
+Nước sấu,Đồ uống,14,15000,"Nước sấu chua thanh, mát lạnh, với vị ngọt nhẹ nhàng từ sấu ngâm đường. Đây là thức uống truyền thống phổ biến, đặc biệt vào mùa hè, giúp giải nhiệt và làm mát cơ thể, mang lại cảm giác sảng khoái.",2024-11-13 22:55:33,True
+Nước me,Đồ uống,15,15000,"Nước me chua dịu, pha chút ngọt và hương thơm nhẹ từ me chín, là thức uống giải khát tuyệt vời cho những ngày nóng bức. Hương vị đặc trưng của me khiến món nước này có khả năng giải khát và giúp kích thích vị giác.",2024-11-13 22:55:33,True
+Nước mơ,Đồ uống,16,15000,"Nước mơ với vị chua ngọt, hương thơm đặc trưng của mơ ngâm, mang lại cảm giác sảng khoái. Là loại nước giải khát quen thuộc, nước mơ không chỉ ngon mà còn có tác dụng thanh nhiệt, làm dịu cơn khát hiệu quả.",2024-11-13 22:55:33,True
+Nước chanh muối,Đồ uống,17,15000,"Nước chanh muối có vị chua mặn vừa phải, kết hợp giữa chanh tươi và chút muối giúp bù khoáng, rất thích hợp để giải nhiệt và hỗ trợ tiêu hóa. Thức uống này giúp cơ thể hồi phục nhanh chóng trong những ngày nắng nóng hoặc sau khi vận động.",2024-11-13 22:55:33,True
+Rau má đậu xanh,Đồ uống,18,20000,"Rau má tươi mát kết hợp với đậu xanh bùi béo, tạo thành thức uống dinh dưỡng, tốt cho sức khỏe. Nước rau má đậu xanh không chỉ giúp thanh nhiệt mà còn có tác dụng làm mát gan, giải độc tự nhiên cho cơ thể.",2024-11-13 22:55:33,True
+Trà chanh mật ong,Đồ uống,19,15000,"Trà chanh mật ong với vị chua dịu của chanh và vị ngọt thanh từ mật ong, tạo nên thức uống vừa thơm ngon vừa bổ dưỡng. Đây là loại nước uống có tính kháng khuẩn cao, giúp làm dịu cổ họng và tăng cường hệ miễn dịch.",2024-11-13 22:55:33,True
+Trà đào cam sả,Đồ uống,20,20000,"Hương thơm nồng nàn của sả, vị ngọt từ đào và chút chua dịu từ cam, tất cả hòa quyện tạo nên ly trà đào cam sả thơm lừng, mát lạnh. Thức uống này không chỉ giải khát mà còn giúp thư giãn tinh thần, rất phù hợp để nhâm nhi.",2024-11-13 22:55:33,True
+Trà atiso,Đồ uống,21,15000,"Trà atiso có vị thanh mát, hơi ngọt và dịu nhẹ, là loại thức uống rất tốt cho sức khỏe, đặc biệt là gan và hệ tiêu hóa. Với màu đỏ tự nhiên đẹp mắt và hương vị dễ chịu, trà atiso thích hợp để uống mỗi ngày giúp thanh lọc cơ thể.",2024-11-13 22:55:33,True
+Cà phê trứng,Đồ uống,22,25000,"Cà phê trứng là món đặc sản độc đáo với lớp kem trứng béo mịn phủ lên cà phê đậm đà, tạo thành sự hòa quyện tuyệt vời giữa vị ngọt béo và vị đắng nhẹ. Thức uống này đem lại cảm giác vừa ấm áp vừa lạ miệng, thu hút nhiều thực khách yêu cà phê.",2024-11-13 22:55:33,True
+Súp bào ngư vi cá,Khai vị,23,100000,"Là món súp cao cấp, bào ngư và vi cá được ninh chín mềm trong nước dùng đậm đà từ xương, kết hợp cùng các loại gia vị tinh tế. Vị ngọt thanh và hậu vị béo ngậy từ bào ngư vi cá khiến món ăn này trở nên sang trọng, bổ dưỡng, thích hợp cho những buổi tiệc trang trọng.",2024-11-13 22:55:33,True
+Cà phê muối,Đồ uống,24,20000,"Cà phê muối có sự kết hợp tinh tế giữa cà phê đậm đà và chút muối mặn, giúp làm nổi bật hương vị tự nhiên của cà phê. Đây là món uống mang đến trải nghiệm mới mẻ với vị đắng nhẹ nhàng, hậu vị dịu ngọt, rất độc đáo.",2024-11-13 22:55:33,True
+Rượu ngô,Đồ uống,25,120000,"Rượu ngô với hương thơm đặc trưng từ ngô được ủ lâu, mang lại vị ngọt dịu, đậm đà của miền núi phía Bắc. Là loại rượu truyền thống, rượu ngô thường có nồng độ nhẹ, dễ uống và rất được ưa chuộng trong các dịp lễ hội.",2024-11-13 22:55:33,True
+Rượu mơ,Đồ uống,26,150000,"Rượu mơ thơm dịu, có vị chua ngọt đặc trưng của mơ ngâm, là loại rượu nhẹ nhàng dễ uống. Món rượu này thường dùng trong các bữa tiệc để khai vị hoặc uống thư giãn, rất được yêu thích bởi hương vị đặc trưng và dịu nhẹ.",2024-11-13 22:55:33,True
+Bia hơi,Đồ uống,27,15000,"Bia hơi có màu vàng nhạt, bọt mịn, vị đắng nhẹ, là loại bia quen thuộc của người Việt, đặc biệt phổ biến trong các buổi tụ tập bạn bè. Bia hơi mát lạnh và dễ uống, thích hợp cho những buổi gặp gỡ thư giãn, tạo không khí vui tươi và gần gũi.",2024-11-13 22:55:33,True
+Bún chả,Món chính,28,50000,,2024-11-13 22:55:33,True
+Bánh đa cua,Món chính,29,50000,,2024-11-13 22:55:33,True
+Phở bò,Món chính,30,50000,,2024-11-13 22:55:33,True
+Gỏi cá mè,Món chính,31,70000,,2024-11-13 22:55:33,True
+Chả mực Hạ Long,Món chính,32,100000,,2024-11-13 22:55:33,True
+Thịt trâu gác,Món chính,33,150000,,2024-11-13 22:55:33,True
+Súp kem nấm,Khai vị,34,35000,"Súp kem nấm với hương vị ngọt dịu, béo ngậy từ kem tươi, kết hợp cùng nấm tươi giòn ngọt tạo nên món khai vị hấp dẫn. Vị thơm đặc trưng từ nấm và độ sánh mịn của súp khiến món ăn trở nên thanh lịch và dễ chịu, phù hợp với mọi thực khách.",2024-11-13 22:55:33,True
+Ốc suối hấp,Món chính,35,100000,,2024-11-13 22:55:33,True
+Bánh tráng cuốn thịt heo,Món chính,36,70000,,2024-11-13 22:55:33,True
+Phở khô,Món chính,37,50000,,2024-11-13 22:55:33,True
+Gỏi cá đục,Món chính,38,100000,,2024-11-13 22:55:33,True
+Nem nướng Ninh Hòa,Món chính,39,100000,,2024-11-13 22:55:33,True
+Súp lươn,Món chính,40,70000,,2024-11-13 22:55:33,True
+Bánh căn,Món chính,41,50000,,2024-11-13 22:55:33,True
+Cá ngừ đại dương,Món chính,42,200000,,2024-11-13 22:55:33,True
+Mì Quảng,Món chính,43,80000,,2024-11-13 22:55:33,True
+Bún bò,Món chính,44,70000,,2024-11-13 22:55:33,True
+Gỏi ngó sen tôm thịt,Khai vị,45,80000,"Món gỏi ngó sen tôm thịt là sự hòa quyện của ngó sen giòn tươi, tôm ngọt và thịt heo mềm, tất cả thấm đều trong nước mắm chua ngọt đậm đà. Món gỏi này đem lại cảm giác thanh mát và hài hòa, khơi dậy vị giác và chuẩn bị cho các món ăn tiếp theo.",2024-11-13 22:55:33,True
+Bánh khọt,Món chính,46,50000,,2024-11-13 22:55:33,True
+Bún bò cay,Món chính,47,70000,,2024-11-13 22:55:33,True
+Cơm trái dừa,Món chính,48,150000,,2024-11-13 22:55:33,True
+Vịt nấu chao,Món chính,49,100000,,2024-11-13 22:55:33,True
+Bò tơ Củ Chi,Món chính,50,150000,,2024-11-13 22:55:33,True
+Hủ tiếu Mỹ Tho,Món chính,51,80000,,2024-11-13 22:55:33,True
+Gỏi cá trích,Món chính,52,70000,,2024-11-13 22:55:33,True
+Gỏi bò ngũ sắc,Khai vị,53,65000,"Với nguyên liệu đa dạng từ rau củ nhiều màu sắc như ớt chuông, cà rốt, dưa leo cùng thịt bò mềm dai, món gỏi bò ngũ sắc không chỉ bắt mắt mà còn rất ngon miệng. Gia vị chua ngọt làm món ăn dậy vị, tươi mát và đầy đủ dưỡng chất.",2024-11-13 22:55:33,True
+Nộm bò khô đu đủ,Khai vị,54,70000,"Đu đủ bào sợi giòn ngọt, kết hợp với bò khô dai thơm, thêm ít rau thơm và đậu phộng rang, tất cả được trộn đều với nước sốt chua ngọt độc đáo. Món nộm này là sự kết hợp hài hòa giữa vị giòn, ngọt, chua cay nhẹ, tạo cảm giác vui miệng khi thưởng thức.",2024-11-13 22:55:33,True
+Nộm sứa,Khai vị,55,90000,"Món nộm sứa tươi mát với sứa giòn sần sật, kèm theo các loại rau thơm, cà rốt, dưa chuột và hành tím. Nước mắm pha chua ngọt tạo nên hương vị thanh mát, hấp dẫn, rất thích hợp cho những ai muốn khởi đầu bữa ăn nhẹ nhàng và tươi mới.",2024-11-13 22:55:33,True
+Nộm rau muống,Khai vị,56,50000,"Rau muống non được trộn đều với các gia vị chua ngọt, tạo nên một món nộm giòn tan và dễ ăn. Với hương vị đặc trưng của rau muống cùng chút cay từ ớt và đậm đà của nước mắm, món nộm này là lựa chọn hoàn hảo cho thực khách yêu thích sự giản dị.",2024-11-13 22:55:33,True

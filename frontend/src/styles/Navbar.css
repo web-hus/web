@@ -111,9 +111,9 @@
 }
 
 .navbar .rightSide .links {
-  margin-right: 250px; /* Lùi phần links sang trái 500px */
+  margin-right: 200px; /* Lùi phần links sang trái 500px */
   display: flex;
-  gap: 40px; /* Khoảng cách giữa các liên kết */
+  gap: 30px; /* Khoảng cách giữa các liên kết */
   align-items: center; /* Căn giữa các liên kết theo chiều dọc */
   flex-wrap: nowrap; /* Đảm bảo các liên kết không xuống dòng */
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MenuList } from "../helpers/MenuList";
 import MenuItem from "../components/MenuItem";
+import { Link } from "react-router-dom"; 
 import "../styles/Menu.css";
 
 function Menu() {
@@ -17,13 +18,13 @@ function Menu() {
       <div className="menuSidebar">
         <h2>Danh mục sản phẩm</h2>
         <ul>
-          <li>Trang chủ</li>
-          <li>Giới thiệu</li>
-          <li>Menu</li>
+          <li><Link to="/">Trang chủ</Link></li>
+          <li><Link to="/about">Giới thiệu</Link></li>
+          <li><Link to="/menu">Menu</Link></li>
           <li>Món ăn nổi bật</li>
-          <li>Món ngon mỗi ngày</li>
           <li>Tin tức</li>
-          <li>Liên hệ</li>
+          <li><Link to="/contact">Liên hệ</Link></li>
+          <li><Link to="/set_table">Đặt bàn</Link></li>
         </ul>
         <h2>Chọn mức giá</h2>
         <div className="filter">

@@ -1,0 +1,90 @@
+.about {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.carousel img {
+    height: 500px;
+    object-fit: cover;
+}
+
+.news-section {
+    text-align: center;
+}
+
+.card {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.btn-primary {
+    background-color: #f975b7 !important;
+    color: white !important;
+    border: #ff66b2 !important;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #fa43a2 !important; /* Màu tối hơn khi hover */
+    transform: scale(1.05); /* Hiệu ứng zoom nhẹ */
+    color: white !important;
+}
+
+.news-marquee {
+    width: 100%;
+    overflow: hidden; /* Ẩn phần text vượt ra ngoài */
+  }
+  
+  .marquee-wrapper {
+    display: flex; /* Đặt các đoạn văn bản vào hàng */
+    animation: moveText 20s linear infinite;
+  }
+  
+  .marquee-text {
+    display: inline-block;
+    white-space: nowrap; /* Ngăn không cho văn bản xuống dòng */
+    margin-right: 50px; /* Khoảng cách giữa các đoạn văn bản */
+    background-image: linear-gradient(90deg, #fe589a, #fd2071); 
+  }
+  
+  
+  .marquee-text:nth-child(1) {
+    animation-delay: 0s; /* Dòng 1 bắt đầu ngay */
+  }
+  
+  .marquee-text:nth-child(2) {
+    animation-delay: 3s; /* Dòng 2 bắt đầu sau 3s */
+  }
+
+  .marquee-text:nth-child(3) {
+    animation-delay: 6s; /* Dòng 3 bắt đầu sau 3s */
+  }
+  
+  @keyframes moveText {
+    0% {
+      transform: translateX(-100%); /* Bắt đầu từ bên trái */
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%); /* Chạy hết ra bên phải */
+      opacity: 1;
+    }
+  }
+  
