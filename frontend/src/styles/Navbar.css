@@ -1,0 +1,130 @@
+/* CSS cho .navbar */
+.navbar {
+  width: 100%;
+  height: 100px;
+  background-color: #121619;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* CSS cho .leftSide */
+.navbar .leftSide {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-left: 50px;
+}
+
+.navbar .leftSide img {
+  width: 70px;
+}
+
+/* CSS cho .rightSide */
+.navbar .rightSide {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Căn giữa các liên kết */
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: pink;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.navbar a:hover {
+  background-color: #ff66b2;
+  color: white;
+}
+
+/* CSS cho .Icon */
+.navbar .Icon {
+  display: flex;
+  justify-content: flex-end; /* Đảm bảo phần icon nằm bên phải */
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar .rightSide .Icon {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 30px; /* Khoảng cách giữa các icon */
+  margin-right: 60px;
+}
+
+.navbar .rightSide .Icon a {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar .rightSide svg {
+  font-size: 30px;
+}
+
+/* Media query cho thiết bị có chiều rộng nhỏ hơn 900px */
+@media only screen and (max-width: 900px) {
+  .navbar .rightSide {
+    justify-content: flex-start; /* Điều chỉnh căn giữa lại khi màn hình nhỏ */
+  }
+  
+  .navbar .rightSide a {
+    font-size: 14px; /* Giảm kích thước font chữ cho màn hình nhỏ */
+  }
+
+  .navbar .rightSide .Icon a {
+    font-size: 25px; /* Giảm kích thước icon khi màn hình nhỏ */
+  }
+}
+
+/* Media query cho thiết bị có chiều rộng nhỏ hơn 600px */
+@media only screen and (max-width: 600px) {
+  .navbar .rightSide a {
+    display: none; /* Ẩn các liên kết khi màn hình quá nhỏ */
+  }
+
+  .navbar .rightSide {
+    justify-content: flex-end;
+    padding-right: 50px;
+  }
+
+  .navbar .Icon {
+    gap: 15px; /* Giảm khoảng cách giữa các icon */
+  }
+  
+  .navbar .Icon a {
+    font-size: 25px; /* Giảm kích thước icon */
+  }
+}
+
+.navbar .rightSide .links {
+  margin-right: 250px; /* Lùi phần links sang trái 500px */
+  display: flex;
+  gap: 40px; /* Khoảng cách giữa các liên kết */
+  align-items: center; /* Căn giữa các liên kết theo chiều dọc */
+  flex-wrap: nowrap; /* Đảm bảo các liên kết không xuống dòng */
+}
+
+.navbar .rightSide .links a {
+  text-decoration: none;
+  /* color: pink; */
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap; /* Ngăn không cho chữ bị xuống dòng */
+}

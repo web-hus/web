@@ -1,0 +1,93 @@
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    user_name VARCHAR(255) NOT NULL,
+    age INT NOT NULL,
+    gender CHAR(1) CHECK (gender IN ('M', 'F')),
+    address TEXT NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    phone VARCHAR(15) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    password TEXT NOT NULL,
+    role INT CHECK (role IN (0, 1)) -- 0: Khách hàng, 1: Admin
+);
+
+CREATE TABLE dish (
+    dish_id VARCHAR(10) PRIMARY KEY,
+    dish_name VARCHAR(100) NOT NULL,
+    product_category VARCHAR(25),
+    price DECIMAL(15, 0) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    availability INT CHECK (availability IN (0, 1)) -- 0: hết hàng, 1: còn hàng
+);
+
+CREATE TABLE booking (
+    booking_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    date DATE NOT NULL,
+    time TIME NOT NULL,
+    num_people INT NOT NULL,
+    status INT CHECK (status IN (0, 1, 2)), -- 0: đang chờ, 1: đã xác nhận, 2: hủy
+    special_requests TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE orders (
+    order_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    order_type INT CHECK (order_type IN (0, 1)) DEFAULT 0,  -- 0: booking (đến quán ăn), 1: order (mang về)
+    booking_id INT,  -- Liên kết với booking nếu là đơn hàng đến quán ăn
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status INT CHECK (status IN (0, 1, 2, 3, 4)),  -- 0: chờ xử lý, 1: đã xác nhận, 2: đang giao, 3: hoàn thành, 4: hủy (Chỉ áp dụng cho order mang về)
+    total_amount DECIMAL(15, 0),
+    delivery_address TEXT,  -- Chỉ áp dụng cho order mang về
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (booking_id) REFERENCES booking(booking_id) ON DELETE SET NULL,  -- Khóa ngoại với bảng booking
+    CHECK (
+        (order_type = 1 AND status IS NOT NULL AND delivery_address IS NOT NULL) OR
+        (order_type = 0 AND status IS NULL AND delivery_address IS NULL)
+    )
+);
+
+CREATE TABLE payment (
+    payment_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    order_id INT,    -- Liên kết với order nếu thanh toán cho đơn hàng
+    amount DECIMAL(15, 0) NOT NULL,
+    payment_method INT CHECK (payment_method IN (0, 1)), -- 0: online, 1: khi nhận hàng(tại chỗ)
+    payment_status INT CHECK (payment_status IN (0, 1, 2)), -- 0: đang xử lý, 1: đã thanh toán, 2: hoàn tiền
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE
+);
+
+CREATE TABLE shopping_cart (
+    cart_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE order_dishes (
+    order_id INT NOT NULL,
+    dish_id VARCHAR(10) NOT NULL,
+    quantity INT NOT NULL,
+    PRIMARY KEY (order_id, dish_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (dish_id) REFERENCES dish(dish_id)
+);
+
+CREATE TABLE shopping_cart_dishes (
+    cart_id INT NOT NULL,
+    dish_id VARCHAR(10) NOT NULL,
+    quantity INT NOT NULL,
+    PRIMARY KEY (cart_id, dish_id),
+    FOREIGN KEY (cart_id) REFERENCES shopping_cart(cart_id) ON DELETE CASCADE,
+    FOREIGN KEY (dish_id) REFERENCES dish(dish_id)
+);

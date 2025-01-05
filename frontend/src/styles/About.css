@@ -1,0 +1,79 @@
+.about {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 650px;
+}
+
+.aboutTop {
+  width: 100%;
+  height: 45%;
+}
+
+.carousel-inner {
+  display: flex;
+  overflow: hidden;
+}
+
+.carousel-item {
+  flex: 0 0 100%; /* Mỗi item chiếm 100% chiều rộng */
+  transition: transform 1s ease-in-out, opacity 0.5s ease-in-out; /* Thêm hiệu ứng opacity */
+  opacity: 0.2; /* Bắt đầu với trạng thái mờ */
+}
+
+.carousel-item-next, .carousel-item-prev, .carousel-item.active {
+  transform: translateX(0); /* Điều chỉnh vị trí ảnh */
+}
+
+.carousel-item-next, .carousel-item-prev {
+  transform: translateX(100%); /* Di chuyển ảnh sang phải */
+}
+
+.carousel-item.active {
+  opacity: 1; /* Hiển thị ảnh khi nó trở thành active */
+}
+
+.carousel img {
+  width: 100%; /* Chiều ngang chiếm toàn bộ màn hình */
+  height: 500px; /* Chiều cao cố định */
+  object-fit: cover; /* Đảm bảo ảnh không bị méo, cắt để phù hợp */
+}
+
+.aboutBottom {
+  width: 100%;
+  height: 45%; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+  text-align: center; 
+  /* padding-bottom: 40px; */
+  margin-top: 250px;
+}
+
+.aboutBottom h1 {
+  font-size: 36px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  color: #333; 
+  margin-top: 20px; 
+  margin-bottom: 20px; 
+}
+
+.aboutBottom p {
+  font-size: 18px;
+  line-height: 1.6;
+  font-family: 'Open Sans', sans-serif;
+  color: #555; 
+  margin-bottom: 15px; 
+  max-width: 800px; 
+  text-align: justify; 
+  margin-left: auto; 
+  margin-right: auto; 
+}
+.aboutBottom strong {
+  color: #f0a500; 
+  font-size: 20px;
+  font-family: 'Georgia', serif;
+}
