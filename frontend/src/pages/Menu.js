@@ -1,20 +1,27 @@
-import React, { useState } from "react";
-import { MenuList } from "../helpers/MenuList";
-import MenuItem from "../components/MenuItem";
-import { Link } from "react-router-dom"; 
+import React, { useEffect, useState } from "react";
+import { getAllDishes } from "../api/dishesApi"; // API lấy dữ liệu món ăn
 import "../styles/Menu.css";
+import { Link } from "react-router-dom";
 
 function Menu() {
-  const [selectedPrice, setSelectedPrice] = useState(null);
+  const [dishes, setDishes] = useState([]);
 
-  const filterByPrice = (menuItem) => {
-    if (!selectedPrice) return true;
-    const [min, max] = selectedPrice;
-    return menuItem.price >= min && (!max || menuItem.price <= max);
-  };
+  useEffect(() => {
+    const fetchDishes = async () => {
+      try {
+        const data = await getAllDishes();
+        setDishes(data);
+      } catch (error) {
+        console.error("Failed to fetch dishes:", error);
+      }
+    };
+
+    fetchDishes();
+  }, []);
 
   return (
-    <div className="menuPage">
+    <div className="menuContainer">
+      {/* Sidebar */}
       <div className="menuSidebar">
         <h2>Danh mục sản phẩm</h2>
         <ul>
@@ -26,50 +33,33 @@ function Menu() {
           <li><Link to="/contact">Liên hệ</Link></li>
           <li><Link to="/set_table">Đặt bàn</Link></li>
         </ul>
-        <h2>Chọn mức giá</h2>
-        <div className="filter">
-          <label>
-            <input
-              type="radio"
-              name="price"
-              onChange={() => setSelectedPrice([0, 100000])}
-            />
-            Dưới 100.000 VND
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="price"
-              onChange={() => setSelectedPrice([100000, 200000])}
-            />
-            100.000 - 200.000 VND
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="price"
-              onChange={() => setSelectedPrice([200000, 300000])}
-            />
-            200.000 - 300.000 VND
-          </label>
-          <label>
-            <input type="radio" name="price" onChange={() => setSelectedPrice([300000])} />
-            Trên 300.000 VND
-          </label>
-        </div>
       </div>
+
+      {/* Nội dung món ăn */}
       <div className="menuContent">
-        <h1 className="menuTitle">Tất cả món ăn</h1>
+        <h1 className="menuTitle">Menu</h1>
         <div className="menuList">
-          {MenuList.filter(filterByPrice).map((menuItem, key) => (
-            <MenuItem
-              key={key}
-              image={menuItem.image}
-              name={menuItem.name}
-              price={menuItem.price}
-              discount={menuItem.discount}
-            />
-          ))}
+        {dishes.length > 0 ? (
+            dishes.map((dish) => {
+              const fileExtension = dish.dish_name.toLowerCase().includes('png') ? 'png' : 'jpg'; // xác định định dạng ảnh
+              const encodedDishName = encodeURIComponent(dish.dish_name); // mã hóa tên món ăn
+              const encodedCategory = encodeURIComponent(dish.product_category); // mã hóa tên danh mục
+              
+              return (
+                <div className="menuItem" key={dish.dish_id}>
+                  <img
+                    src={`/images/${encodedCategory}/${encodedDishName}.${fileExtension}`}
+                    onError={(e) => { e.target.src = '/images/default.jpg'; }} // ảnh mặc định khi không tìm thấy
+                    alt={dish.dish_name}
+                  />
+                  <h2>{dish.dish_name}</h2>
+                  <p>{dish.price.toLocaleString()} VND</p>
+                </div>
+              );
+            })
+          ) : (
+            <p>Loading dishes...</p>
+          )}
         </div>
       </div>
     </div>

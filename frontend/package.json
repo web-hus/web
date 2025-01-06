@@ -19,6 +19,7 @@
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "proxy": "http://localhost:8000",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -47,5 +48,4 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6"
   }
-  
 }
