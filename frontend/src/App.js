@@ -7,9 +7,10 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import SetTable from "./pages/Set_table";
 import LogSignIn from "./pages/Log_Sign_In";
-import News from "./pages/News"
-import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import React from 'react';
+import News from "./pages/News";
+import FoodDes from "./pages/Food_Des"; // Import file Food_Des.js
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/set_table" exact element={<SetTable />} />
           <Route path="/log_sign_in" exact element={<LogSignIn />} />
           <Route path="/news" exact element={<News />} />
+          <Route path="/food/:id" exact element={<FoodDes />} />
         </Routes>
         <Footer />
       </Router>

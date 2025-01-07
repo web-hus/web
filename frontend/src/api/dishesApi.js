@@ -10,3 +10,13 @@ export const getAllDishes = async () => {
     throw error;
   }
 };
+
+export const getDishById = async (id) => {
+  try {
+    const response = await axios.get(`/dishes/${id}`); // Sử dụng axios để gọi API theo ID
+    return response.data; // Trả về thông tin món ăn
+  } catch (error) {
+    console.error("Error fetching dish:", error);
+    throw error; // Ném lỗi nếu có sự cố khi lấy dữ liệu
+  }
+};
