@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "../assets/pizzaLogo.png";
+import Logo from "../assets/Logo_res.png";
 import { Link } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
