@@ -8,34 +8,28 @@ html, body {
 .menuPage {
   display: flex;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  height: 100%; /* Đảm bảo chiều cao chiếm 100% */
+  height: 100%;
+  background-color: #0d3b34; /* Màu nền xanh đậm */
 }
 
 /* Thanh sidebar bên trái */
 .menuSidebar {
-  width: 250px; /* Đặt chiều rộng cố định cho sidebar */
-  background-color: #2c3e50; /* Màu nền tối cho sidebar */
-  padding: 20px;
-  color: white;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  height: 100%; /* Đảm bảo chiều cao sidebar chiếm 100% */
-  position: fixed; /* Đặt sidebar cố định bên trái */
-}
-
-/* Thanh sidebar bên trái */
-.menuSidebar {
-  width: 250px; /* Đặt chiều rộng cố định cho sidebar */
-  background-color: #2c3e50; /* Màu nền tối cho sidebar */
+  width: 250px;
+  background-color: #1d4d41; /* Màu nền sidebar xanh đậm hơn */
   padding: 20px;
   color: white;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   height: 100%;
+  position: fixed;
+  border-right: 1px solid #2c6d5a; /* Đường viền bên phải */
 }
 
 .menuSidebar h2 {
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 20px;
   font-weight: bold;
+  text-transform: uppercase;
+  color: #f39c12; /* Màu vàng */
 }
 
 .menuSidebar ul {
@@ -55,17 +49,22 @@ html, body {
 }
 
 .menuSidebar ul li a:hover {
-  color: #f39c12; /* Màu vàng cho hiệu ứng hover */
+  color: #f39c12; /* Màu vàng khi hover */
 }
 
 /* Sidebar lọc */
 .menuSidebar .filter {
-  margin-top: 20px;
+  margin-top: 30px;
+  background-color: #244d41; /* Màu nền lọc khác biệt */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .menuSidebar .filter h3 {
   font-size: 16px;
   margin-bottom: 10px;
+  color: #f39c12;
 }
 
 .menuSidebar select {
@@ -76,35 +75,24 @@ html, body {
   border-radius: 5px;
 }
 
-button {
-  padding: 10px 15px;
-  background-color: #2c3e50;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #34495e;
-}
-
 /* Phần nội dung của menu */
 .menuContent {
-  margin-left: 250px; /* Dịch phần nội dung sang phải để tránh bị đè lên sidebar */
+  margin-left: 250px;
   padding: 20px;
-  background-color: #ecf0f1; /* Màu nền sáng cho nội dung */
+  background-color: #0d3b34; /* Nền xanh đậm */
   overflow-y: auto;
-  height: 100vh; /* Đảm bảo phần nội dung chiếm toàn bộ chiều cao */
+  height: 100vh;
+  color: white;
+  
 }
 
 /* Tiêu đề của Menu */
 .menuTitle {
-  font-size: 30px;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 30px;
-  color: #2c3e50; /* Màu chữ tối */
+  color: #f39c12; /* Màu vàng */
+  text-transform: uppercase;
 }
 
 /* Hiển thị danh sách món ăn dưới dạng grid */
@@ -115,10 +103,10 @@ button:hover {
 }
 
 .menuItem {
-  border: 1px solid #ddd;
+  border: 1px solid #2c6d5a; /* Viền xanh nhạt */
   padding: 15px;
   text-align: center;
-  background-color: #fff;
+  background-color: #fff; /* Nền trắng cho món ăn */
   position: relative;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -126,34 +114,40 @@ button:hover {
 }
 
 .menuItem:hover {
-  transform: translateY(-5px); /* Hiệu ứng nâng lên khi hover */
+  transform: translateY(-5px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .menuItem img {
   width: 100%;
-  height: 220px;
+  height: 200px;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 15px;
 }
 
 .menuItemName {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   margin: 10px 0;
   color: #34495e;
 }
 
 .menuItemPrice {
-  color: #27ae60; /* Màu xanh cho giá */
+  color: #e74c3c; /* Màu đỏ cho giá */
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 10px;
 }
 
+.menuItemOldPrice {
+  text-decoration: line-through;
+  color: #95a5a6; /* Màu xám cho giá cũ */
+  font-size: 14px;
+}
+
 .menuItemButton {
-  padding: 12px 20px;
+  padding: 10px 20px;
   background-color: #f39c12;
   border: none;
   color: white;
@@ -161,36 +155,39 @@ button:hover {
   border-radius: 5px;
   margin-top: 15px;
   transition: background-color 0.3s;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .menuItemButton:hover {
-  background-color: #e68a00; /* Màu đậm hơn khi hover */
+  background-color: #e68a00;
 }
 
-.filter {
-  margin-top: 30px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.filter label {
-  display: block;
-  margin: 5px 0;
-  font-weight: bold;
-}
-
+/* Discount badge */
 .discount {
   position: absolute;
   top: 15px;
   left: 15px;
-  background-color: #e74c3c; /* Màu đỏ tươi */
+  background-color: #e74c3c; /* Màu đỏ */
   color: white;
   padding: 8px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   border-radius: 5px;
   z-index: 10;
+}
+
+/* Dropdown sắp xếp */
+.sortDropdown {
+  float: right;
+  background-color: #f39c12;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.sortDropdown:hover {
+  background-color: #e68a00;
 }
