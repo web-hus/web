@@ -85,7 +85,6 @@ quantity: Số lượng món ăn.
 
 8. Bảng shopping_cart_dishes
 Nhiệm vụ: Liên kết món ăn với giỏ hàng.
-
 cart_id: Mã giỏ hàng (khóa ngoại từ bảng shopping_cart).
 dish_id: Mã món ăn (khóa ngoại từ bảng dish).
 quantity: Số lượng món ăn.
