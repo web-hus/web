@@ -2,6 +2,7 @@
 from sqlalchemy import Column, String, Integer, Float, Text, Boolean, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import func
+import passlib.hash as _hash
 
 Base = declarative_base()
 
@@ -36,5 +37,11 @@ class User(Base):
     password = Column(Text, nullable=False)  # Will store the hashed password
     role = Column(Integer, nullable=False, default=0)  # 0: Customer, 1: Admin
     
+    def verify_password(self, password:str):
+        return _hash.bcrypt.verify(password, self.password)
+    
     def __repr__(self):
         return f"<User(user_id={self.user_id}, user_name={self.user_name}, age={self.age}, gender={self.gender}, address={self.address}, phone={self.phone}, email={self.email})>"
+    
+    class Config:
+        from_attributes = True
