@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/Log_Sign_In.css";
+import { registerUser, loginUser } from "../api/Log_Sign_In_Api"; // Import API
 
 function Log_Sign_In() {
   const [isLogin, setIsLogin] = useState(true); // Trạng thái để chuyển đổi giữa đăng nhập và đăng ký
@@ -10,28 +11,48 @@ function Log_Sign_In() {
     lastName: "",
     phone: "",
   });
+  const [error, setError] = useState(""); // Thêm state để lưu lỗi nếu có
 
   // Hàm xử lý sự kiện khi nhấn nút Đăng Nhập hoặc Đăng Ký
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(""); // Reset lỗi mỗi khi người dùng nhấn submit
 
-    if (isLogin) {
-      console.log("Đăng nhập...");
-      // Xử lý đăng nhập ở đây
-    } else {
-      // Xử lý đăng ký ở đây
-      console.log("Đăng ký...");
-      // Giả sử đăng ký thành công
-      alert("Đăng ký thành công! Vui lòng đăng nhập.");
-      
-      // Reset lại form sau khi đăng ký thành công
-      setFormData({
-        email: "",
-        password: "",
-        firstName: "",
-        lastName: "",
-        phone: "",
-      });
+    try {
+      if (isLogin) {
+        console.log("Đăng nhập...");
+        // Gọi API đăng nhập
+        const response = await loginUser({
+          email: formData.email,
+          password: formData.password,
+        });
+        console.log("Đăng nhập thành công:", response);
+        alert("Đăng nhập thành công!");
+      } else {
+        console.log("Đăng ký...");
+        // Gọi API đăng ký
+        const response = await registerUser({
+          email: formData.email,
+          password: formData.password,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          phone: formData.phone,
+        });
+        console.log("Đăng ký thành công:", response);
+        alert("Đăng ký thành công! Vui lòng đăng nhập.");
+        
+        // Reset lại form sau khi đăng ký thành công
+        setFormData({
+          email: "",
+          password: "",
+          firstName: "",
+          lastName: "",
+          phone: "",
+        });
+      }
+    } catch (err) {
+      console.error("Lỗi:", err);
+      setError("Đã có lỗi xảy ra. Vui lòng thử lại.");
     }
   };
 
@@ -147,6 +168,7 @@ function Log_Sign_In() {
             {isLogin ? "Đăng nhập" : "Đăng ký"}
           </button>
         </form>
+        {error && <div className="error-message">{error}</div>}
         <div className="social-login">
           <button className="facebook">Facebook</button>
           <button className="google">Google</button>
