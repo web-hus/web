@@ -40,7 +40,7 @@ function Log_Sign_In() {
         const response = await registerUser({
           email: RegisterFormData.email,
           password: RegisterFormData.password,
-          name: RegisterFormData.name,
+          user_name: RegisterFormData.name,
           age: RegisterFormData.age,
           gender: RegisterFormData.gender,
           address: RegisterFormData.address,
