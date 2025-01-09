@@ -35,4 +35,4 @@ class User(Base):
     role = Column(Integer, nullable=False, default=0)  # 0: Customer, 1: Admin
     
     def __repr__(self):
-        return f"<User(user_id={self.user_id}, user_name={self.user_name}, email={self.email})>"
+        return f"<User(user_id={self.user_id}, user_name={self.user_name}, age={self.age}, gender={self.gender}, address={self.address}, phone={self.phone}, email={self.email})>"
