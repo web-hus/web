@@ -4,11 +4,17 @@ import { registerUser, loginUser } from "../api/Log_Sign_In_Api"; // Import API
 
 function Log_Sign_In() {
   const [isLogin, setIsLogin] = useState(true); // Trạng thái để chuyển đổi giữa đăng nhập và đăng ký
-  const [formData, setFormData] = useState({
+  const [LoginFormData, setLoginFormData] = useState({
+    email:"",
+    password:""
+  });
+  const [RegisterFormData, setRegisterFormData] = useState({
     email: "",
     password: "",
-    firstName: "",
-    lastName: "",
+    name: "",
+    age:"",
+    gender:"",
+    address:"",
     phone: "",
   });
   const [error, setError] = useState(""); // Thêm state để lưu lỗi nếu có
@@ -23,8 +29,8 @@ function Log_Sign_In() {
         console.log("Đăng nhập...");
         // Gọi API đăng nhập
         const response = await loginUser({
-          email: formData.email,
-          password: formData.password,
+          email: LoginFormData.email,
+          password: LoginFormData.password,
         });
         console.log("Đăng nhập thành công:", response);
         alert("Đăng nhập thành công!");
@@ -32,21 +38,25 @@ function Log_Sign_In() {
         console.log("Đăng ký...");
         // Gọi API đăng ký
         const response = await registerUser({
-          email: formData.email,
-          password: formData.password,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          phone: formData.phone,
+          email: RegisterFormData.email,
+          password: RegisterFormData.password,
+          name: RegisterFormData.name,
+          age: RegisterFormData.age,
+          gender: RegisterFormData.gender,
+          address: RegisterFormData.address,
+          phone: RegisterFormData.phone,
         });
         console.log("Đăng ký thành công:", response);
         alert("Đăng ký thành công! Vui lòng đăng nhập.");
         
         // Reset lại form sau khi đăng ký thành công
-        setFormData({
+        setRegisterFormData({
           email: "",
           password: "",
-          firstName: "",
-          lastName: "",
+          name: "",
+          age:"",
+          gender:"",
+          address:"",
           phone: "",
         });
       }
@@ -83,9 +93,9 @@ function Log_Sign_In() {
                   id="email"
                   placeholder="ví dụ: nguyenvana@gmai.com"
                   required
-                  value={formData.email}
+                  value={LoginFormData.email}
                   onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
+                    setLoginFormData({ ...LoginFormData, email: e.target.value })
                   }
                 />
                 <label htmlFor="password">Mật khẩu</label>
@@ -96,34 +106,56 @@ function Log_Sign_In() {
                   required
                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
                   title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và ký tự đặc biệt."
-                  value={formData.password}
+                  value={LoginFormData.password}
                   onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
+                    setLoginFormData({ ...LoginFormData, password: e.target.value })
                   }
                 />
               </>
             ) : (
               <>
-                <label htmlFor="firstName">Họ</label>
+                <label htmlFor="name">Họ và tên</label>
                 <input
                   type="text"
-                  id="firstName"
-                  placeholder="ví dụ: Nguyễn"
+                  id="name"
+                  placeholder="ví dụ: Nguyễn Văn A"
                   required
-                  value={formData.firstName}
+                  value={RegisterFormData.name}
                   onChange={(e) =>
-                    setFormData({ ...formData, firstName: e.target.value })
+                    setRegisterFormData({ ...RegisterFormData, name: e.target.value })
                   }
                 />
-                <label htmlFor="lastName">Tên</label>
+                <label htmlFor="age">Tuổi</label>
                 <input
                   type="text"
-                  id="lastName"
-                  placeholder="ví dụ: Văn A"
+                  id="age"
+                  placeholder="ví dụ: 25"
                   required
-                  value={formData.lastName}
+                  value={RegisterFormData.age}
                   onChange={(e) =>
-                    setFormData({ ...formData, lastName: e.target.value })
+                    setRegisterFormData({ ...RegisterFormData, age: e.target.value })
+                  }
+                />
+                <label htmlFor="gender">Giới tính</label>
+                <input
+                  type="text"
+                  id="gender"
+                  placeholder="ví dụ: M/F"
+                  required
+                  value={RegisterFormData.gender}
+                  onChange={(e) =>
+                    setRegisterFormData({ ...RegisterFormData, gender: e.target.value })
+                  }
+                />
+                <label htmlFor="address">Địa chỉ</label>
+                <input
+                  type="text"
+                  id="address"
+                  placeholder="ví dụ: 18 Lương Văn Can, Hoàn Kiếm"
+                  required
+                  value={RegisterFormData.address}
+                  onChange={(e) =>
+                    setRegisterFormData({ ...RegisterFormData, address: e.target.value })
                   }
                 />
                 <label htmlFor="email">Email</label>
@@ -132,9 +164,9 @@ function Log_Sign_In() {
                   id="email"
                   placeholder="ví dụ: nguyenvana@gmai.com"
                   required
-                  value={formData.email}
+                  value={RegisterFormData.email}
                   onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
+                    setRegisterFormData({ ...RegisterFormData, email: e.target.value })
                   }
                 />
                 <label htmlFor="phone">Số điện thoại</label>
@@ -143,9 +175,9 @@ function Log_Sign_In() {
                   id="phone"
                   placeholder="ví dụ: 0123456789"
                   required
-                  value={formData.phone}
+                  value={RegisterFormData.phone}
                   onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
+                    setRegisterFormData({ ...RegisterFormData, phone: e.target.value })
                   }
                 />
                 <label htmlFor="password">Mật khẩu</label>
@@ -156,9 +188,9 @@ function Log_Sign_In() {
                   required
                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
                   title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và ký tự đặc biệt."
-                  value={formData.password}
+                  value={RegisterFormData.password}
                   onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
+                    setRegisterFormData({ ...RegisterFormData, password: e.target.value })
                   }
                 />
               </>
@@ -169,10 +201,6 @@ function Log_Sign_In() {
           </button>
         </form>
         {error && <div className="error-message">{error}</div>}
-        <div className="social-login">
-          <button className="facebook">Facebook</button>
-          <button className="google">Google</button>
-        </div>
       </div>
     </div>
   );
