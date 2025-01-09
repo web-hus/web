@@ -1,4 +1,5 @@
 import fastapi as _fastapi
+from fastapi import FastAPI
 from .routers import dish, user
 import fastapi.security as _security
 
@@ -13,5 +14,5 @@ app.include_router(user.router)
 def read_root():
     return {"message": "Hello, this is your FastAPI backend!"}
 
-@app.post("/token")
-async def generate_token(form_data:_security.OAuth2PasswordRequestForm = _fastapi.Depends(), db:_orm.Session)
+# @app.post("/token")
+# async def generate_token(form_data:_security.OAuth2PasswordRequestForm = _fastapi.Depends(), db:_orm.Session)
