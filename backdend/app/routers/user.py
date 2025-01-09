@@ -1,31 +1,13 @@
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
 from .. import crud, models, database
-
-router = APIRouter()
-
-# Lấy danh sách người dùng
-@router.get("/users")
-def get_users(skip: int = 0, limit: int = 100, db: Session = Depends(database.get_db)):
-    users = crud.get_users(db, skip=skip, limit=limit)
-    return users
-
-# Thêm người dùng mới
-@router.post("/users")
-def create_user(name: str, email: str, phone: str, db: Session = Depends(database.get_db)):
-    return crud.create_user(db, name, email, phone)
-
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from app.models import User
 from app.database import SessionLocal
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 from passlib.context import CryptContext
+import passlib.hash as _hash
 
 router = APIRouter()
-
-# Cấu hình mã hóa mật khẩu
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # Dependency để lấy session
 def get_db():
@@ -37,18 +19,27 @@ def get_db():
 
 # Schema cho đăng ký
 class UserCreate(BaseModel):
-    name: str
+    user_name: str
     age: int
     gender: str
     address: str
     phone: str
-    email: EmailStr
+    email: str
     password: str
 
 # Schema cho đăng nhập
 class UserLogin(BaseModel):
-    email: EmailStr
+    email: str
     password: str
+
+# Lấy danh sách người dùng
+@router.get("/users")
+async def get_users(skip: int = 0, limit: int = 100, db: Session = Depends(database.get_db)):
+    users = crud.get_users(db, skip=skip, limit=limit)
+    return users
+
+# Cấu hình mã hóa mật khẩu
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # Hàm hash mật khẩu
 def hash_password(password: str):
@@ -60,7 +51,7 @@ def verify_password(plain_password: str, hashed_password: str):
 
 # Đăng ký tài khoản
 @router.post("/register")
-def register_user(user: UserCreate, db: Session = Depends(get_db)):
+async def register_user(user: UserCreate, db: Session = Depends(get_db)):
     # Kiểm tra email đã tồn tại chưa
     existing_user = db.query(User).filter(User.email == user.email).first()
     if existing_user:
@@ -68,13 +59,13 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
     
     # Tạo user mới
     new_user = User(
-        name=user.name,
+        user_name=user.user_name,
         age=user.age,
         gender=user.gender,
         address=user.address,
         phone=user.phone,
         email=user.email,
-        password=hash_password(user.password),  # Mã hóa password
+        password=_hash.bcrypt.hash(user.password),  # Mã hóa password
     )
     db.add(new_user)
     db.commit()
@@ -83,7 +74,7 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
 
 # Đăng nhập
 @router.post("/login")
-def login_user(user: UserLogin, db: Session = Depends(get_db)):
+async def login_user(user: UserLogin, db: Session = Depends(get_db)):
     # Tìm user theo email
     db_user = db.query(User).filter(User.email == user.email).first()
     if not db_user:

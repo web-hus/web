@@ -5,6 +5,8 @@ from sqlalchemy import func
 
 Base = declarative_base()
 
+
+
 class Dish(Base):
     __tablename__ = 'dish'
     
