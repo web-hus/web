@@ -91,7 +91,6 @@ function Log_Sign_In() {
                 <input
                   type="email"
                   id="email"
-                  placeholder="ví dụ: nguyenvana@gmai.com"
                   required
                   value={LoginFormData.email}
                   onChange={(e) =>
@@ -102,7 +101,6 @@ function Log_Sign_In() {
                 <input
                   type="password"
                   id="password"
-                  placeholder="Nhập mật khẩu của bạn"
                   required
                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
                   title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và ký tự đặc biệt."
@@ -118,7 +116,6 @@ function Log_Sign_In() {
                 <input
                   type="text"
                   id="name"
-                  placeholder="ví dụ: Nguyễn Văn A"
                   required
                   value={RegisterFormData.name}
                   onChange={(e) =>
@@ -129,7 +126,6 @@ function Log_Sign_In() {
                 <input
                   type="text"
                   id="age"
-                  placeholder="ví dụ: 25"
                   required
                   value={RegisterFormData.age}
                   onChange={(e) =>
@@ -140,7 +136,6 @@ function Log_Sign_In() {
                 <input
                   type="text"
                   id="gender"
-                  placeholder="ví dụ: M/F"
                   required
                   value={RegisterFormData.gender}
                   onChange={(e) =>
@@ -151,7 +146,6 @@ function Log_Sign_In() {
                 <input
                   type="text"
                   id="address"
-                  placeholder="ví dụ: 18 Lương Văn Can, Hoàn Kiếm"
                   required
                   value={RegisterFormData.address}
                   onChange={(e) =>
@@ -162,7 +156,6 @@ function Log_Sign_In() {
                 <input
                   type="email"
                   id="email"
-                  placeholder="ví dụ: nguyenvana@gmai.com"
                   required
                   value={RegisterFormData.email}
                   onChange={(e) =>
@@ -173,7 +166,6 @@ function Log_Sign_In() {
                 <input
                   type="text"
                   id="phone"
-                  placeholder="ví dụ: 0123456789"
                   required
                   value={RegisterFormData.phone}
                   onChange={(e) =>
@@ -184,7 +176,6 @@ function Log_Sign_In() {
                 <input
                   type="password"
                   id="password"
-                  placeholder="Nhập mật khẩu của bạn"
                   required
                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
                   title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và ký tự đặc biệt."
