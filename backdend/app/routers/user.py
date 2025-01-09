@@ -1,5 +1,6 @@
 from .. import crud, models, database
 from fastapi import APIRouter, HTTPException, Depends
+import fastapi.security as _security
 from sqlalchemy.orm import Session
 from app.models import User
 from app.database import SessionLocal
@@ -14,6 +15,8 @@ load_dotenv()
 
 router = APIRouter()
 
+oauth2schema = _security.OAuth2PasswordBearer(tokenUrl="/token")
+
 # Dependency để lấy session
 def get_db():
     db = SessionLocal()
@@ -23,6 +26,7 @@ def get_db():
         db.close()
 
 class User_schema(BaseModel):
+    email:str
     user_id:int
     
     class Config:
@@ -116,4 +120,14 @@ async def create_token(user: models.User):
     token = _jwt.encode(user_obj.model_dump(), os.getenv("JWT_Secret"))
     
     return dict(access_token = token, token_type = "bearer")
+
+async def get_current_user(db:"Session" = Depends(get_db),token:str= Depends(oauth2schema)):
+    try:
+        payload = _jwt.decode(token, os.getenv("JWT_Secret"), algorithms=["HS256"])
+        user = db.query(User).get(payload["user_id"])
+    except:
+        raise HTTPException(status_code=401, detail="Invalid Email or Password")
+    return User_schema.model_validate(user)
+    
+    
     

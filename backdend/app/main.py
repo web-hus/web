@@ -1,6 +1,5 @@
 import fastapi as _fastapi
 import fastapi.security as _security
-import fastapi.security as _security
 from typing import TYPE_CHECKING, List
 import sqlalchemy.orm as _orm
 from sqlalchemy.orm import Session
@@ -30,3 +29,8 @@ async def generate_token(form_data:_security.OAuth2PasswordRequestForm = _fastap
         raise _fastapi.HTTPException(status_code=401, detail = "invalid credentials")
     
     return await _user.create_token(user)
+
+@app.get("/users/me")
+async def get_current_user(user:_user= _fastapi.Depends(_user.get_current_user)):
+    return user
+
