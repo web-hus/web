@@ -124,9 +124,12 @@ function Log_Sign_In() {
                 />
                 <label htmlFor="age">Tuổi</label>
                 <input
-                  type="text"
+                  type="number"
                   id="age"
                   required
+                  min="16"
+                  max="90"
+                  title="Tuổi trong khoảng 16-90."
                   value={RegisterFormData.age}
                   onChange={(e) =>
                     setRegisterFormData({ ...RegisterFormData, age: e.target.value })
@@ -167,6 +170,9 @@ function Log_Sign_In() {
                   type="text"
                   id="phone"
                   required
+                  pattern="^0\d{9}$"
+                  maxLength={10}
+                  title="Số điện thoại cần có 10 chữ số bắt đầu bằng số 0."
                   value={RegisterFormData.phone}
                   onChange={(e) =>
                     setRegisterFormData({ ...RegisterFormData, phone: e.target.value })
