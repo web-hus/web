@@ -87,31 +87,33 @@ async def register_user(user: UserCreate, db: Session = Depends(get_db)):
     return {"message": "User registered successfully", "user_id": new_user.user_id}
 
 # Đăng nhập
-@router.post("/login")
-async def login_user(user: UserLogin, db: Session = Depends(get_db)):
-    # Tìm user theo email
-    db_user = db.query(User).filter(User.email == user.email).first()
-    if not db_user:
-        raise HTTPException(status_code=400, detail="Invalid email or password")
+# @router.post("/login")
+# async def login_user(user: UserLogin, db: Session = Depends(get_db)):
+#     # Tìm user theo email
+#     db_user = db.query(User).filter(User.email == user.email).first()
+#     if not db_user:
+#         raise HTTPException(status_code=400, detail="Invalid email or password")
     
-    # Kiểm tra password
-    if not db_user.verify_password(user.password):
-        raise HTTPException(status_code=400, detail="Invalid email or password")
+#     # Kiểm tra password
+#     if not db_user.verify_password(user.password):
+#         raise HTTPException(status_code=400, detail="Invalid email or password")
     
-    return {"message": "Login successful", "user_id": db_user.user_id}
+#     return {"message": "Login successful", "user_id": db_user.user_id}
 
 async def get_user_by_email(email:str, db:"Session"):
     return db.query(User).filter(User.email == email).first()
 
 async def authenticate_user(email:str, password: str, db:"Session"):
+    print("email:", email)
     user = await get_user_by_email(email, db)
-    
+    print("before authenticate")
+
     if not user:
         return False
-    
     if not user.verify_password(password):
         return False
     
+    print("after authenticate")
     return user
 
 async def create_token(user: models.User):

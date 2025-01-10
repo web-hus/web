@@ -21,14 +21,17 @@ app.include_router(_user.router)
 def read_root():
     return {"message": "Hello, this is your FastAPI backend!"}
 
-@app.post("/token")
-async def generate_token(form_data:_security.OAuth2PasswordRequestForm = _fastapi.Depends(), db:"Session" = _fastapi.Depends(_user.get_db)):
+@app.post("/login")
+async def login_user(form_data: _security.OAuth2PasswordRequestForm = _fastapi.Depends(), db: Session = _fastapi.Depends(_user.get_db)):
+    # Authenticate the user using the provided form data
     user = await _user.authenticate_user(form_data.username, form_data.password, db)
     
     if not user:
-        raise _fastapi.HTTPException(status_code=401, detail = "invalid credentials")
+        raise _fastapi.HTTPException(status_code=401, detail="Invalid credentials")
     
-    return await _user.create_token(user)
+    # Generate JWT token for the user
+    token = await _user.create_token(user)
+    return token
 
 @app.get("/users/me")
 async def get_current_user(user:_user= _fastapi.Depends(_user.get_current_user)):

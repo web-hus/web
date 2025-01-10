@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import UserProfile from "./pages/test";
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
           <Route path="/log_sign_in" exact element={<LogSignIn />} />
           <Route path="/news" exact element={<News />} />
           <Route path="/food/:id" exact element={<FoodDes />} />
+
+          <Route path="/Test" exact element={<UserProfile />} />
+
         </Routes>
         <Footer />
       </Router>
