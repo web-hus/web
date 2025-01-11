@@ -10,6 +10,7 @@ function SetTable() {
       date: "",
       numberOfPeople: "",
       time: "",
+      SpecialRequest: ""
     });
   
     const handleChange = (e) => {
@@ -114,6 +115,16 @@ function SetTable() {
               onChange={handleChange}
               min="09:00" // Giới hạn giờ bắt đầu
               max="22:00" // Giới hạn giờ kết thúc (11:00 PM)
+            />
+          </div>
+          <div className="inputGroup">
+            <label htmlFor="SpecialRequest">Bạn có yêu cầu đặc biệt nào không?</label>
+            <input
+              type="text"
+              id="SpecialRequest"
+              name="SpecialRequest"
+              value={formData.SpecialRequest}
+              onChange={handleChange}
             />
           </div>
           <div className="note">
