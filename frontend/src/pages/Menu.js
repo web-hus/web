@@ -119,12 +119,12 @@ function Menu() {
           {filteredDishes.length > 0 ? (
             filteredDishes.map((dish) => {
               const fileExtension = dish.dish_name.toLowerCase().includes('png') ? 'png' : 'jpg'; // Xác định định dạng ảnh
-              const encodedDishName = encodeURIComponent(dish.dish_name);
-              const encodedCategory = encodeURIComponent(dish.product_category);
+              const encodedIDName = encodeURIComponent(dish.dish_id);
+              // const encodedCategory = encodeURIComponent(dish.product_category);
               return (
                 <div className="menuItem" key={dish.dish_id}>
                   <img
-                    src={`/images/${encodedCategory}/${encodedDishName}.${fileExtension}`}
+                    src={`/images/food_img/${encodedIDName}.${fileExtension}`}
                     onError={(e) => { e.target.src = '/images/default.jpg'; }} // Ảnh mặc định khi không tìm thấy
                     alt={dish.dish_name}
                   />

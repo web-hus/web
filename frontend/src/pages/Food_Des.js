@@ -23,12 +23,15 @@ function FoodDes() {
   if (!dish) {
     return <p>Loading...</p>;
   }
+  const fileExtension = dish.dish_name.toLowerCase().includes('png') ? 'png' : 'jpg'; // Xác định định dạng ảnh
+  const encodedIDName = encodeURIComponent(dish.dish_id);
 
   return (
     <div className="foodDesContainer">
       <h1>{dish.dish_name}</h1>
+
       <img
-        src={`/images/${encodeURIComponent(dish.product_category)}/${encodeURIComponent(dish.dish_name)}.jpg`}
+        src={`/images/food_img/${encodedIDName}.${fileExtension}`}
         onError={(e) => { e.target.src = '/images/default.jpg'; }}
         alt={dish.dish_name}
       />
