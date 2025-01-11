@@ -15,6 +15,7 @@ import News from "./pages/News";
 import Payment from "./pages/Payment"
 import FoodDes from "./pages/Food_Des"; // Import FoodDes page
 import UserProfile from "./pages/test"; // UserProfile page
+import Cart from "./pages/Cart";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path="/food/:id" element={<FoodDes />} />
           <Route path="/Test" element={<UserProfile />} />
           <Route path="/Payment" element={<Payment />} />
+          <Route path="/Cart" element={<Cart />} />
 
           {/* Conditionally protect the /set_table route */}
           <Route
