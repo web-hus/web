@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PizzaLeft from "../assets/pizzaLeft.jpg";
 import "../styles/Contact.css";
 
 function Contact() {
@@ -8,32 +7,35 @@ function Contact() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsSubmitted(true);
+    event.target.reset(); // Reset form fields after submission
   };
 
   return (
     <div className="contact">
-      <div
-        className="leftSide"
-        style={{ backgroundImage: `url(${PizzaLeft})` }}
-      ></div>
       <div className="rightSide">
         <h1>Contact Us</h1>
 
         {isSubmitted ? (
-          <p className="successMessage">Form submitted successfully!</p>
+          <p className="successMessage" aria-live="polite">
+            Form submitted successfully!
+          </p>
         ) : (
           <form id="contact-form" onSubmit={handleSubmit} method="POST">
             <label htmlFor="name">Full Name</label>
-            <input name="name" placeholder="Enter full name..." type="text" required />
+            <input id="name" name="name" placeholder="Enter full name..." type="text" required />
+            
             <label htmlFor="email">Email</label>
-            <input name="email" placeholder="Enter email..." type="email" required />
+            <input id="email" name="email" placeholder="Enter email..." type="email" required />
+            
             <label htmlFor="message">Message</label>
             <textarea
+              id="message"
+              name="message"
               rows="6"
               placeholder="Enter message..."
-              name="message"
               required
             ></textarea>
+
             <button type="submit">Send Message</button>
           </form>
         )}
