@@ -102,8 +102,8 @@ function Log_Sign_In() {
                   type="password"
                   id="password"
                   required
-                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*?<>])[A-Za-z\d!@#$%^&*?<>]{8,}$"
-                  title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và ký tự đặc biệt."
+                  pattern="^(?=.*\d)(?=.*[!@#$%^&*?<>])[A-Za-z\d!@#$%^&*?<>]{8,}$"
+                  title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ số và một ký tự đặc biệt."
                   value={LoginFormData.password}
                   onChange={(e) =>
                     setLoginFormData({ ...LoginFormData, password: e.target.value })
@@ -183,8 +183,8 @@ function Log_Sign_In() {
                   type="password"
                   id="password"
                   required
-                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*?<>])[A-Za-z\d!@#$%^&*?<>]{8,}$"
-                  title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và ký tự đặc biệt."
+                  pattern="^(?=.*\d)(?=.*[!@#$%^&*?<>])[A-Za-z\d!@#$%^&*?<>]{8,}$"
+                  title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ số và một ký tự đặc biệt."
                   value={RegisterFormData.password}
                   onChange={(e) =>
                     setRegisterFormData({ ...RegisterFormData, password: e.target.value })
