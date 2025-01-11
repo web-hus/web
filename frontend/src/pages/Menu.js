@@ -49,8 +49,7 @@ function Menu() {
           <li><Link to="/">Trang chủ</Link></li>
           <li><Link to="/about">Giới thiệu</Link></li>
           <li><Link to="/menu">Menu</Link></li>
-          <li>Món ăn nổi bật</li>
-          <li>Tin tức</li>
+          <li><Link to="/news">Tín tức</Link></li>
           <li><Link to="/contact">Liên hệ</Link></li>
           <li><Link to="/set_table">Đặt bàn</Link></li>
         </ul>
