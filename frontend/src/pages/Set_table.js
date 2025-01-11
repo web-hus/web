@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Navigate } from 'react-router-dom';
+
 import PizzaLeft from "../assets/pizzaLeft.jpg";
 import "../styles/Set_table.css";
 
@@ -9,6 +11,12 @@ function SetTable() {
       time: "",
       SpecialRequest: ""
     });
+    const isAuthenticated = localStorage.getItem("authToken") !== null;
+
+    // If the user is not authenticated, redirect to login
+    if (!isAuthenticated) {
+      return <Navigate to="/log_sign_in" />;
+    }
   
     const handleChange = (e) => {
       const { name, value } = e.target;

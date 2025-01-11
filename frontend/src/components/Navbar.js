@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Logo from "../assets/Logo_res.png";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PlaceIcon from '@mui/icons-material/Place';
@@ -9,6 +11,16 @@ import "../styles/Navbar.css";
 
 function Navbar() {
   const [openLinks, setOpenLinks] = useState(false);
+  const navigate = useNavigate(); // Hook for navigation
+
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken"); // Remove the token
+    navigate("/log_sign_in"); // Redirect to the homepage or desired route
+    
+  };
+
+  const isAuthenticated = localStorage.getItem("authToken") !== null;
 
   const toggleNavbar = () => {
     setOpenLinks(!openLinks);
@@ -25,8 +37,14 @@ function Navbar() {
           <Link to="/menu">Thực đơn</Link>
           <Link to="/about">Giới thiệu</Link>
           <Link to="/news">Tin tức</Link>
-          <Link to="/contact">Liên Hệ</Link>
+          <Link to="/contact">Liên hệ</Link>
           <Link to="/set_table">Đặt bàn</Link>
+          {isAuthenticated && (
+            <Link to="/" className="nav-link" onClick={handleLogout}>
+              Đăng xuất
+            </Link>
+          )}
+
         </div>
         <div className="Icon">
           <Link to=""><SearchIcon /></Link>
