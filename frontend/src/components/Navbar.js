@@ -49,7 +49,7 @@ function Navbar() {
         <div className="Icon">
           <Link to=""><SearchIcon /></Link>
           <Link to=""><ShoppingCartIcon /></Link>
-          <Link to=""><PlaceIcon /></Link>
+          <Link to="https://www.openstreetmap.org/?mlat=20.995939&mlon=105.808009#map=15/20.995939/105.808009"><PlaceIcon /></Link>
           <Link to="/log_sign_in"><PersonIcon /></Link>
         </div>
       </div>
