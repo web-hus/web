@@ -6,7 +6,7 @@ from app.models import User
 from app.database import SessionLocal
 from pydantic import BaseModel
 from passlib.context import CryptContext
-import passlib.hash as _hash
+# import passlib.hash as _hash
 import jwt as _jwt
 from dotenv import load_dotenv
 import os
@@ -56,12 +56,12 @@ async def get_users(skip: int = 0, limit: int = 100, db: Session = Depends(datab
     users = crud.get_users(db, skip=skip, limit=limit)
     return users
 
-# Cấu hình mã hóa mật khẩu
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# # Cấu hình mã hóa mật khẩu
+# pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# Hàm hash mật khẩu
-def hash_password(password: str):
-    return pwd_context.hash(password)
+# # Hàm hash mật khẩu
+# def hash_password(password: str):
+#     return pwd_context.hash(password)
 
 # Đăng ký tài khoản
 @router.post("/register")
@@ -79,7 +79,8 @@ async def register_user(user: UserCreate, db: Session = Depends(get_db)):
         address=user.address,
         phone=user.phone,
         email=user.email,
-        password=_hash.bcrypt.hash(user.password),  # Mã hóa password
+        # password=_hash.bcrypt.hash(user.password),  # Mã hóa password
+        password = user.password,
     )
     db.add(new_user)
     db.commit()

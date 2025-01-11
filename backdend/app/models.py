@@ -36,9 +36,10 @@ class User(Base):
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())  # Auto update the timestamp
     password = Column(Text, nullable=False)  # Will store the hashed password
     role = Column(Integer, nullable=False, default=0)  # 0: Customer, 1: Admin
-    
-    def verify_password(self, password:str):
-        return _hash.bcrypt.verify(password, self.password)
+        
+    def verify_password(self, password: str):
+        return password == self.password
+
     
     def __repr__(self):
         return f"<User(user_id={self.user_id}, user_name={self.user_name}, age={self.age}, gender={self.gender}, address={self.address}, phone={self.phone}, email={self.email})>"
