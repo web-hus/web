@@ -55,7 +55,7 @@ function Contact() {
         {/* OpenStreetMap embed with zoomed-in view of Hanoi (10x zoom) */}
         <div className="map-container">
           <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=105.85%2C21.02%2C105.87%2C21.04&layer=mapnik"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=105.806440%2C20.994916%2C105.809578%2C20.996962&layer=mapnik"
             width="100%"
             height="400"
             frameBorder="0"
@@ -64,7 +64,7 @@ function Contact() {
           />
           <br />
           <small>
-            <a href="https://www.openstreetmap.org/?mlat=21.0285&mlon=105.8542#map=15/21.0285/105.8542">
+            <a href="https://www.openstreetmap.org/?mlat=20.995939&mlon=105.808009#map=15/20.995939/105.808009">
               View Larger Map
             </a>
           </small>
