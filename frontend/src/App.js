@@ -12,6 +12,7 @@ import Contact from "./pages/Contact";
 import SetTable from "./pages/Set_table";
 import LogSignIn from "./pages/Log_Sign_In";
 import News from "./pages/News";
+import Payment from "./pages/Payment"
 import FoodDes from "./pages/Food_Des"; // Import FoodDes page
 import UserProfile from "./pages/test"; // UserProfile page
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/news" element={<News />} />
           <Route path="/food/:id" element={<FoodDes />} />
           <Route path="/Test" element={<UserProfile />} />
+          <Route path="/Payment" element={<Payment />} />
 
           {/* Conditionally protect the /set_table route */}
           <Route
