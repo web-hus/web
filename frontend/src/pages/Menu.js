@@ -7,6 +7,7 @@ function Menu() {
   const [dishes, setDishes] = useState([]);
   const [filteredDishes, setFilteredDishes] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 1000000]); // Mức giá mặc định
+  const [selectedCategory, setSelectedCategory] = useState("all"); // Loại món ăn mặc định
 
   // Lấy danh sách món ăn từ API
   useEffect(() => {
@@ -34,11 +35,24 @@ function Menu() {
     }
   };
 
-  // Lọc món ăn theo mức giá đã chọn
+  // Hàm xử lý thay đổi loại món ăn
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+  };
+
+  // Lọc dữ liệu dựa trên giá và loại món ăn
   useEffect(() => {
-    const filtered = dishes.filter(dish => dish.price >= priceRange[0] && dish.price <= priceRange[1]);
+    const filtered = dishes.filter((dish) => {
+      const isWithinPriceRange =
+        dish.price >= priceRange[0] && dish.price <= priceRange[1];
+      const isWithinCategory =
+        selectedCategory === "all" || dish.product_category === selectedCategory;
+
+      return isWithinPriceRange && isWithinCategory;
+    });
+
     setFilteredDishes(filtered);
-  }, [priceRange, dishes]);
+  }, [priceRange, selectedCategory, dishes]);
 
   return (
     <div className="menuContainer">
@@ -49,7 +63,7 @@ function Menu() {
           <li><Link to="/">Trang chủ</Link></li>
           <li><Link to="/about">Giới thiệu</Link></li>
           <li><Link to="/menu">Menu</Link></li>
-          <li><Link to="/news">Tín tức</Link></li>
+          <li><Link to="/news">Tin tức</Link></li>
           <li><Link to="/contact">Liên hệ</Link></li>
           <li><Link to="/set_table">Đặt bàn</Link></li>
         </ul>
@@ -57,7 +71,6 @@ function Menu() {
         {/* Bộ lọc giá */}
         <div className="filter">
           <h3>Lọc theo mức giá</h3>
-
           <label>
             <input
               type="radio"
@@ -67,7 +80,6 @@ function Menu() {
             />
             Dưới 50,000 VND
           </label>
-
           <label>
             <input
               type="radio"
@@ -75,9 +87,8 @@ function Menu() {
               value="50000-99000"
               onChange={handlePriceChange}
             />
-            Từ 50,000 - 99,000 VND
+            50,000 - 99,000 VND
           </label>
-
           <label>
             <input
               type="radio"
@@ -85,9 +96,8 @@ function Menu() {
               value="100000-199000"
               onChange={handlePriceChange}
             />
-            Từ 100,000 - 199,000 VND
+            100,000 - 199,000 VND
           </label>
-
           <label>
             <input
               type="radio"
@@ -97,7 +107,6 @@ function Menu() {
             />
             Trên 200,000 VND
           </label>
-
           <label>
             <input
               type="radio"
@@ -109,6 +118,18 @@ function Menu() {
           </label>
         </div>
 
+        {/* Bộ lọc loại món ăn */}
+        <div className="filter">
+          <h3>Lọc theo loại món ăn</h3>
+          <select value={selectedCategory} onChange={handleCategoryChange}>
+            <option value="all">Tất cả</option>
+            <option value="Khai vị">Khai vị</option>
+            <option value="Món chính">Món chính</option>
+            <option value="Món phụ">Món phụ</option>
+            <option value="Tráng miệng">Tráng miệng</option>
+            <option value="Đồ uống">Đồ uống</option>
+          </select>
+        </div>
       </div>
 
       {/* Nội dung món ăn */}
@@ -118,12 +139,11 @@ function Menu() {
           {filteredDishes.length > 0 ? (
             filteredDishes.map((dish) => {
               const fileExtension = dish.dish_name.toLowerCase().includes('png') ? 'png' : 'jpg'; // Xác định định dạng ảnh
-              const encodedDishName = encodeURIComponent(dish.dish_name);
-              const encodedCategory = encodeURIComponent(dish.product_category);
+              const encodedIDName = encodeURIComponent(dish.dish_id);
               return (
                 <div className="menuItem" key={dish.dish_id}>
                   <img
-                    src={`/images/${encodedCategory}/${encodedDishName}.${fileExtension}`}
+                    src={`/images/food_img/${encodedIDName}.${fileExtension}`}
                     onError={(e) => { e.target.src = '/images/default.jpg'; }} // Ảnh mặc định khi không tìm thấy
                     alt={dish.dish_name}
                   />
@@ -139,7 +159,7 @@ function Menu() {
               );
             })
           ) : (
-            <p>Loading dishes...</p>
+            <p>Không có món ăn nào phù hợp.</p>
           )}
         </div>
       </div>

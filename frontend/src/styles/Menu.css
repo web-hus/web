@@ -1,32 +1,33 @@
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+
 
 /* Toàn bộ trang menu */
 .menuPage {
   display: flex;
+  flex-direction: row;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   height: 100%;
   background-color: #0d3b34; /* Màu nền xanh đậm */
+  margin-bottom: 100px;
 }
 
 /* Thanh sidebar bên trái */
 .menuSidebar {
+  position: fixed;
+  top: 100px; /* Đẩy sidebar xuống dưới navbar */
+  left: 0;
   width: 250px;
-  background-color: #1d4d41; /* Màu nền sidebar xanh đậm hơn */
+  background-color: #1d4d41;
   padding: 20px;
   color: white;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  height: 100%;
-  position: fixed;
-  border-right: 1px solid #2c6d5a; /* Đường viền bên phải */
+  height: calc(100vh - 60px); 
+  overflow-y: auto;
+  border-right: 1px solid #2c6d5a;
 }
 
 .menuSidebar h2 {
   font-size: 18px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-weight: bold;
   text-transform: uppercase;
   color: #f39c12; /* Màu vàng */
@@ -38,7 +39,7 @@ html, body {
 }
 
 .menuSidebar ul li {
-  margin: 15px 0;
+  margin: 10px 0;
 }
 
 .menuSidebar ul li a {
@@ -75,6 +76,7 @@ html, body {
   border-radius: 5px;
 }
 
+
 /* Phần nội dung của menu */
 .menuContent {
   margin-left: 250px;
@@ -82,8 +84,6 @@ html, body {
   background-color: #0d3b34; /* Nền xanh đậm */
   overflow-y: auto;
   height: 100vh;
-  color: white;
-  
 }
 
 /* Tiêu đề của Menu */
@@ -159,35 +159,5 @@ html, body {
 }
 
 .menuItemButton:hover {
-  background-color: #e68a00;
-}
-
-/* Discount badge */
-.discount {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  background-color: #e74c3c; /* Màu đỏ */
-  color: white;
-  padding: 8px;
-  font-size: 12px;
-  font-weight: bold;
-  border-radius: 5px;
-  z-index: 10;
-}
-
-/* Dropdown sắp xếp */
-.sortDropdown {
-  float: right;
-  background-color: #f39c12;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.sortDropdown:hover {
   background-color: #e68a00;
 }

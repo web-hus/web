@@ -1,0 +1,90 @@
+1. Bảng users
+Nhiệm vụ: Quản lý thông tin người dùng, bao gồm khách hàng và quản trị viên.
+
+user_id: Mã định danh duy nhất cho người dùng (khóa chính).
+user_name: Tên người dùng (bắt buộc).
+age: Tuổi của người dùng (bắt buộc).
+gender: Giới tính (M: Nam, F: Nữ, bắt buộc).
+address: Địa chỉ người dùng (bắt buộc).
+email: Email duy nhất của người dùng (bắt buộc).
+phone: Số điện thoại duy nhất (bắt buộc).
+created_at: Thời gian tạo tài khoản (mặc định là thời điểm hiện tại).
+updated_at: Thời gian cập nhật thông tin tài khoản (mặc định là thời điểm hiện tại).
+password: Mật khẩu tài khoản (bắt buộc).
+role: Vai trò (0: Khách hàng, 1: Quản trị viên).
+
+
+2. Bảng dish
+Nhiệm vụ: Quản lý thông tin món ăn.
+
+dish_id: Mã định danh duy nhất của món ăn (khóa chính).
+dish_name: Tên món ăn (bắt buộc).
+product_category: Loại sản phẩm (bắt buộc).
+price: Giá món ăn (bắt buộc).
+description: Mô tả món ăn (không bắt buộc).
+created_at: Thời gian thêm món ăn (mặc định là thời điểm hiện tại).
+availability: Trạng thái món ăn (0: Hết hàng, 1: Còn hàng).
+
+
+3. Bảng booking
+Nhiệm vụ: Quản lý thông tin đặt bàn.
+
+booking_id: Mã định danh duy nhất của lượt đặt bàn (khóa chính).
+user_id: Mã người dùng thực hiện đặt bàn (khóa ngoại từ bảng users).
+date: Ngày đặt bàn (bắt buộc).
+time: Thời gian đặt bàn (bắt buộc).
+num_people: Số lượng người (bắt buộc).
+status: Trạng thái đặt bàn (0: Đang chờ, 1: Đã xác nhận, 2: Hủy).
+special_requests: Yêu cầu đặc biệt (không bắt buộc).
+created_at: Thời gian tạo đơn đặt bàn.
+updated_at: Thời gian cập nhật đơn đặt bàn.
+
+
+4. Bảng orders
+Nhiệm vụ: Quản lý thông tin đơn hàng.
+
+order_id: Mã định danh duy nhất của đơn hàng (khóa chính).
+user_id: Mã người dùng thực hiện đơn hàng (khóa ngoại từ bảng users).
+order_type: Loại đơn hàng (0: Đến quán ăn, 1: Đơn mang về).
+booking_id: Liên kết với booking_id nếu là đơn hàng tại quán (khóa ngoại từ bảng booking)(chỉ áp dụng khi user đặt bàn).
+order_date: Thời gian đặt hàng.
+status: Trạng thái đơn hàng (0: Chờ xử lý, 1: Đã xác nhận, 2: Đang giao, 3: Hoàn thành, 4: Hủy)(chỉ áp dụng cho đơn mang về).
+delivery_address: Địa chỉ giao hàng (chỉ áp dụng cho đơn mang về).
+created_at: Thời gian tạo đơn hàng.
+updated_at: Thời gian cập nhật đơn hàng.
+
+
+5. Bảng payment
+Nhiệm vụ: Quản lý thông tin thanh toán.
+
+payment_id: Mã định danh duy nhất của thanh toán (khóa chính).
+user_id: Mã người dùng thực hiện thanh toán (khóa ngoại từ bảng users).
+order_id: Mã đơn hàng liên kết (khóa ngoại từ bảng orders).
+amount: Số tiền thanh toán.
+payment_method: Phương thức thanh toán (0: Online, 1: Khi nhận hàng).
+payment_status: Trạng thái thanh toán (0: Đang xử lý, 1: Đã thanh toán, 2: Hoàn tiền).
+payment_date: Thời gian thanh toán.
+
+
+6. Bảng shopping_cart
+Nhiệm vụ: Quản lý giỏ hàng của người dùng.
+
+cart_id: Mã định danh duy nhất của giỏ hàng. Mỗi user có duy nhất 1 giỏ hàng (khóa chính).
+user_id: Mã người dùng sở hữu giỏ hàng (khóa ngoại từ bảng users).
+created_at: Thời gian tạo giỏ hàng.
+updated_at: Thời gian cập nhật giỏ hàng.
+
+
+7. Bảng order_dishes
+Nhiệm vụ: Liên kết món ăn với đơn hàng.
+
+order_id: Mã đơn hàng (khóa ngoại từ bảng orders).
+dish_id: Mã món ăn (khóa ngoại từ bảng dish).
+quantity: Số lượng món ăn.
+
+
+8. Bảng shopping_cart_dishes
+Nhiệm vụ: Liên kết món ăn với giỏ hàng.
+cart_id: Mã giỏ hàng (khóa ngoại từ bảng shopping_cart).
+dish_id: Mã món ăn (khóa ngoại từ bảng dish).
+quantity: Số lượng món ăn.

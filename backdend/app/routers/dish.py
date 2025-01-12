@@ -16,9 +16,9 @@ async def get_dishes():
 
 # Lấy món ăn theo ID
 @router.get("/dishes/{id}")
-async def get_dish_by_id(id: str):  # id là chuỗi thay vì int
+async def get_dish_by_id(id: str):
     db: Session = SessionLocal()
-    dish = db.query(Dish).filter(Dish.dish_id == id).first()  # Dùng dish_id thay vì id
+    dish = db.query(Dish).filter(Dish.dish_id == id).first() 
     db.close()
     
     if not dish:

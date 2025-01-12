@@ -8,7 +8,8 @@ import Contact from "./pages/Contact";
 import SetTable from "./pages/Set_table";
 import LogSignIn from "./pages/Log_Sign_In";
 import News from "./pages/News";
-import FoodDes from "./pages/Food_Des"; // Import file Food_Des.js
+import FoodDes from "./pages/Food_Des"; 
+import Home_admin from "./admin/pages/Home_admin"; 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,6 +21,7 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
+          {/* Frontend cho user*/}
           <Route path="/" exact element={<Home />} />
           <Route path="/menu" exact element={<Menu />} />
           <Route path="/about" exact element={<About />} />
@@ -28,6 +30,7 @@ function App() {
           <Route path="/log_sign_in" exact element={<LogSignIn />} />
           <Route path="/news" exact element={<News />} />
           <Route path="/food/:id" exact element={<FoodDes />} />
+          <Route path="/Home_admin" exact element={<Home_admin />} />
         </Routes>
         <Footer />
       </Router>
