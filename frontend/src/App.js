@@ -17,7 +17,7 @@ import FoodDes from "./pages/Food_Des"; // Import FoodDes page
 import UserProfile from "./pages/test"; // UserProfile page
 import Cart from "./pages/Cart";
 import LostPassword from "./pages/Lost_Password";
-
+import NewPassword from "./pages/New_Password";
 
 function App() {
   // Check if the user is authenticated (for example, using localStorage or a context)
@@ -41,6 +41,7 @@ function App() {
           <Route path="/Cart" element={<Cart />} />
           <Route path="/set_table" element={<SetTable />} />
           <Route path="/LostPassword" exact element={<LostPassword />} />
+          <Route path="/NewPassword" exact element={<NewPassword />} />
 
 
           {/* Conditionally protect the /set_table route */}
