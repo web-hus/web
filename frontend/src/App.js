@@ -38,12 +38,14 @@ function App() {
           <Route path="/Test" element={<UserProfile />} />
           <Route path="/Payment" element={<Payment />} />
           <Route path="/Cart" element={<Cart />} />
+          <Route path="/set_table" element={<SetTable />} />
+
 
           {/* Conditionally protect the /set_table route */}
-          <Route
+          {/* <Route
             path="/set_table"
             element={isAuthenticated ? <SetTable /> : <Navigate to="/log_sign_in" />}
-          />
+          /> */}
         </Routes>
         <Footer />
       </Router>

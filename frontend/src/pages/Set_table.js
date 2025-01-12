@@ -1,40 +1,41 @@
 import React, { useState } from "react";
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-import PizzaLeft from "../assets/pizzaLeft.jpg";
 import "../styles/Set_table.css";
 
 function SetTable() {
-    const [formData, setFormData] = useState({
-      date: "",
-      numberOfPeople: "",
-      time: "",
-      SpecialRequest: ""
-    });
-    const isAuthenticated = localStorage.getItem("authToken") !== null;
+  const [formData, setFormData] = useState({
+    date: "",
+    numberOfPeople: "",
+    time: "",
+    SpecialRequest: ""
+  });
 
-    // If the user is not authenticated, redirect to login
+  const navigate = useNavigate(); // Initialize useNavigate
+  const isAuthenticated = localStorage.getItem("authToken") !== null;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (!isAuthenticated) {
-      return <Navigate to="/log_sign_in" />;
+      // Show alert and redirect to login
+      alert("Bạn cần đăng nhập để đặt bàn!");
+      navigate("/log_sign_in");
+      return;
     }
-  
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-    
-      // Xử lý gửi form hoặc lưu dữ liệu
-      alert("Đặt bàn thành công!");
-    };
-    
-    return (
-        <div className="setTablePage">
+    // Handle form submission or data saving
+    alert("Đặt bàn thành công!");
+  };
+
+  return (
+    <div className="setTablePage">
       <div className="setTableContainer">
         <h2>Liên hệ đặt bàn</h2>
         <form onSubmit={handleSubmit} className="setTableForm">
@@ -45,7 +46,7 @@ function SetTable() {
               id="date"
               name="date"
               required
-              min={new Date().toISOString().split('T')[0]}
+              min={new Date().toISOString().split("T")[0]}
               value={formData.date}
               onChange={handleChange}
             />
@@ -57,8 +58,8 @@ function SetTable() {
               id="numberOfPeople"
               name="numberOfPeople"
               placeholder="Số người..."
-              min = "1"
-              max = "50"
+              min="1"
+              max="50"
               required
               value={formData.numberOfPeople}
               onChange={handleChange}
@@ -71,10 +72,10 @@ function SetTable() {
               id="time"
               name="time"
               required
-              value={formData.time || "09:00"} // Mặc định thời gian là 09:00
+              value={formData.time || "09:00"} // Default time is 09:00
               onChange={handleChange}
-              min="09:00" // Giới hạn giờ bắt đầu
-              max="22:00" // Giới hạn giờ kết thúc (11:00 PM)
+              min="09:00" // Earliest allowed time
+              max="22:00" // Latest allowed time
             />
           </div>
           <div className="inputGroup">
@@ -97,8 +98,8 @@ function SetTable() {
           </button>
         </form>
       </div>
-      </div>
-    );
-  }
-  
-  export default SetTable;
+    </div>
+  );
+}
+
+export default SetTable;
