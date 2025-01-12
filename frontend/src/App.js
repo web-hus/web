@@ -16,6 +16,7 @@ import Payment from "./pages/Payment"
 import FoodDes from "./pages/Food_Des"; // Import FoodDes page
 import UserProfile from "./pages/test"; // UserProfile page
 import Cart from "./pages/Cart";
+import LostPassword from "./pages/Lost_Password";
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/Payment" element={<Payment />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/set_table" element={<SetTable />} />
+          <Route path="/LostPassword" exact element={<LostPassword />} />
 
 
           {/* Conditionally protect the /set_table route */}
