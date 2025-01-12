@@ -10,6 +10,7 @@ import LogSignIn from "./pages/Log_Sign_In";
 import News from "./pages/News";
 import FoodDes from "./pages/Food_Des"; 
 import Home_admin from "./admin/pages/Home_admin"; 
+import Menu_managment from "./admin/pages/Menu_managment"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/news" exact element={<News />} />
           <Route path="/food/:id" exact element={<FoodDes />} />
           <Route path="/Home_admin" exact element={<Home_admin />} />
+          <Route path="/Menu_managment" exact element={<Menu_managment />} />
         </Routes>
         <Footer />
       </Router>
