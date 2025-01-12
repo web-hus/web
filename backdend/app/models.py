@@ -14,10 +14,10 @@ class Dish(Base):
     price = Column(Float)
     description = Column(Text)
     created_at = Column(DateTime)
-    availability = Column(Boolean)
+    availability = Column(Integer, default=0)
 
     def __repr__(self):
-        return f"<Dish(dish_id={self.dish_id}, dish_name={self.dish_name}, product_category={self.product_category}, price={self.price})>"
+        return f"<Dish(dish_id={self.dish_id}, dish_name={self.dish_name}, product_category={self.product_category}, price={self.price}, description={self.description}, availability={self.availability})>"
 
 class User(Base):
     __tablename__ = 'users'
