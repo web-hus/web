@@ -196,6 +196,11 @@ function Log_Sign_In() {
           <button type="submit" className="submit-btn">
             {isLogin ? "Đăng nhập" : "Đăng ký"}
           </button>
+          {isLogin && (
+            <div className="lost-password">
+              <a href="/LostPassword">Quên mật khẩu?</a>
+            </div>
+          )}
         </form>
         {error && <div className="error-message">{error}</div>}
       </div>
