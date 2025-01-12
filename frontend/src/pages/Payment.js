@@ -38,11 +38,11 @@ const Payment = () => {
     <div className="Payment">
       <h2>Payment Information</h2>
 
-      <form onSubmit={handleSubmit}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          {/* Left Section - Personal Information */}
-          <div style={{ width: "48%" }}>
-            <h3>Personal Information</h3>
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+        {/* Form Section */}
+        <div style={{ width: "65%", padding: "20px", borderRight: "1px solid #ccc" }}>
+          <h3>Personal Information</h3>
+          <form onSubmit={handleSubmit}>
             <div style={{ marginBottom: "10px" }}>
               <label>Full Name:</label>
               <input
@@ -80,10 +80,7 @@ const Payment = () => {
                 style={{ width: "100%", padding: "10px", marginTop: "5px" }}
               />
             </div>
-          </div>
 
-          {/* Right Section - Payment Information */}
-          <div style={{ width: "48%" }}>
             <h3>Payment Information</h3>
 
             <div style={{ marginBottom: "10px" }}>
@@ -126,37 +123,45 @@ const Payment = () => {
                 />
               </div>
             </div>
-          </div>
+
+            {/* Payment Button */}
+            <div style={{ marginTop: "30px", display: "flex", justifyContent: "center" }}>
+              <button
+                type="submit"
+                style={{
+                  padding: "12px 30px",
+                  backgroundColor: "#4CAF50",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  fontSize: "16px",
+                }}
+              >
+                Confirm Payment
+              </button>
+            </div>
+          </form>
         </div>
 
-        {/* Order Summary */}
-        <div style={{ marginTop: "30px", borderTop: "1px solid #ccc", paddingTop: "20px" }}>
-          <h3>Order Summary</h3>
-          <div style={{ marginBottom: "10px" }}>
+        {/* Cart Section */}
+        <div style={{ width: "30%", padding: "20px" }}>
+          <div
+            style={{
+              padding: "20px",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+              backgroundColor: "#f9f9f9",
+            }}
+          >
+            <h3>Order Summary</h3>
             <p><strong>Item 1:</strong> Awesome Product</p>
             <p><strong>Item 2:</strong> Another Great Product</p>
             <p><strong>Total Price:</strong> $49.99</p>
+            <p style={{ fontWeight: "bold" }}>Total: $49.99</p>
           </div>
         </div>
-
-        {/* Payment Button */}
-        <div style={{ marginTop: "30px", display: "flex", justifyContent: "center" }}>
-          <button
-            type="submit"
-            style={{
-              padding: "12px 30px",
-              backgroundColor: "#4CAF50",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              fontSize: "16px",
-            }}
-          >
-            Confirm Payment
-          </button>
-        </div>
-      </form>
+      </div>
 
       {paymentStatus && (
         <div
