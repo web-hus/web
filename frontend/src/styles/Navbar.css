@@ -128,3 +128,25 @@
   text-align: center;
   white-space: nowrap; /* Ngăn không cho chữ bị xuống dòng */
 }
+
+.Icon .icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff; /* Ensure consistent icon color */
+  background-color: transparent; /* No dark background */
+  border-radius: 50%; /* Optional: for a circular container */
+  padding: 5px; /* Adds spacing */
+  transition: background-color 0.3s ease;
+}
+
+.Icon .icon-wrapper:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Slight hover effect */
+  color: #ffd700; /* Optional: Change color on hover */
+}
+
+.Icon .MuiSvgIcon-root {
+  font-size: 24px; /* Ensure consistent size */
+  color: inherit; /* Use inherited color */
+}
