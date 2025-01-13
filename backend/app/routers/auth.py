@@ -28,7 +28,7 @@ async def login(
             headers={"WWW-Authenticate": "Bearer"},
         )
     
-    token = signJWT(str(user.user_id), user.role)
+    token = signJWT(user_id=user.user_id,role= user.role)
     return {
         **token,
         "user_id": user.user_id,

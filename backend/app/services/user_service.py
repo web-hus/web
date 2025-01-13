@@ -14,7 +14,7 @@ class UserService:
         return query.offset(skip).limit(limit).all()
 
     @staticmethod
-    def get_user_by_email(db: Session, email: str):
+    async def get_user_by_email(db: Session, email: str):
         """Get user by email"""
         return db.query(user_model.User).filter(user_model.User.email == email).first()
 
@@ -53,3 +53,18 @@ class UserService:
         db.delete(user)
         db.commit()
         return {"message": "Đã xóa tài khoản thành công"}
+    
+    @staticmethod
+    async def authenticate_user(email:str, password: str, db:"Session"):
+        print("email:", email)
+        user = await UserService.get_user_by_email(email = email, db=db)
+        print("before authenticate")
+
+        if not user:
+            return False
+        if not user.verify_password(password):
+            return False
+        
+        print("after authenticate")
+        return user
+

@@ -16,5 +16,9 @@ class User(Base):
     password = Column(Text, nullable=False)
     role = Column(Integer, nullable=False, default=0)  # 0: Khách hàng, 1: Admin
     
+    def verify_password(self, password: str):
+        return password == self.password
+
+    
     def __repr__(self):
         return f"<User(user_id={self.user_id}, user_name={self.user_name}, email={self.email})>"

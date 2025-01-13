@@ -1,4 +1,4 @@
-from .. import crud, models, database
+from ...backend.app import crud, models, database
 from fastapi import APIRouter, HTTPException, Depends
 import fastapi.security as _security
 from sqlalchemy.orm import Session
