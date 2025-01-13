@@ -1,0 +1,88 @@
+.navbar .form-control {
+    width: 300px; /* Chiều rộng của thanh tìm kiếm */
+    height: 40px; /* Chiều cao của thanh tìm kiếm */
+    margin-right: 10px; /* Khoảng cách giữa thanh tìm kiếm và nút */
+}
+/* Định dạng chung cho bảng */
+.card-body {
+    margin: 20px 20px 70px 30px;
+}
+.table {
+    width: 100%;
+    margin: 20px 20px 0px 0px;
+    border-collapse: collapse;
+    max-width: 100%;
+  }
+
+  /* Thêm viền cho bảng */
+  .table, .table th, .table td {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  /* Định dạng các ô đầu tiên để căn trái */
+  .table th, .table td {
+    text-align: center;
+  }
+  
+.table th, .table td {
+  padding: 10px; /* Khoảng cách bên trong ô */
+  text-align: left; /* Căn trái nội dung */
+  border: 1px solid #ddd; /* Đường viền ô */
+}
+
+.Category {
+  display: flex;         /* Sử dụng Flexbox */
+  align-items: center;   /* Căn chỉnh các phần tử theo chiều dọc */
+  justify-content: space-between; /* Đảm bảo các phần tử có khoảng cách giữa chúng */
+}
+
+.Category button {
+  margin-left: 10px; /* Thêm khoảng cách giữa title và button */
+}
+
+/* Định dạng cho tiêu đề bảng (thead) */
+.table thead th {
+  background-color: #4CAF50; /* Màu nền tiêu đề */
+  color: white; /* Màu chữ tiêu đề */
+  text-align: center; /* Căn giữa tiêu đề */
+  padding: 12px 15px;
+  font-weight: bold;
+  white-space: nowrap; /* Không cho chữ xuống dòng */
+}
+
+.table thead th:first-child {
+  width: 5%; /* Cột STT */
+}
+
+.table thead th:nth-child(3) {
+  width: 40%; /* Cột Mô tả */
+}
+
+.table thead th:last-child {
+  width: 10%; /* Cột Trạng thái */
+}
+
+/* Định dạng cho cột STT */
+.table tbody th[scope="row"] {
+  background-color: #4CAF50; /* Màu nền tiêu đề */
+    color: white; /* Màu chữ tiêu đề */
+    text-align: center;
+    padding: 12px 15px;
+    font-weight: bold;
+}
+
+/* Màu xen kẽ cho các dòng */
+.table tbody tr:nth-child(odd) {
+  background-color: #ffbaba; /* Màu nền xám nhạt */
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #ffffff; /* Màu nền trắng */
+}
+
+/* Hiệu ứng hover cho từng dòng */
+.table tbody tr:hover {
+  background-color: #f1f8e9; /* Màu nền xanh lá nhạt khi hover */
+  transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu mượt */
+}

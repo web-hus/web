@@ -101,7 +101,7 @@ function Home_admin() {
                 </a>
                 <ul>
                   <li>
-                    <a href="elements-buttons-standard.html">
+                    <a href="/User_managment" target="_blank" rel="noopener noreferrer">
                       <i className="metismenu-icon"></i>
                       Danh sách khách hàng
                     </a>
