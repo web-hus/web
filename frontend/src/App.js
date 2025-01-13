@@ -18,12 +18,9 @@ import UserProfile from "./pages/test"; // UserProfile page
 import Cart from "./pages/Cart";
 import LostPassword from "./pages/Lost_Password";
 import NewPassword from "./pages/New_Password";
-import FoodDes from "./pages/Food_Des"; 
 import Home_admin from "./admin/pages/Home_admin"; 
 import Menu_managment from "./admin/pages/Menu_managment"
 import User_managment from "./admin/pages/User_managment"
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -55,7 +52,7 @@ function App() {
           <Route path="/Home_admin" exact element={<Home_admin />} />
           <Route path="/Menu_managment" exact element={<Menu_managment />} />
           <Route path="/User_managment" exact element={<User_managment />} />
-          
+
           <Route path="/Test" element={<UserProfile />} />
           <Route path="/Payment" element={<Payment />} />
           <Route path="/Cart" element={<Cart />} />
