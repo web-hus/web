@@ -2,9 +2,19 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 from ..models import user_model
 from fastapi import HTTPException
-from ..core.security import get_password_hash
+from ..core.security import get_password, verify_password
 
 class UserService:
+    @staticmethod
+    def authenticate_user(db: Session, email: str, password: str):
+        """Authenticate user with email and password"""
+        user = UserService.get_user_by_email(db, email)
+        if not user:
+            return None
+        if not verify_password(password, user.password):
+            return None
+        return user
+
     @staticmethod
     def get_users(db: Session, skip: int = 0, limit: int = 100, search: str = None):
         """Get list of users with optional name search"""
@@ -32,7 +42,11 @@ class UserService:
         if UserService.get_user_by_phone(db, user_data["phone"]):
             raise HTTPException(status_code=400, detail="Số điện thoại đã được đăng ký")
 
-        user_data["password"] = get_password_hash(user_data["password"])
+        user_data["created_at"] = datetime.utcnow()
+        user_data["updated_at"] = datetime.utcnow()
+        user_data["role"] = 0  # 0: Customer, 1: Admin
+        user_data["password"] = get_password(user_data["password"])
+
         db_user = user_model.User(**user_data)
         
         db.add(db_user)

@@ -1,27 +1,26 @@
-from pydantic import BaseModel, Field, conint, confloat
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional
 from datetime import datetime
 
 class DishBase(BaseModel):
-    dish_name: str = Field(..., min_length=2, max_length=100)
-    product_category: str = Field(..., min_length=2, max_length=50)
-    price: confloat(gt=0) = Field(..., description="Price must be greater than 0")
-    description: Optional[str] = Field(None, max_length=500)
-    availability: conint(ge=0, le=1) = Field(default=1)
+    dish_name: str
+    product_category: int
+    price: float = Field(..., gt=0)
+    description: Optional[str] = None
+    availability: int = Field(1, ge=0, le=1)  # 0: Hết hàng, 1: Còn hàng
 
 class DishCreate(DishBase):
     dish_id: str = Field(..., pattern=r'^D\d{3}$')
 
 class DishUpdate(BaseModel):
-    dish_name: Optional[str] = Field(None, min_length=2, max_length=100)
-    product_category: Optional[str] = Field(None, min_length=2, max_length=50)
-    price: Optional[confloat(gt=0)] = Field(None, description="Price must be greater than 0")
-    description: Optional[str] = Field(None, max_length=500)
-    availability: Optional[conint(ge=0, le=1)] = None
+    dish_name: Optional[str] = None
+    product_category: Optional[str] = None
+    price: Optional[float] = Field(None, gt=0)
+    description: Optional[str] = None
+    availability: Optional[int] = Field(None, ge=0, le=1)
 
 class Dish(DishBase):
-    dish_id: str = Field(..., pattern=r'^D\d{3}$')
-    created_at: datetime = Field(default_factory=datetime.now)
+    model_config = ConfigDict(from_attributes=True)
 
-    class Config:
-        from_attributes = True
+    dish_id: str = Field(..., pattern=r'^D\d{3}$')
+    created_at: datetime
