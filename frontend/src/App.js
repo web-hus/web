@@ -37,21 +37,6 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/log_sign_in" element={<LogSignIn />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/food/:id" element={<FoodDes />} />
-          <Route path="/Test" element={<UserProfile />} />
-          <Route path="/Payment" element={<Payment />} />
-          <Route path="/Cart" element={<Cart />} />
-          <Route path="/set_table" element={<SetTable />} />
-          <Route path="/LostPassword" exact element={<LostPassword />} />
-          <Route path="/NewPassword" exact element={<NewPassword />} />
-
-
           {/* Conditionally protect the /set_table route */}
           {/* <Route
             path="/set_table"
@@ -66,9 +51,17 @@ function App() {
           <Route path="/log_sign_in" exact element={<LogSignIn />} />
           <Route path="/news" exact element={<News />} />
           <Route path="/food/:id" exact element={<FoodDes />} />
+
           <Route path="/Home_admin" exact element={<Home_admin />} />
           <Route path="/Menu_managment" exact element={<Menu_managment />} />
           <Route path="/User_managment" exact element={<User_managment />} />
+          
+          <Route path="/Test" element={<UserProfile />} />
+          <Route path="/Payment" element={<Payment />} />
+          <Route path="/Cart" element={<Cart />} />
+          <Route path="/set_table" element={<SetTable />} />
+          <Route path="/LostPassword" exact element={<LostPassword />} />
+          <Route path="/NewPassword" exact element={<NewPassword />} />
         </Routes>
         <Footer />
       </Router>
