@@ -5,6 +5,7 @@ import bannerVideo from "../assets/Now_in_your_area.mp4";
 
 function Home() {
   return (
+    
     <div className="home">
       <video className="background-video" autoPlay loop muted>
         <source src={bannerVideo} type="video/mp4" />

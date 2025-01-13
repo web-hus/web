@@ -17,10 +17,10 @@ class Dish(Base):
     price = Column(Float)
     description = Column(Text)
     created_at = Column(DateTime)
-    availability = Column(Boolean)
+    availability = Column(Integer, default=0)
 
     def __repr__(self):
-        return f"<Dish(dish_id={self.dish_id}, dish_name={self.dish_name}, price={self.price})>"
+        return f"<Dish(dish_id={self.dish_id}, dish_name={self.dish_name}, product_category={self.product_category}, price={self.price}, description={self.description}, availability={self.availability})>"
 
 class User(Base):
     __tablename__ = 'users'
@@ -32,9 +32,9 @@ class User(Base):
     address = Column(Text, nullable=False)
     email = Column(String(255), unique=True, nullable=False)
     phone = Column(String(15), unique=True, nullable=False)
-    created_at = Column(DateTime, default=func.now())  # Set default for created_at
-    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())  # Auto update the timestamp
-    password = Column(Text, nullable=False)  # Will store the hashed password
+    created_at = Column(DateTime, default=func.now())  
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+    password = Column(Text, nullable=False)  
     role = Column(Integer, nullable=False, default=0)  # 0: Customer, 1: Admin
         
     def verify_password(self, password: str):
