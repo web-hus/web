@@ -20,7 +20,7 @@ async def login(
     - username: email của user
     - password: mật khẩu
     """
-    user = UserService.authenticate_user(db, form_data.username, form_data.password)
+    user = await UserService.authenticate_user(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

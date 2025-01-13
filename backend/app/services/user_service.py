@@ -1,12 +1,14 @@
 from sqlalchemy.orm import Session
+from fastapi import Depends
 from datetime import datetime
 from ..models import user_model
 from fastapi import HTTPException
 from ..core.security import get_password_hash
+from ..database import get_db
 
 class UserService:
     @staticmethod
-    def get_users(db: Session, skip: int = 0, limit: int = 100, search: str = None):
+    async def get_users(db: Session, skip: int = 0, limit: int = 100, search: str = None):
         """Get list of users with optional name search"""
         query = db.query(user_model.User)
         if search:
@@ -19,17 +21,17 @@ class UserService:
         return db.query(user_model.User).filter(user_model.User.email == email).first()
 
     @staticmethod
-    def get_user_by_phone(db: Session, phone: str):
+    async def get_user_by_phone(db: Session, phone: str):
         """Get user by phone"""
         return db.query(user_model.User).filter(user_model.User.phone == phone).first()
 
     @staticmethod
-    def create_user(db: Session, user_data: dict):
+    async def create_user(db: Session, user_data: dict):
         """Create new user"""
-        if UserService.get_user_by_email(db, user_data["email"]):
+        if await UserService.get_user_by_email(db=db, email=user_data["email"]):
             raise HTTPException(status_code=400, detail="Email đã được đăng ký")
         
-        if UserService.get_user_by_phone(db, user_data["phone"]):
+        if await UserService.get_user_by_phone(db=db, phone=user_data["phone"]):
             raise HTTPException(status_code=400, detail="Số điện thoại đã được đăng ký")
 
         user_data["password"] = get_password_hash(user_data["password"])
@@ -41,7 +43,7 @@ class UserService:
         return db_user
 
     @staticmethod
-    def delete_user(db: Session, user_id: int):
+    async def delete_user(db: Session, user_id: int):
         """Delete user account"""
         user = db.query(user_model.User).filter(user_model.User.user_id == user_id).first()
         if not user:
@@ -53,18 +55,13 @@ class UserService:
         db.delete(user)
         db.commit()
         return {"message": "Đã xóa tài khoản thành công"}
-    
-    @staticmethod
-    async def authenticate_user(email:str, password: str, db:"Session"):
-        print("email:", email)
-        user = await UserService.get_user_by_email(email = email, db=db)
-        print("before authenticate")
 
+    @staticmethod
+    async def authenticate_user(db: Session, email: str, password: str):
+        """Authenticate user by email and password"""
+        user = await UserService.get_user_by_email(db=db, email=email)
         if not user:
             return False
         if not user.verify_password(password):
             return False
-        
-        print("after authenticate")
         return user
-
