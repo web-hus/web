@@ -27,7 +27,7 @@ def create_cart(
     return CartService.create_cart(db=db, cart_data=cart)
 
 @router.get("/{cart_id}", response_model=Cart)
-def get_cart(
+async def get_cart(
     cart_id: int,
     db: Session = Depends(get_db),
     current_user: dict = Depends(get_current_user)

@@ -32,7 +32,7 @@ function Navbar() {
 
   useEffect(() => {
     // Close the popup whenever the route changes
-    setShowSearchPopup(false);
+    setShowSearchPopup(false); 
   }, [location]);
 
   return (
@@ -48,6 +48,8 @@ function Navbar() {
           <Link to="/news">Tin tức</Link>
           <Link to="/contact">Liên hệ</Link>
           <Link to="/set_table">Đặt bàn</Link>
+          <Link to="/Home_admin">Admin</Link>
+
           {isAuthenticated && (
             <Link to="/" className="nav-link" onClick={handleLogout}>
               Đăng xuất
@@ -55,9 +57,9 @@ function Navbar() {
           )}
         </div>
         <div className="Icon">
-          <div className="icon-wrapper" onClick={toggleSearchPopup}>
+          {/* <div className="icon-wrapper" onClick={toggleSearchPopup}>
             <SearchIcon />
-          </div>
+          </div> */}
           <Link to="/Cart">
             <ShoppingCartIcon />
           </Link>

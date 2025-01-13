@@ -21,7 +21,7 @@ export const loginUser = async (loginData) => {
     console.log("email is", loginData.email)
     console.log("password is", loginData.password)
     const formData = new URLSearchParams();
-    formData.append('grant_type', 'password');
+    formData.append('grant_type', '');
     formData.append('username', loginData.email);
     formData.append('password', loginData.password);
     formData.append('scope', '');
@@ -30,7 +30,7 @@ export const loginUser = async (loginData) => {
     // Send POST request with form data
     console.log(formData.toString());  // Outputs the URL-encoded data string
 
-    const response = await axios.post('/login',formData, {
+    const response = await axios.post('/api/auth/auth/token',formData, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded', // Ensure correct content type
       }
@@ -43,7 +43,7 @@ export const loginUser = async (loginData) => {
 
     // Store the token in localStorage
     localStorage.setItem('authToken', token);
-
+    
     // Redirect to another page after successful login
     window.location.href = '/'; // Thay bằng '/test' để thử API đăng nhập
 
