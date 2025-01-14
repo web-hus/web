@@ -54,9 +54,10 @@ const Cart = () => {
     }
 
     try {
-      const response = await axios.put(
-        `${API_URL}/update-quantity/${cart.cart_id}/${dishId}?quantity=${quantity}`,
+      const response =await axios.put(
+        `${API_URL}/update-quantity/${cart.cart_id}/${dishId}`,null,
         {
+          params: { quantity },
           headers: {
             Authorization: `Bearer ${token}`,
           },

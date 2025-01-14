@@ -87,7 +87,7 @@ def remove_dish_from_cart(
     return CartService.remove_dish_from_cart(db=db, cart_id=cart_id, dish_id=dish_id)
 
 @router.put("/update-quantity/{cart_id}/{dish_id}", response_model=Cart)
-def update_dish_quantity(
+async def update_dish_quantity(
     cart_id: int,
     dish_id: str,
     quantity: int,
@@ -96,6 +96,8 @@ def update_dish_quantity(
 ):
     """Cập nhật số lượng món ăn trong giỏ hàng"""
     cart = CartService.get_cart(db=db, cart_id=cart_id)
+    print(f"Current User: {current_user}")
+    print(f"Cart User ID: {cart.user_id}")
     if current_user["user_id"] != cart.user_id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
