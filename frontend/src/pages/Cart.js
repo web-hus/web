@@ -3,16 +3,18 @@ import axios from "axios";
 import "../styles/Cart.css";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { getUserProfile } from "../api/userAPI"; // Import the user profile API
+import { getDishById } from "../api/dishesApi"; // Import getDishById function
 
 const Cart = () => {
   const [cart, setCart] = useState(null); // Holds the entire cart response
+  const [dishes, setDishes] = useState([]); // Store the dish details after fetching
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const API_URL = "/api/cart/cart"; // Replace with your FastAPI server URL
   const navigate = useNavigate(); // Hook for navigation
 
-  // Fetch user's cart
+  // Fetch user's cart and fetch dish details
   useEffect(() => {
     const fetchCart = async () => {
       try {
@@ -24,13 +26,23 @@ const Cart = () => {
           throw new Error("Authorization token is missing.");
         }
 
+        // Fetch cart data
         const response = await axios.get(`${API_URL}/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        setCart(response.data); // Set the cart data
+        // Fetch dish details for each item in the cart
+        const fetchedDishes = await Promise.all(
+          response.data.dishes.map(async (item) => {
+            const dishDetails = await getDishById(item.dish_id); // Fetch dish details by ID
+            return { ...item, dish: dishDetails }; // Merge dish details with cart item
+          })
+        );
+
+        setCart(response.data); // Set cart data
+        setDishes(fetchedDishes); // Set the fetched dish details
       } catch (err) {
         console.error("Failed to fetch cart:", err);
         setError(err.response?.data?.detail || "Failed to fetch cart.");
@@ -86,6 +98,7 @@ const Cart = () => {
       );
 
       setCart(response.data); // Update cart with the new response
+      setDishes(dishes.filter((dish) => dish.dish_id !== dishId)); // Remove dish from state
     } catch (err) {
       console.error("Failed to remove dish:", err);
       alert("Error removing dish.");
@@ -102,6 +115,14 @@ const Cart = () => {
     navigate("/Payment"); // Navigate to the checkout page
   };
 
+  // Inline function to format price as currency
+  const formatPrice = (price) => {
+    if (isNaN(price) || price == null) {
+      return "0đ"; // Default price if the value is invalid
+    }
+    return `${price.toLocaleString()}đ`;
+  };
+
   if (loading) {
     return <p>Loading your cart...</p>;
   }
@@ -110,7 +131,14 @@ const Cart = () => {
     return <p>{error}</p>;
   }
 
-  const { dishes } = cart;
+  // Calculate subtotal for the cart
+  const subtotal = dishes.reduce((sum, item) => {
+    const dish = item.dish; // Accessing dish object from item
+    if (dish && dish.price) {
+      return sum + dish.price * item.quantity;
+    }
+    return sum; // Avoids the error and keeps sum intact
+  }, 0);
 
   return (
     <div className="cart">
@@ -121,56 +149,78 @@ const Cart = () => {
         <table className="cart-table">
           <thead>
             <tr>
-              <th>Dish ID</th>
+              <th>Dish</th>
               <th>Quantity</th>
+              <th>Price</th>
+              <th>Subtotal</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {dishes.map((dish) => (
-              <tr key={dish.dish_id}>
-                <td>{dish.dish_id}</td>
-                <td>
-                  <div className="quantity">
-                    <button
-                      onClick={() =>
-                        updateQuantity(dish.dish_id, Math.max(dish.quantity - 1, 1))
-                      }
-                    >
-                      -
-                    </button>
-                    <input
-                      type="number"
-                      value={dish.quantity}
-                      onChange={(e) =>
-                        updateQuantity(dish.dish_id, parseInt(e.target.value) || 1)
-                      }
-                      min="1"
-                    />
-                    <button
-                      onClick={() => updateQuantity(dish.dish_id, dish.quantity + 1)}
-                    >
-                      +
-                    </button>
-                  </div>
-                </td>
-                <td>
-                  <button
-                    className="remove-btn"
-                    onClick={() => removeDish(dish.dish_id)}
-                  >
-                    X
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {dishes.map((item) => {
+              const dish = item.dish; // Destructure dish details from the item
+              if (dish) {
+                const subtotal = dish.price * item.quantity;
+                return (
+                  <tr key={item.dish_id}>
+                    <td>
+                      <div className="dish-details">
+                        <img
+                          src={`/images/food_img/${dish.dish_id}.jpg`}
+                          alt={dish.dish_name}
+                          className="product-image"
+                        />
+                        <span>{dish.dish_name}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="quantity">
+                        <button
+                          onClick={() =>
+                            updateQuantity(item.dish_id, Math.max(item.quantity - 1, 1))
+                          }
+                        >
+                          -
+                        </button>
+                        <input
+                          type="number"
+                          value={item.quantity}
+                          onChange={(e) =>
+                            updateQuantity(item.dish_id, parseInt(e.target.value) || 1)
+                          }
+                          min="1"
+                        />
+                        <button
+                          onClick={() => updateQuantity(item.dish_id, item.quantity + 1)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </td>
+                    <td>{formatPrice(dish.price)}</td>
+                    <td>{formatPrice(subtotal)}</td>
+                    <td>
+                      <button
+                        className="remove-btn"
+                        onClick={() => removeDish(item.dish_id)}
+                      >
+                        X
+                      </button>
+                    </td>
+                  </tr>
+                );
+              } else {
+                return null; // Handle case where dish details are missing
+              }
+            })}
           </tbody>
         </table>
       )}
 
       <div className="cart-summary">
         <h3>Cart Summary</h3>
-        <p>Total Items: {dishes.reduce((sum, dish) => sum + dish.quantity, 0)}</p>
+        <p>Total Items: {dishes.reduce((sum, item) => sum + item.quantity, 0)}</p>
+        <p>Subtotal: {formatPrice(subtotal)}</p>
         <p>Last Updated: {new Date(cart.updated_at).toLocaleString()}</p>
       </div>
 
