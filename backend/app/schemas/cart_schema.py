@@ -3,7 +3,7 @@ from typing import List, Optional
 from datetime import datetime
 
 class CartDishBase(BaseModel):
-    dish_id: int
+    dish_id: str
     quantity: int = Field(..., gt=0)
 
 class CartDishCreate(CartDishBase):
