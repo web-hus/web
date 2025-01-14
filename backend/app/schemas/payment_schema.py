@@ -1,25 +1,22 @@
-from pydantic import BaseModel, Field, confloat
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional
 from datetime import datetime
 
 class PaymentBase(BaseModel):
-    cart_id: str = Field(..., pattern=r'^C\d{3}$')
-    amount: confloat(gt=0)
-    payment_method: str = Field(..., pattern=r'^(cash|credit_card|bank_transfer)$')
-    status: str = Field(default="pending", pattern=r'^(pending|completed|failed)$')
+    user_id: int
+    order_id: int
+    amount: float = Field(..., gt=0)
+    payment_method: int = Field(..., ge=0, le=1)  # 0: Online, 1: Khi nhận hàng
+    payment_status: int = Field(..., ge=0, le=2)  # 0: Đang xử lý, 1: Đã thanh toán, 2: Hoàn tiền
+    payment_date: datetime
 
 class PaymentCreate(PaymentBase):
     pass
 
-class PaymentUpdate(BaseModel):
-    status: Optional[str] = Field(None, pattern=r'^(pending|completed|failed)$')
-    payment_method: Optional[str] = Field(None, pattern=r'^(cash|credit_card|bank_transfer)$')
+class PaymentStatusUpdate(BaseModel):
+    status: int = Field(..., ge=0, le=2)  # 0: Đang xử lý, 1: Đã thanh toán, 2: Hoàn tiền
 
 class Payment(PaymentBase):
-    payment_id: str = Field(..., pattern=r'^P\d{3}$')
-    user_id: str = Field(..., pattern=r'^U\d{3}$')
-    created_at: datetime = Field(default_factory=datetime.now)
-    updated_at: datetime = Field(default_factory=datetime.now)
-
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
+    
+    payment_id: int
