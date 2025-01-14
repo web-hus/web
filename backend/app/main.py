@@ -8,6 +8,7 @@ from .routers import (
     navigation_router,
     booking_router,
     order_router,
+    cart_router,
 )
 from .routers.profile import router as profile_router
 from .Admin.routers.admin import router as admin_router
@@ -39,6 +40,8 @@ app.include_router(navigation_router, prefix="/api/navigation", tags=["navigatio
 app.include_router(booking_router, prefix="/api/bookings", tags=["bookings"])
 app.include_router(order_router, prefix="/api/orders", tags=["orders"])
 app.include_router(profile_router, prefix="/api/profile", tags=["profile"])
+app.include_router(cart_router, prefix="/api/cart", tags=["cart"])
+
 app.include_router(admin_router)
 
 @app.get("/")
