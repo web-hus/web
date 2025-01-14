@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getDishById } from "../api/dishesApi"; // API lấy dữ liệu món ăn theo ID
+import { getDishById, addToCart, getCartById } from "../api/dishesApi"; // Import the new API function
 import "../styles/Food_Des.css";
 
 function FoodDes() {
   const { id } = useParams(); // Lấy `dish_id` từ URL
   const [dish, setDish] = useState(null);
   const [quantity, setQuantity] = useState(1); // State để quản lý số lượng
+  const [message, setMessage] = useState(""); // State to display success/error messages
+  const [cartId, setCartId] = useState(null); // State for the cart ID
 
+  // Fetch the dish details
   useEffect(() => {
     const fetchDish = async () => {
       try {
@@ -20,6 +23,20 @@ function FoodDes() {
 
     fetchDish();
   }, [id]);
+
+  // Fetch the cart ID
+  useEffect(() => {
+    const fetchCart = async () => {
+      try {
+        const cartData = await getCartById(1); // Replace 1 with the actual cart ID if dynamic
+        setCartId(cartData.cart_id);
+      } catch (error) {
+        console.error("Failed to fetch cart ID:", error);
+      }
+    };
+
+    fetchCart();
+  }, []);
 
   if (!dish) {
     return <p>Loading...</p>;
@@ -43,6 +60,26 @@ function FoodDes() {
 
   const decrementQuantity = () => {
     setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
+  };
+
+  const handleAddToCart = async () => {
+    try {
+      if (!cartId) {
+        throw new Error("Cart ID not found.");
+      }
+
+      const cartData = {
+        cart_id: cartId, // Use the fetched cart ID
+        dish_id: dish.dish_id,
+        quantity: quantity,
+      };
+
+      const response = await addToCart(cartData); // Call Add to Cart API
+      setMessage(response.message || "Đã thêm vào giỏ hàng!"); // Display success message
+    } catch (error) {
+      console.error("Failed to add to cart:", error);
+      setMessage("Có lỗi xảy ra khi thêm vào giỏ hàng.");
+    }
   };
 
   return (
@@ -94,7 +131,10 @@ function FoodDes() {
                     +
                   </button>
                 </div>
-                <button className="addToCartBtn">Thêm vào giỏ hàng</button>
+                <button className="addToCartBtn" onClick={handleAddToCart}>
+                  Thêm vào giỏ hàng
+                </button>
+                {message && <p className="message">{message}</p>}
               </div>
             </div>
           </div>
