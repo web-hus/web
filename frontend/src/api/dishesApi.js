@@ -21,6 +21,17 @@ export const getDishById = async (id) => {
   }
 };
 
+export const createCart = async () => {
+  try {
+    const response = await axios.post(`/api/cart/cart`); // Make the POST request to create a new cart
+    return response.data; // Return the response data, which should be the cart object
+  } catch (error) {
+    console.error('Tạo giỏ hàng thất bại:', error); // Handle error if the request fails
+    throw error; // Throw error to be handled by the calling function
+  }
+};
+
+
 export const addToCart = async (cartData) => {
   try {
     const response = await axios.post("/api/cart/cart/add-dish", cartData, {

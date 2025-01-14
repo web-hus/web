@@ -95,8 +95,6 @@ function Log_Sign_In() {
           default:
             setError("Đã có lỗi xảy ra. Vui lòng thử lại.");
         }
-      } else {
-        setError("Lỗi kết nối. Vui lòng kiểm tra mạng.");
       }
     }
   };
