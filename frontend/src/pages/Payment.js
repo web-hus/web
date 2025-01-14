@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Payment.css";
 import { getUserProfile } from "../api/userAPI"; // Import the user profile API
-
+import { getDishById } from "../api/dishesApi"; // Import the dish API function
 
 const Payment = () => {
   const [order, setOrder] = useState({
@@ -18,19 +18,20 @@ const Payment = () => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [dishes, setDishes] = useState([]); // Store the fetched dish details
 
   const API_URL = "/api/cart/cart"; // Adjust this with your API endpoint
 
   // Retrieve the JWT token from localStorage
   const getAuthToken = () => localStorage.getItem("authToken");
 
-  // Fetch cart data from the API
+  // Fetch cart data and dish details
   useEffect(() => {
     const fetchCart = async () => {
       const token = getAuthToken();
       const userProfile = await getUserProfile(); // Get user profile
       const userId = userProfile.user_id; // Extract user_id
-      
+
       if (!token) {
         setError("Authorization token is missing.");
         setLoading(false);
@@ -47,9 +48,18 @@ const Payment = () => {
         // Log the response data to inspect the structure
         console.log("Cart data:", response.data);
 
-        // Assuming the API returns the cart in response.data.dishes
         if (response.data && response.data.dishes) {
           setCart(response.data.dishes);
+
+          // Fetch dish details for each item in the cart
+          const dishDetails = await Promise.all(
+            response.data.dishes.map(async (item) => {
+              const dishData = await getDishById(item.dish_id); // Fetch dish details by ID
+              return { ...item, dish: dishData }; // Add dish details to the item
+            })
+          );
+
+          setDishes(dishDetails); // Store the fetched dishes in state
         } else {
           setError("Cart data is missing the 'dishes' field.");
         }
@@ -65,10 +75,10 @@ const Payment = () => {
   }, []);
 
   // Calculate subtotal for the cart
-  const subtotal = cart.reduce((sum, item) => {
-    // Ensure 'dish' and 'dish.price' exist before accessing them
-    if (item.dish && item.dish.price) {
-      return sum + item.dish.price * item.quantity;
+  const subtotal = dishes.reduce((sum, item) => {
+    const dish = item.dish; // Accessing dish object from item
+    if (dish && dish.price) {
+      return sum + dish.price * item.quantity;
     } else {
       console.error("Dish or dish.price is undefined for item:", item);
       return sum; // Avoids the error and keeps sum intact
@@ -171,24 +181,27 @@ const Payment = () => {
 
         {/* Order Summary */}
         <div className="order-summary">
-          <h2>Đơn hàng ({cart.length} sản phẩm)</h2>
+          <h2>Đơn hàng ({dishes.length} sản phẩm)</h2>
           <ul>
-            {cart.map((item, index) => {
+            {dishes.map((item, index) => {
               const dish = item.dish; // Destructure dish from the item
-              // Check if the dish and its properties exist before rendering
               if (dish && dish.dish_name && dish.price) {
+                const fileExtension = dish.dish_name.toLowerCase().includes("png")
+                  ? "png"
+                  : "jpg";
                 return (
                   <li key={index}>
                     <div className="product-details">
                       <img
-                        src={dish.image || "https://via.placeholder.com/50"} // Fallback image if no dish image
+                        src={`/images/food_img/${dish.dish_id}.${fileExtension}`}
                         alt={dish.dish_name}
+                        className="product-image"
                       />
                       <span>{dish.dish_name}</span>
                     </div>
-                    <span>{dish.price}đ</span>
+                    <span>{dish.price.toLocaleString()}đ</span>
                     <span>x {item.quantity}</span>
-                    <span>{dish.price * item.quantity}đ</span>
+                    <span>{(dish.price * item.quantity).toLocaleString()}đ</span>
                   </li>
                 );
               } else {
@@ -198,10 +211,10 @@ const Payment = () => {
             })}
           </ul>
           <div className="summary">
-            <p>Tạm tính: {subtotal}đ</p>
+            <p>Tạm tính: {subtotal.toLocaleString()}đ</p>
             <p>Phí vận chuyển: -</p>
             <p>
-              <strong>Tổng cộng: {subtotal}đ</strong>
+              <strong>Tổng cộng: {subtotal.toLocaleString()}đ</strong>
             </p>
           </div>
           <button className="order-button">Đặt hàng</button>
