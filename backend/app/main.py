@@ -9,6 +9,7 @@ from .routers import (
     booking_router,
     order_router,
     cart_router,
+    dish_router,
 )
 from .routers.profile import router as profile_router
 from .Admin.routers.admin import router as admin_router
@@ -41,8 +42,11 @@ app.include_router(booking_router, prefix="/api/bookings", tags=["bookings"])
 app.include_router(order_router, prefix="/api/orders", tags=["orders"])
 app.include_router(profile_router, prefix="/api/profile", tags=["profile"])
 app.include_router(cart_router, prefix="/api/cart", tags=["cart"])
+app.include_router(dish_router, prefix="/api/dish", tags=["dish"])
+     
 
 app.include_router(admin_router)
+
 
 @app.get("/")
 def read_root():

@@ -19,13 +19,16 @@ def check_admin(token: str = Depends(JWTBearer())):
         raise HTTPException(status_code=403, detail="Cần quyền truy cập của Admin")
     return user_data
 
+def get_current_user(token: str = Depends(JWTBearer())):
+    return decodeJWT(token)
+
 @router.get("/", response_model=List[dish_schema.Dish])
-def get_dishes(
+def get_dishes( 
     skip: int = 0,
     limit: int = 100,
     category: Optional[str] = None,
     db: Session = Depends(get_db),
-    admin: dict = Depends(check_admin)
+    user: dict = Depends(get_current_user)
 ):
     """Get list of dishes with optional category filter"""
     return DishService.get_dishes(db, skip=skip, limit=limit, category=category)
