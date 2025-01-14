@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getDishById, addToCart, getCartById } from "../api/dishesApi"; // Import the new API function
+import { getDishById, addToCart, getCartById } from "../api/dishesApi";
 import "../styles/Food_Des.css";
+import { getUserProfile } from "../api/userAPI";
 
 function FoodDes() {
-  const { id } = useParams(); // Lấy `dish_id` từ URL
+  const { id } = useParams();
   const [dish, setDish] = useState(null);
-  const [quantity, setQuantity] = useState(1); // State để quản lý số lượng
-  const [message, setMessage] = useState(""); // State to display success/error messages
-  const [cartId, setCartId] = useState(null); // State for the cart ID
+  const [quantity, setQuantity] = useState(1);
+  const [message, setMessage] = useState("");
+  const [cartId, setCartId] = useState(null);
 
-  // Fetch the dish details
   useEffect(() => {
     const fetchDish = async () => {
       try {
-        const data = await getDishById(id); // Gọi API lấy thông tin món ăn
+        const data = await getDishById(id);
         setDish(data);
       } catch (error) {
         console.error("Failed to fetch dish:", error);
@@ -24,11 +24,13 @@ function FoodDes() {
     fetchDish();
   }, [id]);
 
-  // Fetch the cart ID
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const cartData = await getCartById(1); // Replace 1 with the actual cart ID if dynamic
+        const userProfile = await getUserProfile();
+        const userId = userProfile.user_id;
+
+        const cartData = await getCartById(userId);
         setCartId(cartData.cart_id);
       } catch (error) {
         console.error("Failed to fetch cart ID:", error);
@@ -44,7 +46,7 @@ function FoodDes() {
 
   const fileExtension = dish.dish_name.toLowerCase().includes("png")
     ? "png"
-    : "jpg"; // Xác định định dạng ảnh
+    : "jpg";
   const encodedIDName = encodeURIComponent(dish.dish_id);
 
   const handleQuantityChange = (e) => {
@@ -69,13 +71,13 @@ function FoodDes() {
       }
 
       const cartData = {
-        cart_id: cartId, // Use the fetched cart ID
+        cart_id: cartId,
         dish_id: dish.dish_id,
         quantity: quantity,
       };
 
-      const response = await addToCart(cartData); // Call Add to Cart API
-      setMessage(response.message || "Đã thêm vào giỏ hàng!"); // Display success message
+      const response = await addToCart(cartData);
+      setMessage(response.message || "Đã thêm vào giỏ hàng!");
     } catch (error) {
       console.error("Failed to add to cart:", error);
       setMessage("Có lỗi xảy ra khi thêm vào giỏ hàng.");

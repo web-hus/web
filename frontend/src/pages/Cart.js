@@ -1,42 +1,39 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Cart.css";
-import { useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { getUserProfile } from "../api/userAPI"; // Import the user profile API
 
 const Cart = () => {
   const [cart, setCart] = useState(null); // Holds the entire cart response
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // API base URL
   const API_URL = "/api/cart/cart"; // Replace with your FastAPI server URL
-
-  // Retrieve the JWT token from localStorage
-  const getAuthToken = () => localStorage.getItem("authToken");
-
-  // Use navigate for page navigation
   const navigate = useNavigate(); // Hook for navigation
 
-  // Fetch user's cart on component mount
+  // Fetch user's cart
   useEffect(() => {
     const fetchCart = async () => {
-      const token = getAuthToken();
-      if (!token) {
-        setError("Authorization token is missing.");
-        setLoading(false);
-        return; // Exit early if token is missing
-      }
-
       try {
-        const response = await axios.get(`${API_URL}/1`, {
+        const userProfile = await getUserProfile(); // Get user profile
+        const userId = userProfile.user_id; // Extract user_id
+
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          throw new Error("Authorization token is missing.");
+        }
+
+        const response = await axios.get(`${API_URL}/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setCart(response.data);
+
+        setCart(response.data); // Set the cart data
       } catch (err) {
-        setError("Failed to fetch cart data.");
-        console.error(err);
+        console.error("Failed to fetch cart:", err);
+        setError(err.response?.data?.detail || "Failed to fetch cart.");
       } finally {
         setLoading(false);
       }
@@ -47,15 +44,15 @@ const Cart = () => {
 
   // Update the quantity of a dish
   const updateQuantity = async (dishId, quantity) => {
-    const token = getAuthToken();
-    if (!token) {
-      alert("Authorization token is missing.");
-      return;
-    }
-
     try {
-      const response =await axios.put(
-        `${API_URL}/update-quantity/${cart.cart_id}/${dishId}`,null,
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        throw new Error("Authorization token is missing.");
+      }
+
+      const response = await axios.put(
+        `${API_URL}/update-quantity/${cart.cart_id}/${dishId}`,
+        null,
         {
           params: { quantity },
           headers: {
@@ -63,7 +60,8 @@ const Cart = () => {
           },
         }
       );
-      setCart(response.data);
+
+      setCart(response.data); // Update cart with the new response
     } catch (err) {
       console.error("Failed to update quantity:", err);
       alert("Error updating quantity.");
@@ -72,13 +70,12 @@ const Cart = () => {
 
   // Remove a dish from the cart
   const removeDish = async (dishId) => {
-    const token = getAuthToken();
-    if (!token) {
-      alert("Authorization token is missing.");
-      return;
-    }
-
     try {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        throw new Error("Authorization token is missing.");
+      }
+
       const response = await axios.delete(
         `${API_URL}/remove-dish/${cart.cart_id}/${dishId}`,
         {
@@ -87,7 +84,8 @@ const Cart = () => {
           },
         }
       );
-      setCart(response.data);
+
+      setCart(response.data); // Update cart with the new response
     } catch (err) {
       console.error("Failed to remove dish:", err);
       alert("Error removing dish.");
@@ -96,14 +94,12 @@ const Cart = () => {
 
   // Redirect to checkout page
   const handleCheckout = () => {
-    // If cart is empty, show an alert and return early
     if (cart.dishes.length === 0) {
       alert("Your cart is empty! Add some items before proceeding.");
       return;
     }
-    
-    // Navigate to the checkout page (replace with actual checkout URL)
-    navigate("/Payment"); // You can change '/checkout' to the actual route for payment
+
+    navigate("/Payment"); // Navigate to the checkout page
   };
 
   if (loading) {
