@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Payment.css";
+import { getUserProfile } from "../api/userAPI"; // Import the user profile API
+
 
 const Payment = () => {
   const [order, setOrder] = useState({
@@ -26,6 +28,9 @@ const Payment = () => {
   useEffect(() => {
     const fetchCart = async () => {
       const token = getAuthToken();
+      const userProfile = await getUserProfile(); // Get user profile
+      const userId = userProfile.user_id; // Extract user_id
+      
       if (!token) {
         setError("Authorization token is missing.");
         setLoading(false);
@@ -33,7 +38,7 @@ const Payment = () => {
       }
 
       try {
-        const response = await axios.get(`${API_URL}/1`, {
+        const response = await axios.get(`${API_URL}/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
