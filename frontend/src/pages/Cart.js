@@ -61,7 +61,8 @@ const Cart = () => {
       if (!token) {
         throw new Error("Authorization token is missing.");
       }
-
+  
+      // Send the updated quantity to the backend
       const response = await axios.put(
         `${API_URL}/update-quantity/${cart.cart_id}/${dishId}`,
         null,
@@ -72,13 +73,24 @@ const Cart = () => {
           },
         }
       );
-
-      setCart(response.data); // Update cart with the new response
+  
+      // After successfully updating the quantity, update the state locally
+      const updatedDishes = dishes.map((item) => {
+        if (item.dish_id === dishId) {
+          return { ...item, quantity }; // Update the quantity for the corresponding dish
+        }
+        return item;
+      });
+  
+      setDishes(updatedDishes); // Update the dishes state to reflect the new quantity
+      setCart(response.data); // Update cart data (to sync with the backend)
+  
     } catch (err) {
       console.error("Failed to update quantity:", err);
       alert("Error updating quantity.");
     }
   };
+  
 
   // Remove a dish from the cart
   const removeDish = async (dishId) => {
