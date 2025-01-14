@@ -103,4 +103,9 @@
     opacity: 1; /* Đảm bảo opacity của placeholder không bị giảm */
   }
 
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
   

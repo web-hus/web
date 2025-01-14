@@ -4,11 +4,36 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..services.user_service import UserService
 from ..auth.auth_handler import signJWT
-
+from ..schemas.user_schema import UserCreate
+from ..models.user_model import User
 router = APIRouter(
     prefix="/auth",
     tags=["auth"]
 )
+
+@router.post("/register")
+async def register_user(user: UserCreate, db: Session = Depends(get_db)):
+    # Kiểm tra email đã tồn tại chưa
+    existing_user = db.query(User).filter(User.email == user.email).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    
+    # Tạo user mới
+    new_user = User(
+        user_name=user.user_name,
+        age=user.age,
+        gender=user.gender,
+        address=user.address,
+        phone=user.phone,
+        email=user.email,
+        # password=_hash.bcrypt.hash(user.password),  # Mã hóa password
+        password = user.password,
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return {"message": "User registered successfully", "user_id": new_user.user_id}
+
 
 @router.post("/token")
 async def login(

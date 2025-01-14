@@ -1,43 +1,45 @@
 import React, { useState } from "react";
 import "../styles/Log_Sign_In.css";
 import { registerUser, loginUser } from "../api/Log_Sign_In_Api"; // Import API
+import { createCart } from "../api/dishesApi" // Import createCart API"
 import { Link } from "react-router-dom";
 
 function Log_Sign_In() {
-  const [isLogin, setIsLogin] = useState(true); // Trạng thái để chuyển đổi giữa đăng nhập và đăng ký
+  const [isLogin, setIsLogin] = useState(true); // State to toggle between login and registration
   const [LoginFormData, setLoginFormData] = useState({
-    email:"",
-    password:""
+    email: "",
+    password: "",
   });
   const [RegisterFormData, setRegisterFormData] = useState({
     email: "",
     password: "",
     name: "",
-    age:"",
-    gender:"",
-    address:"",
+    age: "",
+    gender: "",
+    address: "",
     phone: "",
   });
-  const [error, setError] = useState(""); // Thêm state để lưu lỗi nếu có
+  const [error, setError] = useState(""); // State to store error messages
 
-  // Hàm xử lý sự kiện khi nhấn nút Đăng Nhập hoặc Đăng Ký
+  // Handle submit event for login or registration
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Reset lỗi mỗi khi người dùng nhấn submit
+    setError(""); // Reset error state each time the user submits
 
     try {
       if (isLogin) {
         console.log("Đăng nhập...");
-        // Gọi API đăng nhập
+        // Call API for login
         const response = await loginUser({
           email: LoginFormData.email,
           password: LoginFormData.password,
         });
+
         console.log("Đăng nhập thành công:", response);
         alert("Đăng nhập thành công!");
       } else {
         console.log("Đăng ký...");
-        // Gọi API đăng ký
+        // Call API for registration
         const response = await registerUser({
           email: RegisterFormData.email,
           password: RegisterFormData.password,
@@ -47,23 +49,55 @@ function Log_Sign_In() {
           address: RegisterFormData.address,
           phone: RegisterFormData.phone,
         });
+
         console.log("Đăng ký thành công:", response);
         alert("Đăng ký thành công! Vui lòng đăng nhập.");
 
-        // Reset lại form sau khi đăng ký thành công
+        // After successful registration, create an empty cart for the user
+        const cartData = {
+          user_id: response.user.id, // Assuming the response includes the user's ID
+        };
+
+        try {
+          // Create cart after registration
+          const cart = await createCart();
+          console.log("Giỏ hàng đã được tạo:", cart);
+        } catch (error) {
+          console.error("Lỗi khi tạo giỏ hàng:", error);
+        }
+
+        // Reset registration form data after successful registration
         setRegisterFormData({
           email: "",
           password: "",
           name: "",
-          age:"",
-          gender:"",
-          address:"",
+          age: "",
+          gender: "",
+          address: "",
           phone: "",
         });
       }
     } catch (err) {
       console.error("Lỗi:", err);
-      setError("Đã có lỗi xảy ra. Vui lòng thử lại.");
+
+      if (err.response) {
+        // Check the status code for specific error handling
+        switch (err.response.status) {
+          case 400:
+            setError("Email đã tồn tại hoặc thông tin không hợp lệ. Vui lòng kiểm tra lại.");
+            break;
+          case 401:
+            setError("Sai thông tin đăng nhập. Vui lòng thử lại.");
+            break;
+          case 500:
+            setError("Lỗi máy chủ. Vui lòng thử lại sau.");
+            break;
+          default:
+            setError("Đã có lỗi xảy ra. Vui lòng thử lại.");
+        }
+      } else {
+        setError("Lỗi kết nối. Vui lòng kiểm tra mạng.");
+      }
     }
   };
 

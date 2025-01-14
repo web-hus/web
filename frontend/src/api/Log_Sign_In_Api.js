@@ -3,13 +3,15 @@ import axios from 'axios';
 // Hàm đăng ký người dùng mới
 export const registerUser = async (userData) => {
   try {
-    const response = await axios.post(`/register`, userData);
+    const response = await axios.post(`/api/auth/auth/register`, userData);
     return response.data; // Trả về dữ liệu trả về từ API
   } catch (error) {
     console.error('Đăng ký thất bại:', error);
     throw error; // Ném lỗi để frontend xử lý
   }
 };
+
+
 
 // Hàm đăng nhập
 export const loginUser = async (loginData) => {
