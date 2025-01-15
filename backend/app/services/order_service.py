@@ -29,9 +29,15 @@ class OrderService:
             booking_id=order_data.booking_id,
             status=0,  # Chờ xử lý
             delivery_address=order_data.delivery_address if order_data.order_type == 1 else None,
-            total_amount=OrderService.calculate_total_amount(db, order_data.dishes)
+            # total_amount=OrderService.calculate_total_amount(db, order_data.dishes)
         )
         db.add(db_order)
+        ###
+        db.commit()
+        ###
+        db.refresh(db_order)
+        print(f"Generated order_id: {db_order.order_id}")
+
 
         # Thêm các món ăn vào order
         for dish_item in order_data.dishes:
@@ -43,7 +49,7 @@ class OrderService:
             db.add(order_dish)
 
         db.commit()
-        db.refresh(db_order)
+
         return db_order
 
     @staticmethod

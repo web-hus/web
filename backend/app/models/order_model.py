@@ -5,8 +5,8 @@ from .base import Base
 class Order(Base):
     __tablename__ = "orders"
 
-    order_id = Column(String(10), primary_key=True)
-    user_id = Column(String(10), ForeignKey("users.user_id"), nullable=False)
+    order_id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
     order_type = Column(Integer, nullable=False)  # 0: Đến quán ăn, 1: Đơn mang về
     booking_id = Column(String(10), ForeignKey("booking.booking_id"), nullable=True)  # Chỉ có khi order_type = 0
     order_date = Column(DateTime, default=func.now())
@@ -24,8 +24,8 @@ class Order(Base):
 class OrderDish(Base):
     __tablename__ = "order_dishes"
 
-    order_id = Column(String(10), ForeignKey("orders.order_id"), primary_key=True)
-    dish_id = Column(String(10), ForeignKey("dish.dish_id"), primary_key=True)
+    order_id = Column(Integer, ForeignKey("orders.order_id"), primary_key=True)
+    dish_id = Column(Integer, ForeignKey("dish.dish_id"), primary_key=True)
     quantity = Column(Integer, nullable=False)
 
     # Relationships
