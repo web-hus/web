@@ -149,12 +149,9 @@ function Menu() {
                   />
                   <h2 className="menuItemName">{dish.dish_name}</h2>
                   <p className="menuItemPrice">{dish.price.toLocaleString()} VND</p>
-                  <button
-                    className="menuItemButton"
-                    onClick={() => window.open(`/food/${dish.dish_id}`, "_blank")}
-                  >
-                    Xem thêm
-                  </button>
+                  <Link to={`/food/${dish.dish_id}`} className="menuItemButtonLink">
+                    <div className="menuItemButton">Xem thêm</div>
+                  </Link>
                 </div>
               );
             })
