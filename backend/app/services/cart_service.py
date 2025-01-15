@@ -9,6 +9,7 @@ class CartService:
     def create_cart(db: Session, cart_data: cart_schema.CartCreate) -> ShoppingCart:
         """Create a new shopping cart"""
         db_cart = ShoppingCart(
+            cart_id=cart_data.user_id,
             user_id=cart_data.user_id
         )
         db.add(db_cart)

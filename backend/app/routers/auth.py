@@ -6,6 +6,8 @@ from ..services.user_service import UserService
 from ..auth.auth_handler import signJWT
 from ..schemas.user_schema import UserCreate
 from ..models.user_model import User
+from ..services.cart_service import CartService
+from .. schemas.cart_schema import CartCreate
 router = APIRouter(
     prefix="/auth",
     tags=["auth"]
@@ -32,8 +34,13 @@ async def register_user(user: UserCreate, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return {"message": "User registered successfully", "user_id": new_user.user_id}
+    cart = CartService.create_cart(db=db, cart_data=CartCreate(user_id=new_user.user_id))
 
+    return {
+        "message": "User registered successfully",
+        "user_id": new_user.user_id,
+        "cart_id": cart.cart_id,
+    }
 
 @router.post("/token")
 async def login(

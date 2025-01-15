@@ -50,21 +50,10 @@ function Log_Sign_In() {
           phone: RegisterFormData.phone,
         });
 
-        console.log("Đăng ký thành công:", response);
-        alert("Đăng ký thành công! Vui lòng đăng nhập.");
-
-        // After successful registration, create an empty cart for the user
-        const cartData = {
-          user_id: response.user.id, // Assuming the response includes the user's ID
-        };
-
-        try {
-          // Create cart after registration
-          const cart = await createCart();
-          console.log("Giỏ hàng đã được tạo:", cart);
-        } catch (error) {
-          console.error("Lỗi khi tạo giỏ hàng:", error);
-        }
+        console.log("Registration successful:", response);
+      alert(
+        `Registration successful! Cart created with ID: ${response.cart_id}. Please log in.`
+      );
 
         // Reset registration form data after successful registration
         setRegisterFormData({
