@@ -123,7 +123,7 @@ function SetTable() {
               id="time"
               name="time"
               required
-              value={formData.time || "09:00"} // Default time is 09:00
+              value={formData.time} // Default time is 09:00
               onChange={handleChange}
               min="09:00" // Earliest allowed time
               max="22:00" // Latest allowed time
