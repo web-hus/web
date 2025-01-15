@@ -112,7 +112,7 @@ const Payment = () => {
         payment_method: order.payment === "COD" ? 1 : 0, // 1: COD, 0: Online
         payment_status: 0, // Default status: "Đang xử lý"
       };
-
+      console.log("PaymentData:", paymentData)
       const paymentResponse = await axios.post(CREATE_PAYMENT_API_URL, paymentData, {
         headers: {
           Authorization: `Bearer ${token}`,
