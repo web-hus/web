@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -29,9 +30,12 @@ import { getUserProfile } from "./api/userAPI";
 function App() {
   // Check if the user is authenticated (for example, using localStorage or a context)
   const isAuthenticated = localStorage.getItem("authToken") !== null;
-  const isAdmin = async () => {
-   return getUserProfile.role == 1;
-  }
+  const isAdmin = getUserProfile.role == 1;
+  const NotAuthorizedHandler = () => {
+    alert("test");
+    console.log("test")
+    return <Navigate to="/" replace />; // Redirect to home
+  };
   
 
   return (
@@ -54,12 +58,18 @@ function App() {
           <Route path="/news" exact element={<News />} />
           <Route path="/food/:id" exact element={<FoodDes />} />
 
-          {/* <Route path="/Home_admin"
-            element={isAdmin ? <Home_admin /> : alert("Unauthorized Access")} />
+          
+{/* 
+          <Route 
+            path="/Home_admin" 
+            element={isAdmin ? <Home_admin /> : <NotAuthorizedHandler />} 
+          />
           <Route path="/Menu_management"
-            element={isAdmin ? <Menu_managment /> : alert("Unauthorized Access")} />
+            element={isAdmin ? <Menu_managment /> : <NotAuthorizedHandler/>}
+          />
           <Route path="/User_management"
-            element={isAdmin ? <User_managment /> : alert("Unauthorized Access")} /> */}
+            element={isAdmin ? <User_managment /> : <NotAuthorizedHandler/>}
+          /> */}
 
           <Route path="/Home_admin" exact element={<User_managment />} />
           <Route path="/Menu_managment" exact element={<Menu_managment />} />
