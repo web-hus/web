@@ -5,8 +5,8 @@ from .base import Base
 class ShoppingCart(Base):
     __tablename__ = "shopping_cart"
 
-    cart_id = Column(String(10), primary_key=True)
-    user_id = Column(String(10), ForeignKey("users.user_id"), nullable=False)
+    cart_id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
 
@@ -16,7 +16,7 @@ class ShoppingCart(Base):
 class ShoppingCartDish(Base):
     __tablename__ = "shopping_cart_dishes"
 
-    cart_id = Column(String(10), ForeignKey("shopping_cart.cart_id"), primary_key=True)
+    cart_id = Column(Integer, ForeignKey("shopping_cart.cart_id"), primary_key=True)
     dish_id = Column(String(10), ForeignKey("dish.dish_id"), primary_key=True)
     quantity = Column(Integer, nullable=False)
 

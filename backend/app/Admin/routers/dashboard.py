@@ -4,8 +4,9 @@ from ...database import get_db
 from ..services.dashboard_service import DashboardService
 from ..schemas import dashboard_schema
 from ...auth.auth_bearer import JWTBearer
-from ...auth.auth_handler import decodeJWT
+from ...auth.auth_handler import verify_token
 import os
+from fastapi import status
 
 router = APIRouter(
     prefix="/admin/dashboard",
@@ -13,16 +14,19 @@ router = APIRouter(
     dependencies=[Depends(JWTBearer())]
 )
 
-def check_admin(token: str = Depends(JWTBearer())):
-    user_data = decodeJWT(token)
-    if user_data.get("role") != 1:
-        raise HTTPException(status_code=403, detail="Cần quyền truy cập của Admin")
+def get_current_user(token: str = Depends(JWTBearer())):
+    user_data = verify_token(token)
+    if not user_data or user_data.get("role") != 1:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Bạn không có quyền truy cập dashboard"
+        )
     return user_data
 
 @router.get("/stats", response_model=dashboard_schema.DashboardStats)
 def get_dashboard_stats(
     db: Session = Depends(get_db),
-    admin: dict = Depends(check_admin)
+    admin: dict = Depends(get_current_user)
 ):
     """Get all dashboard statistics"""
     return DashboardService.get_dashboard_stats(db)
@@ -30,7 +34,7 @@ def get_dashboard_stats(
 @router.get("/monthly-orders")
 def get_monthly_orders(
     db: Session = Depends(get_db),
-    admin: dict = Depends(check_admin)
+    admin: dict = Depends(get_current_user)
 ):
     """Get total orders in current month"""
     current_month = date.today()
@@ -39,7 +43,7 @@ def get_monthly_orders(
 @router.get("/total-revenue")
 def get_total_revenue(
     db: Session = Depends(get_db),
-    admin: dict = Depends(check_admin)
+    admin: dict = Depends(get_current_user)
 ):
     """Get total revenue from completed orders"""
     return {"total": DashboardService.get_total_revenue(db)}
@@ -47,7 +51,7 @@ def get_total_revenue(
 @router.get("/top-dishes")
 def get_top_dishes(
     db: Session = Depends(get_db),
-    admin: dict = Depends(check_admin)
+    admin: dict = Depends(get_current_user)
 ):
     """Get top 10 most ordered dishes"""
     return {"dishes": DashboardService.get_top_dishes(db)}
@@ -55,7 +59,7 @@ def get_top_dishes(
 @router.get("/daily-revenue")
 def get_daily_revenue(
     db: Session = Depends(get_db),
-    admin: dict = Depends(check_admin)
+    admin: dict = Depends(get_current_user)
 ):
     """Get daily revenue for current month"""
     current_month = date.today()
@@ -64,7 +68,7 @@ def get_daily_revenue(
 @router.get("/customer-ratio")
 def get_customer_ratio(
     db: Session = Depends(get_db),
-    admin: dict = Depends(check_admin)
+    admin: dict = Depends(get_current_user)
 ):
     """Get offline vs online customer ratio"""
     return {"ratio": DashboardService.get_customer_ratio(db)}
@@ -72,7 +76,7 @@ def get_customer_ratio(
 @router.get("/export-pdf")
 def export_dashboard_pdf(
     db: Session = Depends(get_db),
-    admin: dict = Depends(check_admin)
+    admin: dict = Depends(get_current_user)
 ):
     """Export dashboard statistics to PDF"""
     stats = DashboardService.get_dashboard_stats(db)

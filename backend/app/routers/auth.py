@@ -3,34 +3,55 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from ..database import get_db
 from ..services.user_service import UserService
-from ..auth.auth_handler import signJWT
+from ..auth.auth_handler import create_access_token
 
 router = APIRouter(
     prefix="/auth",
     tags=["auth"]
 )
 
-@router.post("/token")
+@router.post("/login")
 async def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
 ):
     """
-    Login endpoint to get JWT token
-    - username: email của user
-    - password: mật khẩu
+    Endpoint đăng nhập
+    :param form_data: Form chứa username và password
+    :param db: Database session
+    :return: Token và thông tin user
     """
-    user = UserService.authenticate_user(db, form_data.username, form_data.password)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Email hoặc mật khẩu không chính xác",
-            headers={"WWW-Authenticate": "Bearer"},
+    try:
+        # Xác thực user
+        user = UserService.authenticate_user(
+            db, 
+            form_data.username, 
+            form_data.password
         )
-    
-    token = signJWT(str(user.user_id), user.role)
-    return {
-        **token,
-        "user_id": user.user_id,
-        "role": user.role
-    }
+        
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Username hoặc password không đúng"
+            )
+            
+        # Tạo token với thông tin user
+        token_data = {
+            "user_id": user.user_id,
+            "role": user.role
+        }
+        
+        access_token = create_access_token(token_data)
+        
+        return {
+            "access_token": access_token,
+            "token_type": "bearer",
+            "user_id": user.user_id,
+            "role": user.role
+        }
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )

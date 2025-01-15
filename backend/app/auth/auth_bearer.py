@@ -1,6 +1,6 @@
-from fastapi import Request, HTTPException
+from fastapi import Request, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from .auth_handler import decodeJWT
+from .auth_handler import decode_jwt
 
 class JWTBearer(HTTPBearer):
     def __init__(self, auto_error: bool = True):
@@ -11,25 +11,12 @@ class JWTBearer(HTTPBearer):
         if credentials:
             if not credentials.scheme == "Bearer":
                 raise HTTPException(
-                    status_code=403,
-                    detail="Invalid authentication scheme."
+                    status_code=status.HTTP_403_FORBIDDEN, 
+                    detail="Sai định dạng xác thực"
                 )
-            payload = self.verify_jwt(credentials.credentials)
-            if not payload:
-                raise HTTPException(
-                    status_code=403,
-                    detail="Invalid token or expired token."
-                )
-            return credentials.credentials
+            return decode_jwt(credentials.credentials)
         else:
             raise HTTPException(
-                status_code=403,
-                detail="Invalid authorization code."
+                status_code=status.HTTP_403_FORBIDDEN, 
+                detail="Token không hợp lệ"
             )
-
-    def verify_jwt(self, jwtoken: str) -> bool:
-        try:
-            payload = decodeJWT(jwtoken)
-            return True if payload else False
-        except Exception:
-            return False

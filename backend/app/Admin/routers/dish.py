@@ -4,8 +4,9 @@ from ...database import get_db
 from ..services.dish_service import DishService
 from ..schemas import dish_schema
 from ...auth.auth_bearer import JWTBearer
-from ...auth.auth_handler import decodeJWT
+from ...auth.auth_handler import verify_token
 from typing import List, Optional
+from fastapi import status
 
 router = APIRouter(
     prefix="/admin/dishes",
@@ -13,10 +14,13 @@ router = APIRouter(
     dependencies=[Depends(JWTBearer())]
 )
 
-def check_admin(token: str = Depends(JWTBearer())):
-    user_data = decodeJWT(token)
-    if user_data.get("role") != 1:
-        raise HTTPException(status_code=403, detail="Cần quyền truy cập của Admin")
+def get_current_user(token: str = Depends(JWTBearer())):
+    user_data = verify_token(token)
+    if not user_data or user_data.get("role") != 1:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Bạn không có quyền thực hiện hành động này"
+        )
     return user_data
 
 @router.get("/", response_model=List[dish_schema.Dish])
@@ -25,7 +29,7 @@ def get_dishes(
     limit: int = 100,
     category: Optional[str] = None,
     db: Session = Depends(get_db),
-    admin: dict = Depends(check_admin)
+    admin: dict = Depends(get_current_user)
 ):
     """Get list of dishes with optional category filter"""
     return DishService.get_dishes(db, skip=skip, limit=limit, category=category)
@@ -34,7 +38,7 @@ def get_dishes(
 def create_dish(
     dish: dish_schema.DishCreate,
     db: Session = Depends(get_db),
-    admin: dict = Depends(check_admin)
+    admin: dict = Depends(get_current_user)
 ):
     """Create new dish"""
     return DishService.create_dish(db, dish)
@@ -44,7 +48,7 @@ def update_dish(
     dish_id: str,
     dish: dish_schema.DishUpdate,
     db: Session = Depends(get_db),
-    admin: dict = Depends(check_admin)
+    admin: dict = Depends(get_current_user)
 ):
     """Update dish information"""
     return DishService.update_dish(db, dish_id, dish)
@@ -53,7 +57,7 @@ def update_dish(
 def delete_dish(
     dish_id: str,
     db: Session = Depends(get_db),
-    admin: dict = Depends(check_admin)
+    admin: dict = Depends(get_current_user)
 ):
     """Delete dish"""
     return DishService.delete_dish(db, dish_id)

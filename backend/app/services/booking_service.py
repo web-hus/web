@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
-from datetime import datetime
+from datetime import datetime, date
 from fastapi import HTTPException, status
-from ..models.tables import Booking
+from ..models.tables import Booking, User
 from ..schemas import booking_schema
 
 class BookingService:
@@ -59,3 +59,37 @@ class BookingService:
     def get_date_bookings(db: Session, date: datetime.date) -> list[Booking]:
         """Get all bookings for a specific date"""
         return db.query(Booking).filter(Booking.date == date).all()
+
+    @staticmethod
+    def find_booking_by_criteria(db: Session, booking_date: date, phone: str):
+        """Find booking by date and phone number with status 0"""
+        user = db.query(User).filter(User.phone == phone).first()
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Không tìm thấy người dùng với số điện thoại này"
+            )
+
+        booking = db.query(Booking).filter(
+            Booking.user_id == user.user_id,
+            Booking.date == booking_date,
+            Booking.status == 0
+        ).first()
+
+        if not booking:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Không tìm thấy đơn đặt bàn phù hợp"
+            )
+
+        return booking
+
+    @staticmethod
+    def update_booking_status_by_criteria(db: Session, booking_date: date, phone: str, new_status: int):
+        """Update booking status by date and phone"""
+        booking = BookingService.find_booking_by_criteria(db, booking_date, phone)
+        
+        booking.status = new_status
+        db.commit()
+        db.refresh(booking)
+        return booking

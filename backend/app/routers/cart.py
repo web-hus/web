@@ -6,16 +6,13 @@ from ..database import get_db
 from ..services.cart_service import CartService
 from ..schemas.cart_schema import CartCreate, Cart, CartDishCreate
 from ..auth.auth_bearer import JWTBearer
-from ..auth.auth_handler import decodeJWT
+from ..auth.auth_handler import get_current_user
 
 router = APIRouter(
     prefix="/cart",
     tags=["cart"],
     dependencies=[Depends(JWTBearer())]
 )
-
-def get_current_user(token: str = Depends(JWTBearer())):
-    return decodeJWT(token)
 
 @router.post("/", response_model=Cart)
 def create_cart(
