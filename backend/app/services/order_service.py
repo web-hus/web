@@ -23,12 +23,15 @@ class OrderService:
     def create_order(db: Session, order_data: order_schema.OrderCreate) -> Order:
         """Create a new order"""
         # Tạo order
+        delivery_address = (
+        order_data.delivery_address if order_data.order_type == 1 else None
+    )
         db_order = Order(
             user_id=order_data.user_id,
             order_type=order_data.order_type,
             booking_id=order_data.booking_id,
-            status=0,  # Chờ xử lý
-            delivery_address=order_data.delivery_address if order_data.order_type == 1 else None,
+            status=0 if order_data.order_type == 1 else None,  # Chờ xử lý
+            delivery_address=delivery_address
             # total_amount=OrderService.calculate_total_amount(db, order_data.dishes)
         )
         db.add(db_order)
