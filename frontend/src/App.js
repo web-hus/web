@@ -23,6 +23,7 @@ import Home_admin from "./admin/pages/Home_admin";
 import Menu_managment from "./admin/pages/Menu_managment"
 import User_managment from "./admin/pages/User_managment"
 import Dashboard from "./admin/pages/Dashboard"
+import UpdateProfile from "./pages/updateProfile"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -60,6 +61,7 @@ function App() {
           <Route path="/log_sign_in" exact element={<LogSignIn />} />
           <Route path="/news" exact element={<News />} />
           <Route path="/food/:id" exact element={<FoodDes />} />
+          <Route path="/update_Profile" exact element={<UpdateProfile />} />
 
           
 
