@@ -38,8 +38,8 @@ class Dish(Base):
 class Booking(Base):
     __tablename__ = "booking"
 
-    booking_id = Column(String(10), primary_key=True)
-    user_id = Column(String(10), ForeignKey("users.user_id"), nullable=False)
+    booking_id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
     date = Column(DateTime, nullable=False)
     time = Column(String(5), nullable=False)  # Format: HH:MM
     num_people = Column(Integer, nullable=False)
@@ -60,7 +60,7 @@ class Order(Base):
     order_type = Column(Integer, nullable=False)  # 0: Đến quán ăn, 1: Đơn mang về
     booking_id = Column(String(10), ForeignKey("booking.booking_id"), nullable=True)  # Chỉ có khi order_type = 0
     order_date = Column(DateTime, default=func.now())
-    status = Column(Integer, default=0)  # 0: Chờ xử lý, 1: Đã xác nhận, 2: Đang giao, 3: Hoàn thành, 4: Hủy
+    status = Column(Integer)  # 0: Chờ xử lý, 1: Đã xác nhận, 2: Đang giao, 3: Hoàn thành, 4: Hủy
     delivery_address = Column(String(255), nullable=True)  # Chỉ có khi order_type = 1
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
@@ -85,9 +85,9 @@ class OrderDish(Base):
 class Payment(Base):
     __tablename__ = "payment"
 
-    payment_id = Column(String(10), primary_key=True)
-    user_id = Column(String(10), ForeignKey("users.user_id"), nullable=False)
-    order_id = Column(String(10), ForeignKey("orders.order_id"), nullable=False)
+    payment_id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
+    order_id = Column(Integer, ForeignKey("orders.order_id"), nullable=False)
     amount = Column(Float, nullable=False)
     payment_method = Column(Integer, nullable=False)  # 0: Online, 1: Khi nhận hàng
     payment_status = Column(Integer, default=0)  # 0: Đang xử lý, 1: Đã thanh toán, 2: Hoàn tiền

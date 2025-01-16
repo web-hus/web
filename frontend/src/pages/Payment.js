@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+
 import "../styles/Payment.css";
 import { getUserProfile } from "../api/userAPI"; // Import the user profile API
 import { getDishById } from "../api/dishesApi"; // Import the dish API function
 
 const Payment = () => {
+  const navigate = useNavigate()
   const [order, setOrder] = useState({
     address: "",
     payment: "COD", // Default payment method
@@ -14,10 +17,12 @@ const Payment = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [dishes, setDishes] = useState([]);
+  const [cartId, setCartId] = useState(null); // To store the cart ID
 
   const CART_API_URL = "/api/cart/cart/";
   const CREATE_ORDER_API_URL = "/api/orders/orders/";
   const CREATE_PAYMENT_API_URL = "/api/payments/payments/";
+  const CLEAR_CART_API_URL = "/api/cart/cart/clear/"; // Endpoint to clear the cart
 
   const getAuthToken = () => localStorage.getItem("authToken");
 
@@ -42,6 +47,7 @@ const Payment = () => {
 
         if (response.data && response.data.dishes) {
           setCart(response.data.dishes);
+          setCartId(response.data.cart_id); // Store cart ID
 
           const dishDetails = await Promise.all(
             response.data.dishes.map(async (item) => {
@@ -79,6 +85,22 @@ const Payment = () => {
     setOrder((prev) => ({ ...prev, [name]: value }));
   };
 
+  const clearCart = async () => {
+    const token = getAuthToken();
+    try {
+      // Make a call to clear the cart
+      await axios.delete(`${CLEAR_CART_API_URL}${cartId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Cart cleared successfully");
+      setCart([]); // Optionally, clear the cart state
+    } catch (err) {
+      console.error("Error clearing cart:", err);
+    }
+  };
+
   const handleOrderSubmit = async () => {
     const token = getAuthToken();
     const userProfile = await getUserProfile();
@@ -96,7 +118,7 @@ const Payment = () => {
     };
 
     try {
-      const orderResponse = await axios.post("/api/orders/orders/", orderData, {
+      const orderResponse = await axios.post(CREATE_ORDER_API_URL, orderData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -113,6 +135,7 @@ const Payment = () => {
         payment_status: 0, // Default status: "Đang xử lý"
       };
 
+      console.log("PaymentData:", paymentData);
       const paymentResponse = await axios.post(CREATE_PAYMENT_API_URL, paymentData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -120,7 +143,12 @@ const Payment = () => {
       });
 
       console.log("Payment created successfully:", paymentResponse.data);
+
+      // Step 3: Clear the cart after the order is placed and payment is created
+      await clearCart();
       alert("Đơn hàng và thanh toán đã được tạo thành công!");
+      navigate("/cart"); // Redirect to the cart page
+
     } catch (err) {
       console.error("Error creating order or payment:", err);
       alert("Có lỗi xảy ra khi đặt hàng. Vui lòng thử lại.");

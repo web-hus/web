@@ -53,7 +53,7 @@ function Home_admin() {
             <ul className="vertical-nav-menu">
               <li className="app-sidebar__heading">Dashboards</li>
               <li>
-                <a href="index.html" className="mm-active">
+                <a href="/Dashboard" className="mm-active">
                   <i className="metismenu-icon pe-7s-rocket"></i>
                   Dashboard 3 miền
                 </a>

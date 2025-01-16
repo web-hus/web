@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from datetime import datetime
-from ..models import ShoppingCart, Payment, Order, OrderDish
+from ..models.tables import ShoppingCart, Payment, Order, OrderDish
 from ..schemas import payment_schema
 from fastapi import HTTPException
 import uuid
@@ -19,7 +19,6 @@ class PaymentService:
 
         # Create payment
         payment = Payment(
-            payment_id=f"P{str(uuid.uuid4())[:3]}",
             user_id=order.user_id,
             order_id=order.order_id,
             amount=payment_data.amount,

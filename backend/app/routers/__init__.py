@@ -5,6 +5,8 @@ from .booking import router as booking_router
 from .order import router as order_router
 from .cart import router as cart_router
 from .dish import router as dish_router
+from .menu import router as menu_router
+from .password import router as password_router
 
 __all__ = [
     "auth_router",
@@ -13,5 +15,7 @@ __all__ = [
     "booking_router",
     "order_router",
     "cart_router",
-    "dish_router"
+    "dish_router",
+    "menu_router",
+    "password_router"
 ]

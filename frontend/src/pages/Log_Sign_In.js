@@ -162,10 +162,20 @@ function Log_Sign_In() {
                   type="text"
                   id="gender"
                   required
-                  value={RegisterFormData.gender}
-                  onChange={(e) =>
-                    setRegisterFormData({ ...RegisterFormData, gender: e.target.value })
+                  value={
+                    RegisterFormData.gender === "M"
+                      ? "Nam"
+                      : RegisterFormData.gender === "F"
+                      ? "Nữ"
+                      : ""
                   }
+                  onClick={(e) => {
+                    const currentValue = RegisterFormData.gender;
+                    const newValue = currentValue === "M" ? "F" : "M";
+                    setRegisterFormData({ ...RegisterFormData, gender: newValue });
+                  }}
+                  readOnly
+                  className="input-box"
                 />
                 <label htmlFor="address">Địa chỉ</label>
                 <input

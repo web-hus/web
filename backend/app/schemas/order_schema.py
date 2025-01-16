@@ -10,7 +10,7 @@ class OrderCreate(BaseModel):
     user_id: int
     order_type: int = Field(..., ge=0, le=1)  # 0: Đến quán ăn, 1: Đơn mang về
     booking_id: Optional[int] = None  # Chỉ áp dụng khi user đặt bàn
-    delivery_address: Optional[str] = None  # Chỉ áp dụng cho đơn mang về
+    delivery_address: Optional[str] = None # Chỉ áp dụng cho đơn mang về
     dishes: List[OrderDishBase]
 
 class Order(BaseModel):
@@ -20,7 +20,7 @@ class Order(BaseModel):
     user_id: int
     order_type: int = Field(..., ge=0, le=1)  # 0: Đến quán ăn, 1: Đơn mang về
     booking_id: Optional[int] = None  # Chỉ áp dụng khi user đặt bàn
-    status: int = Field(..., ge=0, le=4)  # 0: Chờ xử lý, 1: Đã xác nhận, 2: Đang giao, 3: Hoàn thành, 4: Hủy
+    status: Optional[int] = Field(..., ge=0, le=4)  # 0: Chờ xử lý, 1: Đã xác nhận, 2: Đang giao, 3: Hoàn thành, 4: Hủy
     delivery_address: Optional[str] = None  # Chỉ áp dụng cho đơn mang về
     created_at: datetime
     updated_at: datetime

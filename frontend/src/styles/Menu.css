@@ -161,3 +161,8 @@
 .menuItemButton:hover {
   background-color: #e68a00;
 }
+
+.menuItemLink {
+  text-decoration: none;
+  color: white;
+}
