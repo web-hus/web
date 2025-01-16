@@ -71,7 +71,7 @@ function App() {
             element={isAdmin ? <User_managment /> : <NotAuthorizedHandler/>}
           /> */}
 
-          <Route path="/Home_admin" exact element={<User_managment />} />
+          <Route path="/Home_admin" exact element={<Home_admin />} />
           <Route path="/Menu_managment" exact element={<Menu_managment />} />
           <Route path="/User_managment" exact element={<User_managment />} />
 
