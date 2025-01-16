@@ -22,6 +22,7 @@ import NewPassword from "./pages/New_Password";
 import Home_admin from "./admin/pages/Home_admin"; 
 import Menu_managment from "./admin/pages/Menu_managment"
 import User_managment from "./admin/pages/User_managment"
+import Dashboard from "./admin/pages/Dashboard"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -74,6 +75,7 @@ function App() {
           <Route path="/Home_admin" exact element={<Home_admin />} />
           <Route path="/Menu_managment" exact element={<Menu_managment />} />
           <Route path="/User_managment" exact element={<User_managment />} />
+          <Route path="/Dashboard" exact element={<Dashboard />} />
 
           <Route path="/Test" element={<UserProfile />} />
           <Route path="/Payment" element={<Payment />} />
