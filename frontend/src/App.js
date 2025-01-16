@@ -31,7 +31,9 @@ import { getUserProfile } from "./api/userAPI";
 function App() {
   // Check if the user is authenticated (for example, using localStorage or a context)
   const isAuthenticated = localStorage.getItem("authToken") !== null;
-  const isAdmin = getUserProfile.role == 1;
+  const isAdmin = getUserProfile.role === 1;
+  console.log("role is",getUserProfile)
+  console.log("is admin:",isAdmin)  
   const NotAuthorizedHandler = () => {
     alert("test");
     console.log("test")
@@ -60,10 +62,14 @@ function App() {
           <Route path="/food/:id" exact element={<FoodDes />} />
 
           
-{/* 
-          <Route 
+
+          {/* <Route 
             path="/Home_admin" 
             element={isAdmin ? <Home_admin /> : <NotAuthorizedHandler />} 
+          />
+          <Route 
+            path="/Dashboard" 
+            element={isAdmin ? <Dashboard /> : <NotAuthorizedHandler />} 
           />
           <Route path="/Menu_management"
             element={isAdmin ? <Menu_managment /> : <NotAuthorizedHandler/>}
@@ -71,6 +77,7 @@ function App() {
           <Route path="/User_management"
             element={isAdmin ? <User_managment /> : <NotAuthorizedHandler/>}
           /> */}
+
 
           <Route path="/Home_admin" exact element={<Home_admin />} />
           <Route path="/Menu_managment" exact element={<Menu_managment />} />

@@ -9,14 +9,18 @@ import PlaceIcon from "@mui/icons-material/Place";
 import PersonIcon from "@mui/icons-material/Person";
 import "../styles/Navbar.css";
 
+import { getUserProfile } from "../api/userAPI";
+
 function Navbar() {
   const [openLinks, setOpenLinks] = useState(false);
   const [showSearchPopup, setShowSearchPopup] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false); // State to track admin status
   const location = useLocation(); // Detect route changes
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
+    setIsAdmin(false); // Reset isAdmin to false on logout
     navigate("/log_sign_in");
   };
 
@@ -32,8 +36,23 @@ function Navbar() {
 
   useEffect(() => {
     // Close the popup whenever the route changes
-    setShowSearchPopup(false); 
+    setShowSearchPopup(false);
   }, [location]);
+
+  // Fetch admin status when the component mounts
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      try {
+        const userProfile = await getUserProfile(); // Fetch user profile
+        setIsAdmin(userProfile.role === 1); // Set admin status if role is 1
+      } catch (error) {
+        console.error("Failed to fetch user profile:", error);
+        setIsAdmin(false); // Ensure isAdmin is false in case of error
+      }
+    };
+
+    checkAdminStatus();
+  }, []);
 
   return (
     <div className="navbar">
@@ -48,8 +67,13 @@ function Navbar() {
           <Link to="/news">Tin tức</Link>
           <Link to="/contact">Liên hệ</Link>
           <Link to="/set_table">Đặt bàn</Link>
-          <Link to="/Home_admin">Admin</Link>
 
+          {/* Admin Link - only visible if isAdmin is true */}
+          {isAdmin && (
+            <Link to="/Home_admin">Admin</Link>
+          )}
+
+          {/* Logout Link - only visible if the user is authenticated */}
           {isAuthenticated && (
             <Link to="/" className="nav-link" onClick={handleLogout}>
               Đăng xuất
@@ -57,6 +81,7 @@ function Navbar() {
           )}
         </div>
         <div className="Icon">
+          {/* Uncomment Search Icon if needed */}
           {/* <div className="icon-wrapper" onClick={toggleSearchPopup}>
             <SearchIcon />
           </div> */}
