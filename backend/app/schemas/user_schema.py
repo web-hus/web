@@ -60,6 +60,20 @@ class User(UserBase):
 class UserInDB(User):
     password: str
 
+class UserResponse(BaseModel):
+    user_id: int
+    user_name: str
+    email: EmailStr
+    phone: str
+    address: Optional[str] = None
+    age: Optional[int] = None
+    gender: Optional[str] = None
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
+
 class Token(BaseModel):
     access_token: str
     refresh_token: str

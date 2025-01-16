@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import sessionmaker
 from .models import Base
 from dotenv import load_dotenv
@@ -33,5 +33,16 @@ def get_db():
     finally:
         db.close()
 
+def check_table_exists(table_name: str) -> bool:
+    """Check if a table exists in the database"""
+    inspector = inspect(engine)
+    return table_name in inspector.get_table_names()
+
+def ensure_pending_users_table():
+    """Ensure pending_users table exists"""
+    if not check_table_exists("pending_users"):
+        from .models.pending_user_model import PendingUser
+        Base.metadata.create_all(bind=engine, tables=[PendingUser.__table__])
+
 # Export các components cần thiết
-__all__ = ['engine', 'SessionLocal', 'get_db']
+__all__ = ['engine', 'SessionLocal', 'get_db', 'ensure_pending_users_table']

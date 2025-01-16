@@ -3,8 +3,7 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..schemas.password_schema import (
     ResetPasswordRequest,
-    ForgotPasswordRequest,
-    VerifyOTPRequest
+    ForgotPasswordRequest
 )
 from ..services.password_service import PasswordService
 
@@ -27,32 +26,20 @@ async def reset_password(
     
     PasswordService.reset_password(
         db=db,
-        email=request.email,
+        token=request.token,
         new_password=request.new_password
     )
     
     return {"message": "Password reset successfully"}
 
 @router.post("/forgot")
-async def forgot_password(request: ForgotPasswordRequest):
-    """Initiate forgot password process by sending OTP"""
-    PasswordService.initiate_forgot_password(request.email)
-    return {
-        "message": "If an account exists with this email, an OTP has been sent",
-        "expires_in": "6 minutes"
-    }
-
-@router.post("/verify-otp")
-async def verify_otp(
-    request: VerifyOTPRequest,
+async def forgot_password(
+    request: ForgotPasswordRequest,
     db: Session = Depends(get_db)
 ):
-    """Verify OTP for password reset"""
-    is_valid = PasswordService.verify_otp(request.email, request.otp)
-    if not is_valid:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid or expired OTP"
-        )
-    
-    return {"message": "OTP verified successfully"}
+    """Send reset link to user's email"""
+    PasswordService.initiate_forgot_password(db, request.email)
+    return {
+        "message": "If an account exists with this email, a password reset link has been sent",
+        "expires_in": "6 minutes"
+    }

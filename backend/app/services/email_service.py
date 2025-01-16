@@ -4,49 +4,74 @@ from email.mime.multipart import MIMEMultipart
 import os
 from fastapi import HTTPException, status
 from dotenv import load_dotenv
+import logging
 
 load_dotenv()
 
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 class EmailService:
+    SMTP_SERVER = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
+    SMTP_PORT = int(os.getenv('SMTP_PORT', 587))
+    SENDER_EMAIL = os.getenv('EMAIL_SENDER')
+    SENDER_PASSWORD = os.getenv('EMAIL_PASSWORD')
+
     @staticmethod
-    def send_otp_email(recipient_email: str, otp: str) -> None:
-        """Send OTP via email"""
+    def send_email(to_email: str, subject: str, body: str) -> None:
+        """Send email using SMTP"""
         try:
-            # Email configuration
-            sender_email = os.getenv('EMAIL_SENDER')
-            sender_password = os.getenv('EMAIL_PASSWORD')
-            smtp_server = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
-            smtp_port = int(os.getenv('SMTP_PORT', 587))
+            logger.info(f"Attempting to send email to {to_email}")
+            logger.info(f"Using SMTP server: {EmailService.SMTP_SERVER}:{EmailService.SMTP_PORT}")
+            logger.info(f"Sender email: {EmailService.SENDER_EMAIL}")
+            
+            msg = MIMEMultipart()
+            msg['From'] = EmailService.SENDER_EMAIL
+            msg['To'] = to_email
+            msg['Subject'] = subject
 
-            # Create message
-            message = MIMEMultipart()
-            message["From"] = sender_email
-            message["To"] = recipient_email
-            message["Subject"] = "Mã OTP Đặt Lại Mật Khẩu"
+            msg.attach(MIMEText(body, 'html'))
 
-            # Email content
-            body = f"""
-            Xin chào,
-
-            Đây là mã OTP để đặt lại mật khẩu của bạn: {otp}
-
-            Mã này sẽ hết hạn sau 6 phút.
-
-            Nếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này.
-
-            Trân trọng,
-            Nhà hàng của chúng tôi
-            """
-            message.attach(MIMEText(body, "plain"))
-
-            # Create SMTP session
-            with smtplib.SMTP(smtp_server, smtp_port) as server:
-                server.starttls()
-                server.login(sender_email, sender_password)
-                server.send_message(message)
-
+            # Connect to SMTP server
+            logger.info("Connecting to SMTP server...")
+            server = smtplib.SMTP(EmailService.SMTP_SERVER, EmailService.SMTP_PORT)
+            
+            logger.info("Starting TLS...")
+            server.starttls()
+            
+            logger.info("Attempting login...")
+            server.login(EmailService.SENDER_EMAIL, EmailService.SENDER_PASSWORD)
+            
+            # Send email
+            logger.info("Sending email...")
+            server.send_message(msg)
+            
+            logger.info("Closing connection...")
+            server.quit()
+            
+            logger.info("Email sent successfully!")
+            
         except Exception as e:
+            logger.error(f"Error sending email: {str(e)}")
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail="Error sending email"
+                detail=f"Error sending email: {str(e)}"
             )
+
+    @staticmethod
+    def send_reset_link_email(to_email: str, reset_link: str) -> None:
+        """Send password reset link email"""
+        subject = "Cài đặt lại mật khẩu"
+        body = f"""
+        <html>
+            <body>
+                <h2>Cài đặt lại mật khẩu</h2>
+                <p>Bạn đã yêu cầu cài đặt lại mật khất. Bấm vào đường link phía dưới để đặt lại:</p>
+                <p><a href="{reset_link}">Đặt lại mật khẩu</a></p>
+                <p>Đường link sẽ có hiệu lực trong 6 phút.</p>
+                <p>Nếu bạn không yêu cầu cài đặt lại mật khất, vui lòng bỏ qua tin nhắn này.</p>
+            </body>
+        </html>
+        """
+        EmailService.send_email(to_email, subject, body)

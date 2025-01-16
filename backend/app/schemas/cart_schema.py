@@ -1,28 +1,26 @@
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
+from .dish_schema import Dish
 
 class CartDishBase(BaseModel):
-    dish_id: str = Field(..., pattern=r'^D\d{3}$')
-    quantity: int = Field(..., gt=0)
-
-class CartDishCreate(CartDishBase):
-    cart_id: int
+    dish_id: str
+    quantity: int
 
 class CartDish(CartDishBase):
-    model_config = ConfigDict(from_attributes=True)
-    cart_id: int
+    dish: Dish
+
+    class Config:
+        from_attributes = True
 
 class CartBase(BaseModel):
     user_id: int
-
-class CartCreate(CartBase):
-    pass
-
-class Cart(CartBase):
-    model_config = ConfigDict(from_attributes=True)
-    
-    cart_id: int
     created_at: datetime
     updated_at: datetime
-    dishes: List[CartDish] = []
+
+class Cart(CartBase):
+    cart_id: int
+    dishes: List[CartDish]
+
+    class Config:
+        from_attributes = True

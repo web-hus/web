@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from typing import List
 
 from ..database import get_db
@@ -7,6 +7,7 @@ from ..services.cart_service import CartService
 from ..schemas.cart_schema import CartCreate, Cart, CartDishCreate
 from ..auth.auth_bearer import JWTBearer
 from ..auth.auth_handler import get_current_user
+from ..models.shopping_cart_model import ShoppingCart, ShoppingCartDish
 
 router = APIRouter(
     prefix="/cart",
@@ -51,6 +52,35 @@ def get_user_cart(
             detail="Không có quyền truy cập giỏ hàng của user khác"
         )
     return CartService.get_user_cart(db=db, user_id=user_id)
+
+@router.get("", response_model=Cart, summary="Get user's shopping cart")
+async def get_user_cart(
+    db: Session = Depends(get_db),
+    current_user: dict = Depends(get_current_user)
+):
+    """Get the shopping cart of the currently logged in user"""
+    try:
+        cart = (
+            db.query(ShoppingCart)
+            .options(joinedload(ShoppingCart.dishes).joinedload(ShoppingCartDish.dish))
+            .filter(ShoppingCart.user_id == current_user["user_id"])
+            .first()
+        )
+        
+        if not cart:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Shopping cart not found"
+            )
+            
+        return cart
+    except Exception as e:
+        if isinstance(e, HTTPException):
+            raise e
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error getting cart: {str(e)}"
+        )
 
 @router.post("/add-dish", response_model=Cart)
 def add_dish_to_cart(

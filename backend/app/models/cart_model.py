@@ -24,17 +24,6 @@ class ShoppingCartDish(Base):
     cart = relationship("ShoppingCart", back_populates="dishes")
     dish = relationship("Dish")
 
-class Payment(Base):
-    __tablename__ = "payment"
-
-    payment_id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
-    order_id = Column(Integer, ForeignKey("orders.order_id"), nullable=False)
-    amount = Column(Float, nullable=False)
-    payment_method = Column(Integer, nullable=False)  # 1: Tiền mặt, 2: Thẻ, 3: Chuyển khoản
-    payment_status = Column(Integer, nullable=False)  # 0: Chờ xử lý, 1: Thành công, 2: Thất bại
-    created_at = Column(DateTime, default=func.now())
-    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
 
     # Relationships
     user = relationship("User")

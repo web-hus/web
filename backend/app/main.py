@@ -1,12 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .database import engine
+from .database import engine, ensure_pending_users_table
 from .models import Base
 from .middleware.rate_limiter import RateLimiter
+from .middleware.idempotency import IdempotencyMiddleware
 from .routers import api_router
+from .routers.registration import router as registration_router
 
 # Tạo bảng nếu chưa tồn tại
 Base.metadata.create_all(bind=engine)
+
+# Đảm bảo bảng pending_users tồn tại
+ensure_pending_users_table()
 
 app = FastAPI(
     title="Restaurant Management System",
@@ -22,6 +27,9 @@ app.add_middleware(
     requests_per_minute=60
 )
 
+# Add idempotency middleware
+app.add_middleware(IdempotencyMiddleware)
+
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
@@ -31,9 +39,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include routers with /api prefix
+# Include API router
 app.include_router(api_router, prefix="/api")
 
+# Add registration router
+app.include_router(registration_router, prefix="/api")
+
 @app.get("/")
-def read_root():
-    return {"message": "Welcome to Restaurant Management System API"}
+async def read_root():
+    """
+    Root endpoint - Health check and welcome message
+    """
+    return {
+        "status": "healthy",
+        "message": "Welcome to Restaurant Management System API",
+        "version": "1.0.0",
+        "docs": "/api/docs"
+    }
