@@ -37,6 +37,14 @@ async def create_user(
     """Create new user"""
     return AdminService.create_user(db, user)
 
+@router.get("/users", response_model=List[admin_schema.User])
+async def get_all_users(
+    db: Session = Depends(get_db),
+    current_admin: User = Depends(get_current_admin)
+):
+    """Get all users"""
+    return AdminService.get_all_users(db)
+
 @router.put("/users/{user_id}", response_model=admin_schema.User)
 async def update_user(
     user_id: int,
@@ -100,14 +108,14 @@ async def delete_dish(
     """Delete dish"""
     return DishService.delete_dish(db, dish_id)
 
-@router.post("/orders/dine-in")
-async def create_dine_in_order(
-    order_data: admin_schema.DineInOrderCreate,
+# Booking management routes
+@router.get("/bookings")
+async def get_all_bookings(
     db: Session = Depends(get_db),
     current_admin: User = Depends(get_current_admin)
 ):
-    """Create dine-in order"""
-    return AdminService.create_dine_in_order(db, order_data)
+    """Get all bookings"""
+    return AdminService.get_all_bookings(db)
 
 @router.put("/bookings/{booking_id}/status")
 async def update_booking_status(
@@ -119,6 +127,15 @@ async def update_booking_status(
     """Update booking status"""
     return AdminService.update_booking_status(db, booking_id, status_data.status)
 
+# Order management routes
+@router.get("/orders")
+async def get_all_orders(
+    db: Session = Depends(get_db),
+    current_admin: User = Depends(get_current_admin)
+):
+    """Get all orders"""
+    return AdminService.get_all_orders(db)
+
 @router.put("/orders/{order_id}/status")
 async def update_order_status(
     order_id: int,
@@ -128,3 +145,12 @@ async def update_order_status(
 ):
     """Update order status"""
     return AdminService.update_order_status(db, order_id, status_data.status)
+
+@router.post("/orders/dine-in")
+async def create_dine_in_order(
+    order_data: admin_schema.DineInOrderCreate,
+    db: Session = Depends(get_db),
+    current_admin: User = Depends(get_current_admin)
+):
+    """Create dine-in order"""
+    return AdminService.create_dine_in_order(db, order_data)
