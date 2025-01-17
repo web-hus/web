@@ -231,3 +231,14 @@ class AdminService:
         db.commit()
         db.refresh(order)
         return order
+    @staticmethod
+    def get_all_users(db: Session):
+        return db.query(User).all()
+
+    @staticmethod
+    def get_all_bookings(db: Session):
+        return db.query(Booking).all()
+
+    @staticmethod
+    def get_all_orders(db: Session):
+        return db.query(Order).all()
