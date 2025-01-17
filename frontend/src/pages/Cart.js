@@ -14,6 +14,18 @@ const Cart = () => {
   const API_URL = "/api/cart/cart"; // Replace with your FastAPI server URL
   const navigate = useNavigate(); // Hook for navigation
 
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        alert("Bạn cần đăng nhập để xem giỏ hàng!");
+        navigate("/log_sign_in"); // Redirect to sign-in page
+      }
+    };
+
+    checkAuth();
+  }, [navigate]);
+
   // Fetch user's cart and fetch dish details
   useEffect(() => {
     const fetchCart = async () => {
@@ -44,8 +56,8 @@ const Cart = () => {
         setCart(response.data); // Set cart data
         setDishes(fetchedDishes); // Set the fetched dish details
       } catch (err) {
-        console.error("Failed to fetch cart:", err);
-        setError(err.response?.data?.detail || "Failed to fetch cart.");
+        console.error("Không thể tải giỏ hàng:", err);
+        setError(err.response?.data?.detail || "Không thể tải giỏ hàng.");
       } finally {
         setLoading(false);
       }
@@ -61,7 +73,7 @@ const Cart = () => {
       if (!token) {
         throw new Error("Authorization token is missing.");
       }
-  
+
       // Send the updated quantity to the backend
       const response = await axios.put(
         `${API_URL}/update-quantity/${cart.cart_id}/${dishId}`,
@@ -73,7 +85,7 @@ const Cart = () => {
           },
         }
       );
-  
+
       // After successfully updating the quantity, update the state locally
       const updatedDishes = dishes.map((item) => {
         if (item.dish_id === dishId) {
@@ -81,16 +93,15 @@ const Cart = () => {
         }
         return item;
       });
-  
+
       setDishes(updatedDishes); // Update the dishes state to reflect the new quantity
       setCart(response.data); // Update cart data (to sync with the backend)
-  
+
     } catch (err) {
-      console.error("Failed to update quantity:", err);
-      alert("Error updating quantity.");
+      console.error("Không thể cập nhật số lượng:", err);
+      alert("Lỗi khi cập nhật số lượng.");
     }
   };
-  
 
   // Remove a dish from the cart
   const removeDish = async (dishId) => {
@@ -112,15 +123,15 @@ const Cart = () => {
       setCart(response.data); // Update cart with the new response
       setDishes(dishes.filter((dish) => dish.dish_id !== dishId)); // Remove dish from state
     } catch (err) {
-      console.error("Failed to remove dish:", err);
-      alert("Error removing dish.");
+      console.error("Không thể xóa món ăn:", err);
+      alert("Lỗi khi xóa món ăn.");
     }
   };
 
   // Redirect to checkout page
   const handleCheckout = () => {
     if (cart.dishes.length === 0) {
-      alert("Your cart is empty! Add some items before proceeding.");
+      alert("Giỏ hàng của bạn đang trống! Thêm món ăn trước khi thanh toán.");
       return;
     }
 
@@ -136,7 +147,7 @@ const Cart = () => {
   };
 
   if (loading) {
-    return <p>Loading your cart...</p>;
+    return <p>Đang tải giỏ hàng của bạn...</p>;
   }
 
   if (error) {
@@ -154,18 +165,18 @@ const Cart = () => {
 
   return (
     <div className="cart">
-      <h2>Your Shopping Cart</h2>
+      <h2>Giỏ hàng của bạn</h2>
       {dishes.length === 0 ? (
-        <p>Your cart is empty. Add some products!</p>
+        <p>Giỏ hàng của bạn đang trống. Hãy thêm sản phẩm!</p>
       ) : (
         <table className="cart-table">
           <thead>
             <tr>
-              <th>Dish</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              <th>Subtotal</th>
-              <th>Actions</th>
+              <th>Món Ăn</th>
+              <th>Số Lượng</th>
+              <th>Giá</th>
+              <th>Tổng</th>
+              <th>Hành Động</th>
             </tr>
           </thead>
           <tbody>
@@ -216,7 +227,7 @@ const Cart = () => {
                         className="remove-btn"
                         onClick={() => removeDish(item.dish_id)}
                       >
-                        X
+                        Xóa
                       </button>
                     </td>
                   </tr>
@@ -230,15 +241,15 @@ const Cart = () => {
       )}
 
       <div className="cart-summary">
-        <h3>Cart Summary</h3>
-        <p>Total Items: {dishes.reduce((sum, item) => sum + item.quantity, 0)}</p>
-        <p>Subtotal: {formatPrice(subtotal)}</p>
-        <p>Last Updated: {new Date(cart.updated_at).toLocaleString()}</p>
+        <h3>GIỎ HÀNG</h3>
+        <p>Tổng số món: {dishes.reduce((sum, item) => sum + item.quantity, 0)}</p>
+        <p>Tổng cộng: {formatPrice(subtotal)}</p>
+        <p>Cập nhật lần cuối: {new Date(cart.updated_at).toLocaleString()}</p>
       </div>
 
       <div className="checkout-section">
         <button className="checkout-btn" onClick={handleCheckout}>
-          Proceed to Checkout
+          THANH TOÁN
         </button>
       </div>
     </div>

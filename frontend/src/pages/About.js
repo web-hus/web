@@ -53,9 +53,9 @@ function About() {
       </div>
 
       <div className="aboutBottom">
-        <h1>ABOUT US</h1>
+        <h1>GIỚI THIỆU</h1>
         <p>
-          <strong>Welcome to Pizza Phe La - Hanoi's Freshest Slice of Italy!</strong>
+          <strong>Ẩm thực 3 Miền - Nơi hội tụ ẩm thực Việt Nam</strong>
         </p>
         <p>
           Lịch sử: Nhà hàng của chúng tôi ra đời từ tình yêu sâu sắc với ẩm thực Việt Nam, được ấp ủ sau hành trình xuyên Việt của những người sáng lập – say mê khám phá và có cơ hội được thưởng thức những tinh hoa từ khắp ba miền đất nước. Hành trình đó không chỉ là thưởng thức cảnh đẹp sắc nước hương trời mà còn thấu hiểu nét độc đáo của từng món ăn, từ hương vị thanh tao của miền Bắc, nét mộc mạc dân dã của miền Trung, đến sự đậm đà say mê của ẩm thực miền Nam.

@@ -13,19 +13,19 @@ function Contact() {
   return (
     <div className="contact">
       <div className="rightSide">
-        <h1>Contact Us</h1>
+        <h1>Liên lạc chúng tôi</h1>
 
         {isSubmitted ? (
           <p className="successMessage" aria-live="polite">
-            Form submitted successfully!
+            Gửi thành công!
           </p>
         ) : (
           <form id="contact-form" onSubmit={handleSubmit} method="POST">
-            <label htmlFor="name">Full Name</label>
+            <label htmlFor="name">Tên</label>
             <input
               id="name"
               name="name"
-              placeholder="Enter full name..."
+              placeholder=""
               type="text"
               required
             />
@@ -34,21 +34,21 @@ function Contact() {
             <input
               id="email"
               name="email"
-              placeholder="Enter email..."
+              placeholder=""
               type="email"
               required
             />
 
-            <label htmlFor="message">Message</label>
+            <label htmlFor="message">Lời nhắn</label>
             <textarea
               id="message"
               name="message"
               rows="6"
-              placeholder="Enter message..."
+              placeholder=""
               required
             ></textarea>
 
-            <button type="submit">Send Message</button>
+            <button type="submit">Gửi</button>
           </form>
         )}
 
@@ -65,7 +65,7 @@ function Contact() {
           <br />
           <small>
             <a href="https://www.openstreetmap.org/?mlat=20.995939&mlon=105.808009#map=15/20.995939/105.808009">
-              View Larger Map
+              Mở rộng
             </a>
           </small>
         </div>

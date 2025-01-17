@@ -5,7 +5,7 @@ body {
 }
 
 .setTablePage {
-  background-image: url("../assets/pizzaLeft.jpg");
+  background-image: url("../assets/background.jpg");
   /* Đường dẫn đến ảnh */
   background-size: cover;
   /* Ảnh phủ toàn bộ trang */
