@@ -12,22 +12,22 @@
 
 /* Thanh sidebar bên trái */
 .menuSidebar {
-  position: fixed;
+  /* position: fixed; */
   top: 100px; /* Đẩy sidebar xuống dưới navbar */
-  left: 0;
+  /* left: 0; */
   width: 250px;
   background-color: #1d4d41;
   padding: 20px;
   color: white;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  height: calc(100vh - 60px); 
-  overflow-y: auto;
+  /* height: calc(100vh - 60px); 
+  overflow-y: auto; */
   border-right: 1px solid #2c6d5a;
 }
 
 .menuSidebar h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 16px;
+  margin-bottom: 5px;
   font-weight: bold;
   text-transform: uppercase;
   color: #f39c12; /* Màu vàng */
@@ -70,20 +70,23 @@
 
 .menuSidebar select {
   width: 100%;
-  padding: 10px;
+  padding: 100px;
   margin: 10px 0;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
 }
-
+.menuContainer {
+  display: flex;
+}
 
 /* Phần nội dung của menu */
 .menuContent {
-  margin-left: 250px;
+  width: 100%;
+  /* margin-left: 250px; */
   padding: 20px;
   background-color: #0d3b34; /* Nền xanh đậm */
-  overflow-y: auto;
-  height: 100vh;
+  /* overflow-y: auto;
+  height: 100vh; */
 }
 
 /* Tiêu đề của Menu */
@@ -98,7 +101,7 @@
 /* Hiển thị danh sách món ăn dưới dạng grid */
 .menuList {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 20px;
 }
 
@@ -140,11 +143,6 @@
   margin-bottom: 10px;
 }
 
-.menuItemOldPrice {
-  text-decoration: line-through;
-  color: #95a5a6; /* Màu xám cho giá cũ */
-  font-size: 14px;
-}
 
 .menuItemButton {
   padding: 10px 20px;
@@ -162,7 +160,7 @@
   background-color: #e68a00;
 }
 
-.menuItemLink {
+.menuItemButtonLink:hover {
   text-decoration: none;
-  color: white;
 }
+

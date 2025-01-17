@@ -37,7 +37,7 @@
 }
 
 /* Định dạng cho tiêu đề bảng (thead) */
-.table thead th {
+.table thead th, .table thead th > button {
   background-color: #4CAF50; /* Màu nền tiêu đề */
   color: white; /* Màu chữ tiêu đề */
   text-align: center; /* Căn giữa tiêu đề */
@@ -51,7 +51,23 @@
 }
 
 .table thead th:nth-child(5) {
-  width: 55%; /* Cột Mô tả */
+  width: 45% !important; /* Cột Mô tả */
+}
+
+.table thead th:nth-child(1) {
+  width: 5% !important; /* Cột Mô tả */
+}
+
+.table thead th:nth-child(2) {
+  width: 15% !important; /* Cột Mô tả */
+}
+
+.table thead th:nth-child(3) {
+  width: 15% !important; /* Cột Mô tả */
+}
+
+.table thead th:nth-child(4) {
+  width: 10% !important; /* Cột Mô tả */
 }
 
 .table thead th:last-child {
@@ -69,15 +85,20 @@
 
 /* Màu xen kẽ cho các dòng */
 .table tbody tr:nth-child(odd) {
-  background-color: #ffbaba; /* Màu nền xám nhạt */
+  background-color: #ffbaba; 
 }
 
 .table tbody tr:nth-child(even) {
-  background-color: #ffffff; /* Màu nền trắng */
+  background-color: #ffffff; 
 }
 
 /* Hiệu ứng hover cho từng dòng */
 .table tbody tr:hover {
   background-color: #f1f8e9; /* Màu nền xanh lá nhạt khi hover */
   transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu mượt */
+}
+
+
+.table>:not(caption)>*>* {
+  background-color: unset;
 }
