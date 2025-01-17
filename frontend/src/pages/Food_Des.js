@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getDishById, addToCart, getCartById } from "../api/dishesApi";
 import "../styles/Food_Des.css";
 import { getUserProfile } from "../api/userAPI";
 
 function FoodDes() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [dish, setDish] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -66,16 +67,27 @@ function FoodDes() {
 
   const handleAddToCart = async () => {
     try {
+      // Check if the user is logged in
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        alert("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
+        navigate("/log_sign_in"); // Redirect to login page
+        return; // Exit the function early
+      }
+  
+  
       if (!cartId) {
         throw new Error("Cart ID not found.");
       }
-
+  
+      // Construct cart data
       const cartData = {
         cart_id: cartId,
         dish_id: dish.dish_id,
         quantity: quantity,
       };
-
+  
+      // Add the dish to the cart
       const response = await addToCart(cartData);
       setMessage(response.message || "Đã thêm vào giỏ hàng!");
     } catch (error) {
@@ -83,6 +95,7 @@ function FoodDes() {
       setMessage("Có lỗi xảy ra khi thêm vào giỏ hàng.");
     }
   };
+  
 
   return (
     <div className="foodDesContainer">
