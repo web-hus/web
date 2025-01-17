@@ -48,9 +48,12 @@
   align-items: center;
   justify-content: center; 
   text-align: center; 
-  /* padding-bottom: 40px; */
   margin-top: 50px;
+  font-family: 'Playfair Display', serif; /* Elegant and high-class font */
+  font-size: 1.2em; /* Adjust font size for readability */
+  color: #333; /* Sophisticated dark color */
 }
+
 
 .aboutBottom h1 {
   font-size: 36px;
@@ -75,5 +78,5 @@
 .aboutBottom strong {
   color: #f0a500; 
   font-size: 20px;
-  font-family: 'Georgia', serif;
+  font-family: ''Playfair Display'', serif;
 }

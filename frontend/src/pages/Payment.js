@@ -61,7 +61,7 @@ const Payment = () => {
           setError("Cart data is missing the 'dishes' field.");
         }
       } catch (err) {
-        setError("Failed to fetch cart data.");
+        setError("Có lỗi xảy ra khi lấy giỏ hàng");
         console.error(err);
       } finally {
         setLoading(false);
@@ -94,10 +94,8 @@ const Payment = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Cart cleared successfully");
       setCart([]); // Optionally, clear the cart state
     } catch (err) {
-      console.error("Error clearing cart:", err);
     }
   };
 
@@ -124,7 +122,7 @@ const Payment = () => {
         },
       });
 
-      console.log("Order created successfully:", orderResponse.data);
+      console.log("Tạo đơn thành công", orderResponse.data);
 
       // Step 2: Create the payment
       const paymentData = {
@@ -142,7 +140,7 @@ const Payment = () => {
         },
       });
 
-      console.log("Payment created successfully:", paymentResponse.data);
+      console.log("Tạo thanh toán thành công", paymentResponse.data);
 
       // Step 3: Clear the cart after the order is placed and payment is created
       await clearCart();
@@ -156,7 +154,7 @@ const Payment = () => {
   };
 
   if (loading) {
-    return <p>Loading cart items...</p>;
+    return <p>Đang lấy giỏ hàng</p>;
   }
 
   if (error) {
@@ -165,7 +163,7 @@ const Payment = () => {
 
   return (
     <div className="payment-container">
-      <h1>Dola Restaurant</h1>
+      <h1>ẨM THỰC 3 MIỀN</h1>
       <div className="content">
         <div className="order-form">
           <h2>Thông tin nhận hàng</h2>
@@ -173,7 +171,7 @@ const Payment = () => {
             <input
               type="text"
               name="address"
-              placeholder="Địa chỉ nhận hàng (bắt buộc)"
+              placeholder="Địa chỉ nhận hàng"
               value={order.address}
               onChange={handleInputChange}
             />
