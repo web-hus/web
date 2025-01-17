@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url("../assets/pizzaLeft.jpg"); /* Đường dẫn đến ảnh */
+    background-image: url("../assets/background.jpg"); /* Đường dẫn đến ảnh */
     background-size: cover; /* Ảnh phủ toàn bộ trang */
     background-position: center; /* Căn giữa ảnh */
     background-repeat: no-repeat; /* Không lặp lại ảnh */;

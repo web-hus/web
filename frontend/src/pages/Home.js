@@ -11,10 +11,10 @@ function Home() {
         <source src={bannerVideo} type="video/mp4" />
       </video>
       <div className="headerContainer">
-        <h1>Pizza Phe La</h1>
-        <p>PIZZA TO FIT ANY TASTE</p>
+        <h1>ẨM THỰC 3 MIỀN</h1>
+        <p>HƯƠNG VỊ TỪ NAM RA BẮC</p>
         <Link to="/menu">
-          <button>ORDER NOW</button>
+          <button>Đặt hàng</button>
         </Link>
       </div>
     </div>

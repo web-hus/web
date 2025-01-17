@@ -21,40 +21,52 @@
 .headerContainer {
   width: auto;
   margin-left: 50px;
-  text-align: center; /* Căn giữa nội dung */
-  z-index: 1; /* Đảm bảo nội dung hiển thị trên video */
+  text-align: center; /* Center-align content */
+  z-index: 1; /* Ensure content appears above the video */
+  font-family: 'Playfair Display', serif; /* Elegant font for overall content */
 }
 
 .headerContainer h1 {
   font-size: 90px;
-  font-weight: 50;
-  color: white; /* Màu chữ trắng để dễ nhìn trên nền video */
+  font-weight: 700; /* Bold weight for a luxurious feel */
+  color: white; /* White text for visibility on video background */
+  font-family: 'Cinzel', serif; /* Premium font for the header */
+  text-transform: uppercase; /* Optional: Makes the header look more sophisticated */
+  letter-spacing: 2px; /* Adds spacing for a more refined look */
 }
 
 .headerContainer p {
   padding: 0;
   font-size: 40px;
-  font-weight: lighter;
-  color: white;
+  font-weight: 300; /* Lighter weight for elegance */
+  color: white; 
+  font-family: 'Merriweather', serif; /* Classic and approachable font for the paragraph */
+  letter-spacing: 1px; /* Subtle spacing for readability */
 }
 
+
 .headerContainer button {
-  color: black;
-  border: none;
-  border-radius: 5px;
+  color: #333; /* Sophisticated dark gray text color */
+  border: 2px solid #333; /* Adds a refined border for a premium look */
+  border-radius: 5px; /* Keeps soft edges for elegance */
   cursor: pointer;
-  background-color: white;
+  background-color: white; /* Clean and minimal background */
   height: 50px;
   width: 180px;
   font-size: 20px;
+  font-family: 'Playfair Display', serif; /* Matches the font theme */
+  font-weight: 500; /* Medium weight for readability and sophistication */
+  text-transform: uppercase; /* Adds a formal and polished touch */
+  letter-spacing: 1px; /* Subtle spacing for a premium feel */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 
 .headerContainer button:hover {
-  background-color: pink;
-  color: #121619;
-  font-weight: bold;
-  transition: 0.3s ease-in;
+  background-color: #333; /* Changes background to dark gray on hover */
+  color: white; /* Text changes to white for contrast */
+  transform: scale(1.05); /* Adds a subtle hover animation */
 }
+
 
 @media only screen and (max-width: 650px) {
   .home {

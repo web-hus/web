@@ -235,13 +235,6 @@ function Log_Sign_In() {
           )}
         </form>
         {error && <div className="error-message">{error}</div>}
-        <div className="social-login">
-          {/* <button className="facebook">Facebook</button>
-          <button className="google">Google</button> */}
-          <a href="/Home_admin" target="_blank" rel="noopener noreferrer">
-            <button>Admin Home</button>
-          </a>
-        </div>
       </div>
     </div>
   );

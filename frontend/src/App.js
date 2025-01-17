@@ -33,11 +33,8 @@ function App() {
   // Check if the user is authenticated (for example, using localStorage or a context)
   const isAuthenticated = localStorage.getItem("authToken") !== null;
   const isAdmin = getUserProfile.role === 1;
-  console.log("role is",getUserProfile)
-  console.log("is admin:",isAdmin)  
   const NotAuthorizedHandler = () => {
-    alert("test");
-    console.log("test")
+    alert("Không có quyền truy cập!");
     return <Navigate to="/" replace />; // Redirect to home
   };
   
@@ -65,7 +62,7 @@ function App() {
 
           
 
-          {/* <Route 
+          <Route 
             path="/Home_admin" 
             element={isAdmin ? <Home_admin /> : <NotAuthorizedHandler />} 
           />
@@ -78,13 +75,13 @@ function App() {
           />
           <Route path="/User_management"
             element={isAdmin ? <User_managment /> : <NotAuthorizedHandler/>}
-          /> */}
+          />
 
-
+{/* 
           <Route path="/Home_admin" exact element={<Home_admin />} />
           <Route path="/Menu_managment" exact element={<Menu_managment />} />
           <Route path="/User_managment" exact element={<User_managment />} />
-          <Route path="/Dashboard" exact element={<Dashboard />} />
+          <Route path="/Dashboard" exact element={<Dashboard />} /> */}
 
           <Route path="/Test" element={<UserProfile />} />
           <Route path="/Payment" element={<Payment />} />
