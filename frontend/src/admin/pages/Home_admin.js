@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/main.css";
-import bannerVideo from "../../assets/Now_in_your_area.mp4";
+import bannerVideo from "../../assets/vietnamese_food.mp4";
 import { Link } from "react-router-dom";
 
 function Home_admin() {

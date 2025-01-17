@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Booking_managment.css";
+import EditNoteIcon from '@mui/icons-material/EditNote';
 
 function Booking_managment() {
     const [menuItems, setMenuItems] = useState([]); // Lưu danh sách tất cả các món ăn
@@ -21,18 +22,6 @@ function Booking_managment() {
         fetchMenuItems();
     }, []);
 
-    // Hàm xử lý khi chọn loại món ăn
-    const handleFilterChange = (category) => {
-        if (category === "All") {
-            // Nếu chọn "All", hiển thị tất cả món ăn
-            setFilteredItems(menuItems);
-        } else {
-            // Lọc món ăn theo loại được chọn
-            const filtered = menuItems.filter((item) => item.product_category === category);
-            setFilteredItems(filtered);
-        }
-    };
-
     return (
         <div className="card-body">
             <h5 className="card-title">Booking Management</h5>
@@ -40,10 +29,10 @@ function Booking_managment() {
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Tên Khách Hàng</th>
+                        <th>Tên khách hàng</th>
                         <th>Số ĐT</th>
-                        <th>Date</th>
-                        <th>Time</th>
+                        <th>Ngày</th>
+                        <th>Thời gian</th>
                         <th>Số lượng người</th>
                         <th>Yêu cầu đặc biệt</th>
                         <th>Trạng thái</th>
@@ -62,7 +51,7 @@ function Booking_managment() {
                             <td>{item.description}</td>
                             <td>{item.availability ? "Còn hàng" : "Hết hàng"}</td>
                             <td>
-                            <div className="menuItemButton">Xem thêm</div>
+                            <EditNoteIcon></EditNoteIcon>
                             </td>
                         </tr>
                     ))}

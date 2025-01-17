@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import axios
 import "../styles/Menu_managment.css";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Menu_managment() {
     const [menuItems, setMenuItems] = useState([]); // Lưu danh sách tất cả các món ăn
@@ -115,11 +117,11 @@ function Menu_managment() {
                                     </button>
                                 </li>
                             </ul>
-                            {/* </div> */}
                         </th>
                         <th>Giá</th>
                         <th>Mô tả</th>
                         <th>Trạng thái</th>
+                        <th>Thay đổi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -131,6 +133,10 @@ function Menu_managment() {
                             <td>{item.price}</td>
                             <td>{item.description}</td>
                             <td>{item.availability ? "Còn hàng" : "Hết hàng"}</td>
+                            <td>
+                                <EditIcon></EditIcon>
+                                <DeleteIcon></DeleteIcon>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

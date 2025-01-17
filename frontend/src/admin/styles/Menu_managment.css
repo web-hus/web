@@ -46,32 +46,29 @@
   white-space: nowrap; /* Không cho chữ xuống dòng */
 }
 
-.table thead th:first-child {
-  width: 5%; /* Cột STT */
-}
-
-.table thead th:nth-child(5) {
-  width: 45% !important; /* Cột Mô tả */
-}
 
 .table thead th:nth-child(1) {
-  width: 5% !important; /* Cột Mô tả */
+  width: 5% !important; 
 }
 
 .table thead th:nth-child(2) {
-  width: 15% !important; /* Cột Mô tả */
+  width: 15% !important; 
 }
 
 .table thead th:nth-child(3) {
-  width: 15% !important; /* Cột Mô tả */
+  width: 10% !important; 
 }
 
 .table thead th:nth-child(4) {
-  width: 10% !important; /* Cột Mô tả */
+  width: 10% !important; 
+}
+
+.table thead th:nth-child(5) {
+  width: 45% !important; 
 }
 
 .table thead th:last-child {
-  width: 5%; /* Cột Trạng thái */
+  width: 5%; 
 }
 
 /* Định dạng cho cột STT */
@@ -85,7 +82,7 @@
 
 /* Màu xen kẽ cho các dòng */
 .table tbody tr:nth-child(odd) {
-  background-color: #ffbaba; 
+  background-color: #d6fdd5; 
 }
 
 .table tbody tr:nth-child(even) {
@@ -94,11 +91,17 @@
 
 /* Hiệu ứng hover cho từng dòng */
 .table tbody tr:hover {
-  background-color: #f1f8e9; /* Màu nền xanh lá nhạt khi hover */
+  background-color: #d1f9a3; /* Màu nền xanh lá nhạt khi hover */
   transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu mượt */
 }
 
 
 .table>:not(caption)>*>* {
   background-color: unset;
+}
+
+.table tbody td svg {
+  color: gray; /* Màu ghi nhạt */
+  cursor: pointer; /* Hiển thị con trỏ khi hover */
+  margin-right: 8px; /* Tạo khoảng cách giữa hai icon */
 }

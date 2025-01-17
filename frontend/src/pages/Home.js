@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/Home.css";
-import bannerVideo from "../assets/Now_in_your_area.mp4";
+import bannerVideo from "../assets/vietnamese_food.mp4";
 
 function Home() {
   return (
