@@ -26,3 +26,6 @@ yarn-error.log*
 
 **/__pycache__/
 *.log
+
+# INSERT INTO users (user_name, age, gender, address, email, phone, password, role)  
+# VALUES ('Admin User', 21, 'F', '123 Admin Street', 'admin_phanh@gmailcom', '0123456789', 'phanh12345', 1);
