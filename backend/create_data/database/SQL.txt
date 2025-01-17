@@ -83,6 +83,7 @@ CREATE TABLE order_dishes (
     FOREIGN KEY (dish_id) REFERENCES dish(dish_id)
 );
 
+
 CREATE TABLE shopping_cart_dishes (
     cart_id INT NOT NULL,
     dish_id VARCHAR(10) NOT NULL,
@@ -91,3 +92,4 @@ CREATE TABLE shopping_cart_dishes (
     FOREIGN KEY (cart_id) REFERENCES shopping_cart(cart_id) ON DELETE CASCADE,
     FOREIGN KEY (dish_id) REFERENCES dish(dish_id)
 );
+
