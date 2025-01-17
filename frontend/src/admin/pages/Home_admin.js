@@ -53,7 +53,7 @@ function Home_admin() {
             <ul className="vertical-nav-menu">
               <li className="app-sidebar__heading">Dashboards</li>
               <li>
-                <a href="/Dashboard" className="mm-active">
+                <a href="/Dashboard" target="_blank" rel="noopener noreferrer">
                   <i className="metismenu-icon pe-7s-rocket"></i>
                   Dashboard 3 miền
                 </a>
@@ -82,12 +82,12 @@ function Home_admin() {
                 </a>
                 <ul>
                   <li>
-                    <a href="components-tabs.html">
+                    <a href="/Booking_managment" target="_blank" rel="noopener noreferrer">
                       <i className="metismenu-icon"></i>Danh sách đặt bàn
                     </a>
                   </li>
                   <li>
-                    <a href="components-accordions.html">
+                    <a href="/Order_managment" target="_blank" rel="noopener noreferrer">
                       <i className="metismenu-icon"></i>Danh sách đặt hàng
                     </a>
                   </li>

@@ -19,10 +19,13 @@ import UserProfile from "./pages/test"; // UserProfile page
 import Cart from "./pages/Cart";
 import LostPassword from "./pages/Lost_Password";
 import NewPassword from "./pages/New_Password";
-import Home_admin from "./admin/pages/Home_admin"; 
+import Home_admin from "./admin/pages/Home_admin";
 import Menu_managment from "./admin/pages/Menu_managment"
 import User_managment from "./admin/pages/User_managment"
 import Dashboard from "./admin/pages/Dashboard"
+import Booking_managment from "./admin/pages/Booking_managment"
+import Order_managment from "./admin/pages/Order_managment"
+import Booking_order from "./admin/pages/Booking_order"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -37,7 +40,7 @@ function App() {
     console.log("test")
     return <Navigate to="/" replace />; // Redirect to home
   };
-  
+
 
   return (
     <div className="App">
@@ -59,8 +62,8 @@ function App() {
           <Route path="/news" exact element={<News />} />
           <Route path="/food/:id" exact element={<FoodDes />} />
 
-          
-{/* 
+
+          {/* 
           <Route 
             path="/Home_admin" 
             element={isAdmin ? <Home_admin /> : <NotAuthorizedHandler />} 
@@ -76,6 +79,9 @@ function App() {
           <Route path="/Menu_managment" exact element={<Menu_managment />} />
           <Route path="/User_managment" exact element={<User_managment />} />
           <Route path="/Dashboard" exact element={<Dashboard />} />
+          <Route path="/Booking_managment" exact element={<Booking_managment />} />
+          <Route path="/Order_managment" exact element={<Order_managment />} />
+          <Route path="/Booking_order" exact element={<Booking_order />} />
 
           <Route path="/Test" element={<UserProfile />} />
           <Route path="/Payment" element={<Payment />} />
