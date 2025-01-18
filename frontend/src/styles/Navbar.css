@@ -32,7 +32,7 @@
 
 .navbar a {
   text-decoration: none;
-  color: pink;
+  color: rgb(255, 170, 72);
   font-size: 16px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -41,7 +41,7 @@
 }
 
 .navbar a:hover {
-  background-color: #ff66b2;
+  background-color: #f6a12a;
   color: white;
 }
 
