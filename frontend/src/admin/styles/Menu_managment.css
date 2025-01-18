@@ -82,7 +82,7 @@
 
 /* Màu xen kẽ cho các dòng */
 .table tbody tr:nth-child(odd) {
-  background-color: #c9f5c8; 
+  background-color: #bef3bd; 
 }
 
 .table tbody tr:nth-child(even) {
