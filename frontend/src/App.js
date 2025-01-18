@@ -75,6 +75,7 @@ function App() {
           <Route path="/menu" exact element={<Menu />} />
           <Route path="/about" exact element={<About />} />
           <Route path="/contact" exact element={<Contact />} />
+          <Route path="/Set_table" exact element={<SetTable />} />
           <Route path="/log_sign_in" exact element={<LogSignIn />} />
           <Route path="/news" exact element={<News />} />
           <Route path="/food/:id" exact element={<FoodDes />} />
