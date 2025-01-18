@@ -4,6 +4,7 @@ import "../styles/Cart.css";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { getUserProfile } from "../api/userAPI"; // Import the user profile API
 import { getDishById } from "../api/dishesApi"; // Import getDishById function
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Cart = () => {
   const [cart, setCart] = useState(null); // Holds the entire cart response
@@ -223,12 +224,8 @@ const Cart = () => {
                     <td>{formatPrice(dish.price)}</td>
                     <td>{formatPrice(subtotal)}</td>
                     <td>
-                      <button
-                        className="remove-btn"
-                        onClick={() => removeDish(item.dish_id)}
-                      >
-                        Xóa
-                      </button>
+                      <DeleteIcon
+                        onClick={() => removeDish(item.dish_id)}></DeleteIcon>
                     </td>
                   </tr>
                 );
@@ -244,7 +241,7 @@ const Cart = () => {
         <h3>GIỎ HÀNG</h3>
         <p>Tổng số món: {dishes.reduce((sum, item) => sum + item.quantity, 0)}</p>
         <p>Tổng cộng: {formatPrice(subtotal)}</p>
-        <p>Cập nhật lần cuối: {new Date(cart.updated_at).toLocaleString()}</p>
+        {/* <p>Cập nhật lần cuối: {new Date(cart.updated_at).toLocaleString()}</p> */}
       </div>
 
       <div className="checkout-section">
