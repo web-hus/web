@@ -4,8 +4,8 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 50px;
+    background-color: rgb(250, 235, 219);
 }
-
 .carousel img {
     height: 500px;
     object-fit: cover;
@@ -19,6 +19,7 @@
   margin-top: 30px;
   margin-bottom: 5px; /* Khoảng cách dưới tiêu đề */
   font-family: 'Cinzel', serif;
+  text-shadow: 2px 2px 4px rgba(24, 24, 24, 0.185);
 }
 
 .news-section {
@@ -45,14 +46,14 @@
 }
 
 .btn-primary {
-    background-color: #f975b7 !important;
+    background-color: #f8a941 !important;
     color: white !important;
     border: #ff66b2 !important;
     transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .btn-primary:hover {
-    background-color: #fa43a2 !important; /* Màu tối hơn khi hover */
+    background-color: #fb9b1f  !important; /* Màu tối hơn khi hover */
     transform: scale(1.05); /* Hiệu ứng zoom nhẹ */
     color: white !important;
 }
