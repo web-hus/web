@@ -57,11 +57,12 @@ class Order(Base):
 
     order_id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
-    order_type = Column(Integer, nullable=False)  # 0: Đến quán ăn, 1: Đơn mang về
+    order_type = Column(Integer, nullable=False)  # 0: booking (đến quán ăn), 1: order (mang về)
     booking_id = Column(Integer, ForeignKey("booking.booking_id"), nullable=True)
     order_date = Column(DateTime, default=func.now())
-    status = Column(Integer, default=0)  # 0: Chờ xử lý, 1: Đã xác nhận, 2: Đang giao, 3: Hoàn thành, 4: Hủy
-    delivery_address = Column(String(255))  # Chỉ có khi order_type = 1
+    status = Column(Integer, default=0)  # 0: chờ xử lý, 1: đã xác nhận, 2: đang giao, 3: hoàn thành, 4: hủy
+    total_amount = Column(Float, nullable=True)
+    delivery_address = Column(String(255))
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
 
@@ -87,7 +88,8 @@ class Payment(Base):
 
     payment_id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
-    order_id = Column(Integer,nullable=False)
+    order_id = Column(Integer, ForeignKey("orders.order_id"), nullable=False)
+    amount = Column(Float, nullable=False)
     payment_method = Column(Integer, nullable=False)  # 0: Online, 1: Khi nhận hàng
     payment_status = Column(Integer, default=0)  # 0: Đang xử lý, 1: Đã thanh toán, 2: Hoàn tiền
     payment_date = Column(DateTime, default=func.now())

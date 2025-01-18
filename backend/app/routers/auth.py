@@ -10,17 +10,25 @@ router = APIRouter(
     tags=["auth"]
 )
 
-@router.post("/login")
+@router.post("/login", 
+    summary="User Login",
+    description="""
+    Authenticate user and return access token.
+    
+    **Input:**
+    - username: Email or phone number
+    - password: User's password
+    
+    **Returns:**
+    - access_token: JWT token for authentication
+    - token_type: Type of token (bearer)
+    - user_id: User's ID
+    - role: User's role
+    """)
 async def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
 ):
-    """
-    Endpoint đăng nhập
-    :param form_data: Form chứa username và password
-    :param db: Database session
-    :return: Token và thông tin user
-    """
     try:
         # Xác thực user
         user = UserService.authenticate_user(
