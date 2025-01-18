@@ -88,9 +88,14 @@ function Navbar() {
           <Link to="/Cart">
             <ShoppingCartIcon />
           </Link>
-          <Link to="https://www.openstreetmap.org/?mlat=20.995939&mlon=105.808009#map=15/20.995939/105.808009">
+          <a 
+            href="https://www.openstreetmap.org/?mlat=20.995939&mlon=105.808009#map=15/20.995939/105.808009" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
             <PlaceIcon />
-          </Link>
+          </a>
+
           <Link to={isAuthenticated ? "/update_profile" : "/log_sign_in"}>
             <PersonIcon />
           </Link>
