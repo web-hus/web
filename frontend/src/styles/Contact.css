@@ -6,7 +6,7 @@
   background-image: url("../assets/background.jpg");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
 }
 
 .contact .rightSide {
@@ -17,6 +17,8 @@
   max-width: 400px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 40px; /* Khoảng cách từ navbar */
+  margin-bottom: 40px; /* Khoảng cách đến footer */
 }
 
 .contact .rightSide h1 {

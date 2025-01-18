@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios"; // Import axios
 import "../styles/Menu_managment.css";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Menu_managment() {
     const [menuItems, setMenuItems] = useState([]); // Lưu danh sách tất cả các món ăn
@@ -41,75 +43,85 @@ function Menu_managment() {
                     <tr>
                         <th>STT</th>
                         <th>Món ăn</th>
-                        <th className="Category">
-                            Loại
-                            <div className="dropdown d-inline-block ms-2">
-                                <button
-                                    className="btn btn-success btn-sm dropdown-toggle"
-                                    type="button"
-                                    id="categoryDropdown"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                >
+                        <th>
+                            {/* <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Dropdown button
                                 </button>
-                                <ul className="dropdown-menu" aria-labelledby="categoryDropdown">
-                                    <li>
-                                        <button
-                                            className="dropdown-item"
-                                            onClick={() => handleFilterChange("All")}
-                                        >
-                                            All
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button
-                                            className="dropdown-item"
-                                            onClick={() => handleFilterChange("Khai vị")}
-                                        >
-                                            Khai vị
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button
-                                            className="dropdown-item"
-                                            onClick={() => handleFilterChange("Món chính")}
-                                        >
-                                            Món chính
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button
-                                            className="dropdown-item"
-                                            onClick={() => handleFilterChange("Món phụ")}
-                                        >
-                                            Món phụ
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <hr className="dropdown-divider" />
-                                    </li>
-                                    <li>
-                                        <button
-                                            className="dropdown-item"
-                                            onClick={() => handleFilterChange("Tráng miệng")}
-                                        >
-                                            Tráng miệng
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button
-                                            className="dropdown-item"
-                                            onClick={() => handleFilterChange("Đồ uống")}
-                                        >
-                                            Đồ uống
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div> */}
+
+                            {/* <div className="dropdown d-inline-block ms-2"> */}
+                            <button
+                                className="btn btn-success btn-sm dropdown-toggle"
+                                type="button"
+                                id="categoryDropdown"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >Loại
+                            </button>
+                            <ul className="dropdown-menu" aria-labelledby="categoryDropdown">
+                                <li>
+                                    <button
+                                        className="dropdown-item"
+                                        onClick={() => handleFilterChange("All")}
+                                    >
+                                        All
+                                    </button>
+                                </li>
+                                <li>
+                                    <button
+                                        className="dropdown-item"
+                                        onClick={() => handleFilterChange("Khai vị")}
+                                    >
+                                        Khai vị
+                                    </button>
+                                </li>
+                                <li>
+                                    <button
+                                        className="dropdown-item"
+                                        onClick={() => handleFilterChange("Món chính")}
+                                    >
+                                        Món chính
+                                    </button>
+                                </li>
+                                <li>
+                                    <button
+                                        className="dropdown-item"
+                                        onClick={() => handleFilterChange("Món phụ")}
+                                    >
+                                        Món phụ
+                                    </button>
+                                </li>
+                                <li>
+                                    <hr className="dropdown-divider" />
+                                </li>
+                                <li>
+                                    <button
+                                        className="dropdown-item"
+                                        onClick={() => handleFilterChange("Tráng miệng")}
+                                    >
+                                        Tráng miệng
+                                    </button>
+                                </li>
+                                <li>
+                                    <button
+                                        className="dropdown-item"
+                                        onClick={() => handleFilterChange("Đồ uống")}
+                                    >
+                                        Đồ uống
+                                    </button>
+                                </li>
+                            </ul>
                         </th>
                         <th>Giá</th>
                         <th>Mô tả</th>
                         <th>Trạng thái</th>
+                        <th>Thay đổi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -121,6 +133,10 @@ function Menu_managment() {
                             <td>{item.price}</td>
                             <td>{item.description}</td>
                             <td>{item.availability ? "Còn hàng" : "Hết hàng"}</td>
+                            <td>
+                                <EditIcon></EditIcon>
+                                <DeleteIcon></DeleteIcon>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
