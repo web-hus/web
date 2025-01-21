@@ -2,16 +2,20 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
 
+from app.database import SessionLocal
+
 from ..database import get_db
 from ..services.order_service import OrderService
 from ..schemas.order_schema import OrderCreate, Order
+from ..models.tables import Order as OrderModel
+
 from ..auth.auth_bearer import JWTBearer
 from ..auth.auth_handler import decodeJWT
 
 router = APIRouter(
     prefix="/orders",
     tags=["orders"],
-    dependencies=[Depends(JWTBearer())]
+    # dependencies=[Depends(JWTBearer())]
 )
 
 def get_current_user(token: str = Depends(JWTBearer())):
@@ -58,3 +62,10 @@ def update_order_status(
             detail="Không có quyền cập nhật trạng thái đơn hàng này"
         )
     return OrderService.update_order_status(db=db, order_id=order_id, new_status=new_status)
+
+@router.get("/get_orders")
+async def get_orders():
+    db: Session = SessionLocal()
+    dishes = db.query(OrderModel).all()  # Lấy tất cả món ăn từ DB
+    db.close()
+    return dishes

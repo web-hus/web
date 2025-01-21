@@ -11,7 +11,7 @@ function Order_managment() {
     useEffect(() => {
         const fetchMenuItems = async () => {
             try {
-                const response = await axios.get("/api/admin/orders"); // Gọi API lấy tất cả món ăn
+                const response = await axios.get("/api/orders/orders/get_orders"); // Gọi API lấy tất cả món ăn
                 setMenuItems(response.data);
                 setFilteredItems(response.data); // Mặc định hiển thị tất cả món ăn
             } catch (error) {
@@ -29,8 +29,8 @@ function Order_managment() {
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Tên Khách Hàng</th>
-                        <th>Số ĐT</th>
+                        <th>ID Khách Hàng</th>
+                        {/* <th>Số ĐT</th> */}
                         <th>Ngày đặt hàng</th>
                         <th>Địa chỉ giao hàng</th>
                         <th>Trạng thái</th>
@@ -41,11 +41,11 @@ function Order_managment() {
                     {filteredItems.map((item, index) => (
                         <tr key={item.dish_id}>
                             <th scope="row">{index + 1}</th>
-                            <td>{item.dish_name}</td>
-                            <td>{item.product_category}</td>
-                            <td>{item.price}</td>
-                            <td>{item.description}</td>
-                            <td>{item.availability ? "Còn hàng" : "Hết hàng"}</td>
+                            <td>{item.user_id}</td>
+                            {/* <td>{item.product_category}</td> */}
+                            <td>{item.order_date}</td>
+                            <td>{item.delivery_address}</td>
+                            <td>{item.status}</td>
                             <td>
                             <ChecklistIcon></ChecklistIcon>
                             </td>
