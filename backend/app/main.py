@@ -12,6 +12,7 @@ from .routers import (
     dish_router,
     menu_router,
     password_router,
+    registration_router
 )
 from .routers.profile import router as profile_router
 from .Admin.routers.admin import router as admin_router
@@ -47,7 +48,7 @@ app.include_router(cart_router, prefix="/api/cart", tags=["cart"])
 app.include_router(dish_router, prefix="/api/dish", tags=["dish"])
 app.include_router(menu_router, prefix="/api/menu", tags=["menu"])
 app.include_router(password_router, prefix="/api/password", tags=["password"])
-
+app.include_router(registration_router, tags=["registration"])
      
 
 app.include_router(admin_router)
