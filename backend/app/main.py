@@ -47,7 +47,7 @@ app.include_router(profile_router, prefix="/api/profile", tags=["profile"])
 app.include_router(cart_router, prefix="/api/cart", tags=["cart"])
 app.include_router(dish_router, prefix="/api/dish", tags=["dish"])
 app.include_router(menu_router, prefix="/api/menu", tags=["menu"])
-app.include_router(password_router, prefix="/api/password", tags=["password"])
+app.include_router(password_router, tags=["password"])
 app.include_router(registration_router, tags=["registration"])
      
 
