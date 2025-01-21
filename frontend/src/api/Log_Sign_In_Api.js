@@ -23,7 +23,7 @@ export const loginUser = async (loginData) => {
     console.log("email is", loginData.email)
     console.log("password is", loginData.password)
     const formData = new URLSearchParams();
-    formData.append('grant_type', '');
+    formData.append('grant_type', 'password');
     formData.append('username', loginData.email);
     formData.append('password', loginData.password);
     formData.append('scope', '');
