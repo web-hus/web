@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from typing import Optional
-from jose import JWTError, jwt
+import jwt
 from fastapi import HTTPException, status
 import os
 from dotenv import load_dotenv
@@ -14,7 +14,7 @@ def decodeJWT(token: str) -> dict:
     try:
         decoded_token = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return decoded_token if decoded_token["exp"] >= datetime.utcnow().timestamp() else None
-    except JWTError:
+    except jwt.PyJWTError:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials",
