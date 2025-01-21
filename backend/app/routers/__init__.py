@@ -18,6 +18,6 @@ __all__ = [
     "cart_router",
     "dish_router",
     "menu_router",
-    "password_router"
+    "password_router",
     "registration_router"
 ]

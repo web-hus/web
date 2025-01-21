@@ -14,8 +14,8 @@ function LostPassword() {
     setMessage(""); // Reset success message on form submission
 
     try {
-      // Call API to request password reset
-      // const response = await requestPasswordReset(formData.email);
+      const response = await requestPasswordReset(formData.email);
+      console.log(response)
       setMessage("Link đặt lại mật khẩu đã được gửi đến Email của bạn!");
     } catch (err) {
       setError("Error: " + err.response.data.detail || "Đã xảy ra lỗi");

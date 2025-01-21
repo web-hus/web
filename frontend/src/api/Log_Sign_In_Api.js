@@ -43,10 +43,8 @@ export const loginUser = async (loginData) => {
     // Set the token in axios headers for future requests
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-    // Store the token in localStorage
     localStorage.setItem('authToken', token);
     
-    // Redirect to another page after successful login
     window.location.href = '/'; // Thay bằng '/test' để thử API đăng nhập
 
   } catch (error) {
@@ -56,30 +54,52 @@ export const loginUser = async (loginData) => {
   }
 };
 
-// Hàm helper giúp lấy token
-export const getAuthToken = () => {
-  return localStorage.getItem('authToken');
-};
-
-// Hàm ví dụ về quyền truy cập
-// Sử dụng hàm dưới để có ví dụ về API và nhận token
-export const fetchUserData = async () => {
+export async function requestPasswordReset(email) {
   try {
-    const token = getAuthToken();
-    console.log("local authToken:",localStorage.getItem('authToken'))
+    const response = await axios.post('/password/forgot', { email });
+    return response.data; // The response should include the message and expiration time
+  } catch (error) {
+    if (error.response) {
+      // Server responded with a status outside of 2xx range
+      throw new Error(error.response.data.detail || 'An error occurred while requesting a password reset.');
+    } else if (error.request) {
+      // No response received from the server
+      throw new Error('No response from server. Please try again later.');
+    } else {
+      // Error in setting up the request
+      throw new Error(error.message);
+    }
+  }
+}
 
-    if (!token) throw new Error('No token found. Please login again.');
+export async function updatePassword(password, confirmPassword) {
+  try {
+    // Extract the token from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
 
-    const response = await axios.get('/users/me', 
-      {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    if (!token) {
+      throw new Error('Reset token is missing from the URL.');
+    }
+    console.log(token)
+    // Make the API call
+    const response = await axios.post('/password/reset', {
+      new_password: password,
+      confirm_password: confirmPassword,
+      token: token
     });
 
-    return response.data;
+    return response.data; // Should contain a success message like "Password reset successfully"
   } catch (error) {
-    console.error('Error fetching user data:', error);
-    throw error;
+    if (error.response) {
+      // Server responded with a status outside of 2xx range
+      throw new Error(error.response.data.detail || 'An error occurred while updating the password.');
+    } else if (error.request) {
+      // No response received from the server
+      throw new Error('No response from server. Please try again later.');
+    } else {
+      // Error in setting up the request
+      throw new Error(error.message);
+    }
   }
-};
+}

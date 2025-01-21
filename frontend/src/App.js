@@ -91,7 +91,7 @@ function App() {
           <Route path="/Payment" element={<Payment />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/LostPassword" exact element={<LostPassword />} />
-          <Route path="/NewPassword" exact element={<NewPassword />} />
+          <Route path="/reset-password" exact element={<NewPassword />} />
 
           {/* Admin-Only Routes */}
           <Route
