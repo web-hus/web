@@ -10,19 +10,19 @@ class UserRegistration(BaseModel):
     email: EmailStr
     phone: constr(pattern="^[0-9]{10,15}$")
     password: constr(min_length=6)
-    confirm_password: str
+    # confirm_password: str
 
-    @validator('age')
-    def validate_age(cls, v):
-        if v < 0 or v > 150:
-            raise ValueError('Age must be between 0 and 150')
-        return v
+    # @validator('age')
+    # def validate_age(cls, v):
+    #     if v < 0 or v > 150:
+    #         raise ValueError('Age must be between 0 and 150')
+    #     return v
 
-    @validator('confirm_password')
-    def passwords_match(cls, v, values, **kwargs):
-        if 'password' in values and v != values['password']:
-            raise ValueError('Passwords do not match')
-        return v
+    # @validator('confirm_password')
+    # def passwords_match(cls, v, values, **kwargs):
+    #     if 'password' in values and v != values['password']:
+    #         raise ValueError('Passwords do not match')
+    #     return v
 
 class VerifyRegistration(BaseModel):
     token: str

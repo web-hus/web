@@ -50,9 +50,9 @@ function Log_Sign_In() {
           phone: RegisterFormData.phone,
         });
 
-        console.log("Registration successful:", response);
+        // console.log("Registration successful:", response);
       alert(
-        `Registration successful! Cart created with ID: ${response.cart_id}. Please log in.`
+        `Chúng tôi vừa gửi Email xác thực cho bạn. Hãy kiểm tra địa chỉ Email của bạn!`
       );
 
         // Reset registration form data after successful registration

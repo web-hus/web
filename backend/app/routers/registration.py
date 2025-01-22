@@ -69,7 +69,7 @@ async def verify_registration(
         cart = CartService.create_cart(db=db, cart_data=CartCreate(user_id=user.user_id))
 
         return {
-            "message": "User registered successfully",
+            "message": "Đăng ký thành công! Vui lòng đăng nhập.",
             "user_id": user.user_id,
             "cart_id": cart.cart_id,
         }

@@ -17,8 +17,6 @@ function VerifyRegistration() {
     useEffect(() => {
         async function verifyRegistration() {
             const token = getQueryParam("token");
-            console.log("token is", token)
-
             if (!token) {
                 setError("Verification token is missing!");
                 return;
