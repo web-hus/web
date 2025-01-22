@@ -13,7 +13,7 @@ function Contact() {
   return (
     <div className="contact">
       <div className="rightSide">
-        <h1>Liên lạc chúng tôi</h1>
+        <h1>Liên hệ </h1>
 
         {isSubmitted ? (
           <p className="successMessage" aria-live="polite">
