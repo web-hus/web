@@ -24,6 +24,7 @@ import Booking_managment from "./admin/pages/Booking_managment"
 import User_managment from "./admin/pages/User_managment";
 import Dashboard from "./admin/pages/Dashboard";
 import UpdateProfile from "./pages/updateProfile";
+import VerifyRegistration from "./pages/Verify_Registration";
 
 import { getUserProfile } from "./api/userAPI";
 
@@ -81,7 +82,7 @@ function App() {
           <Route path="/news" exact element={<News />} />
           <Route path="/food/:id" exact element={<FoodDes />} />
           <Route path="/update_Profile" exact element={<UpdateProfile />} />
-
+          <Route path="/verify_registration" exact element={<VerifyRegistration/>}/>
           {/* Authenticated User Routes */}
           <Route
             path="/set_table"
