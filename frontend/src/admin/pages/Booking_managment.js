@@ -169,6 +169,12 @@ function BookingManagement() {
                     ) : (
                         <div>
                             <h2>Giỏ hàng</h2>
+                            <div className="menu-header-cart">
+                                <span className="menu-title-cart">Món ăn</span>
+                                <span className="menu-price-cart">Giá</span>
+                                <span className="menu-quantity">Số lượng</span>
+                                <span className="menu-total">Tổng 1 món</span>
+                            </div>
                             <ul>
                                 {cart.map((item) => {
                                     const fileExtension = item.dish_name.toLowerCase().includes("png") ? "png" : "jpg";
@@ -181,12 +187,16 @@ function BookingManagement() {
                                                 alt={item.dish_name}
                                                 className="dish-img"
                                             />
-                                            <span>{item.dish_name}</span>
-                                            <span>{item.price} VND</span>
-                                            <button onClick={() => updateQuantity(item.dish_id, -1)}>-</button>
-                                            <span>{item.quantity}</span>
-                                            <button onClick={() => updateQuantity(item.dish_id, 1)}>+</button>
-                                            <span>Tổng: {item.price * item.quantity} VND</span>
+                                            <div className="dish-details-cart">
+                                                <span className="dish-name-cart">{item.dish_name}</span>
+                                                <span className="dish-price-cart">{item.price} VND</span>
+                                            </div>
+                                            <div className="cart-item-controls">
+                                                <button onClick={() => updateQuantity(item.dish_id, -1)}>-</button>
+                                                <span>{item.quantity}</span>
+                                                <button onClick={() => updateQuantity(item.dish_id, 1)}>+</button>
+                                            </div>
+                                            <span className="dish-total">{item.price * item.quantity} VND</span>
                                         </li>
                                     );
                                 })}

@@ -266,7 +266,7 @@ h2 {
 .dish-img {
   width: 95px; /* Điều chỉnh kích thước ảnh */
   height: 80px;
-  margin-right: 10px; /* Khoảng cách giữa ảnh và thông tin */
+  margin-right: 0px; /* Khoảng cách giữa ảnh và thông tin */
   border-radius: 10px;
 }
 
@@ -279,4 +279,141 @@ h2 {
 
 .menu-item svg:hover {
   transform: scale(1.2);
+}
+
+/* .menu-header-cart {
+  display: grid;
+  justify-content: space-between;
+  padding: 0px 50px;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  grid-template-columns: 3fr 1fr 1fr 1fr; 
+}
+
+.menu-title-cart, .menu-price-cart, .menu-quantity, .menu-total {
+  width: 25%;
+  text-align: center;
+} */
+
+.menu-header-cart {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr; /* Chia cột cho các tiêu đề */
+  gap: 20px; /* Khoảng cách giữa các cột */
+  justify-content: space-between;
+  align-items: center; /* Căn giữa các mục theo chiều dọc */
+  padding: 0px 50px;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  text-align: center; /* Căn giữa tất cả nội dung trong các cột */
+}
+
+.menu-header-cart span {
+  font-size: 16px; /* Điều chỉnh kích thước chữ */
+  text-align: center; /* Căn giữa nội dung trong các cột */
+}
+
+.menu-title-cart {
+  text-align: left; /* Căn lề trái cho "Món ăn" */
+  padding-left: 10px; /* Đệm trái cho "Món ăn" */
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.dish-details-cart {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.dish-name-cart {
+  margin-left: 0px; 
+  margin-right: 50px;
+  text-align: left; /* Căn lề trái */
+  width: 110px;
+  flex-grow: 1;
+}
+
+.dish-price-cart {
+  text-align: left;
+  width: 120px;
+  font-weight: 600;
+  margin-right: 180px;
+  margin-left: -15px;
+}
+
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: -195px;
+}
+
+.cart-item-controls button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.cart-item-controls button:hover {
+  background-color: #ddd;
+}
+
+.cart-item-controls span {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.dish-total {
+  font-weight: bold;
+  font-size: 16px;
+  color: #d9534f;  /* Màu đỏ nổi bật */
+  margin-right: 50px;
+  margin-left: 5px;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 20px;
+}
+
+/* Định dạng cho nút thanh toán */
+.btn-success {
+  background-color: #28a745;  /* Màu xanh lá */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-success:hover {
+  background-color: #218838;  /* Màu xanh lá đậm khi hover */
+}
+
+.btn-danger {
+  background-color: #dc3545;  /* Màu đỏ */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;  /* Màu đỏ đậm khi hover */
 }
