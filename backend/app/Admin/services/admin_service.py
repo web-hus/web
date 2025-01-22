@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 from ...core.security import get_password
 
-from ...models.tables import User, Order, Booking, Dish, OrderDish
+from ...models.tables import User, Order, Booking, Dish, OrderDish, ShoppingCart
 from ..schemas import admin_schema
 
 class AdminService:
@@ -43,6 +43,10 @@ class AdminService:
     def get_user(db: Session, user_id: int) -> Optional[User]:
         """Get user by ID"""
         return db.query(User).filter(User.user_id == user_id).first()
+    
+    @staticmethod
+    def get_cart(db:Session, user_id: int):
+        return db.query(ShoppingCart).filter(ShoppingCart.user_id == user_id).first()
 
     @staticmethod
     def update_user(db: Session, user_id: int, user_data: admin_schema.UserUpdate, current_admin_id: int) -> User:
@@ -99,6 +103,7 @@ class AdminService:
     def delete_user(db: Session, user_id: int, current_admin_id: int) -> User:
         """Delete user"""
         db_user = AdminService.get_user(db, user_id)
+        db_user_cart = AdminService.get_cart(db,user_id)
         if not db_user:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
@@ -114,6 +119,7 @@ class AdminService:
             )
 
         db.delete(db_user)
+        db.delete(db_user_cart)
         db.commit()
         return db_user
 

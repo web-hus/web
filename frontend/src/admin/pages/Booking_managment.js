@@ -18,7 +18,7 @@ function BookingManagement() {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const response = await axios.get("/api/booking");
+                const response = await axios.get("/api/admin/bookings");
                 setBookings(response.data);
             } catch (error) {
                 console.error("Error fetching bookings:", error);
