@@ -3,7 +3,8 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..schemas.registration_schema import UserRegistration, VerifyRegistration
 from ..services.registration_service import RegistrationService
-
+from ..services.cart_service import CartService
+from .. schemas.cart_schema import CartCreate
 router = APIRouter(
     prefix="/registration",
     tags=["registration"]
@@ -65,9 +66,12 @@ async def verify_registration(
             verification_data.token
         )
 
+        cart = CartService.create_cart(db=db, cart_data=CartCreate(user_id=user.user_id))
+
         return {
-            "message": "Registration completed successfully",
-            "user_id": user.user_id
+            "message": "User registered successfully",
+            "user_id": user.user_id,
+            "cart_id": cart.cart_id,
         }
 
     except Exception as e:

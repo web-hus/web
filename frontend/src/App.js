@@ -82,7 +82,7 @@ function App() {
           <Route path="/news" exact element={<News />} />
           <Route path="/food/:id" exact element={<FoodDes />} />
           <Route path="/update_Profile" exact element={<UpdateProfile />} />
-          <Route path="/verify_registration" exact element={<VerifyRegistration/>}/>
+          <Route path="/verify-registration" exact element={<VerifyRegistration/>}/>
           {/* Authenticated User Routes */}
           <Route
             path="/set_table"

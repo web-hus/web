@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .database import engine
+from .database import engine, ensure_pending_users_table
 from .models import Base
 from .routers import (
     auth_router,
@@ -16,8 +16,12 @@ from .routers import (
 from .routers.profile import router as profile_router
 from .Admin.routers.admin import router as admin_router
 
+
+
 # Tạo bảng nếu chưa tồn tại
 Base.metadata.create_all(bind=engine)
+ensure_pending_users_table()
+
 
 app = FastAPI(
     title="Restaurant Management System",

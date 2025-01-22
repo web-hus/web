@@ -17,6 +17,7 @@ function VerifyRegistration() {
     useEffect(() => {
         async function verifyRegistration() {
             const token = getQueryParam("token");
+            console.log("token is", token)
 
             if (!token) {
                 setError("Verification token is missing!");
@@ -31,7 +32,7 @@ function VerifyRegistration() {
                 setMessage(response.data.message);
                 // Optionally redirect the user after successful verification
                 setTimeout(() => {
-                    window.location.href = "/login";
+                    window.location.href = "/log_sign_in";
                 }, 3000);
             } catch (err) {
                 if (err.response) {
