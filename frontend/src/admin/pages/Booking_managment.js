@@ -18,15 +18,21 @@ function BookingManagement() {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const response = await axios.get("/api/admin/bookings");
+                const token = localStorage.getItem("authToken"); // Retrieve the token
+                const response = await axios.get("/api/admin/bookings", {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Pass the token
+                    },
+                });
                 setBookings(response.data);
             } catch (error) {
                 console.error("Error fetching bookings:", error);
             }
         };
-
+    
         fetchBookings();
     }, []);
+    
 
     useEffect(() => {
         const fetchMenuItems = async () => {

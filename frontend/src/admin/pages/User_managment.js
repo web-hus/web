@@ -11,7 +11,12 @@ function UserManagement() {
     useEffect(() => {
         const fetchMenuItems = async () => {
             try {
-                const response = await axios.get("api/profile/api/profile/users"); // Gọi API lấy danh sách người dùng
+                const token = localStorage.getItem("authToken"); // Retrieve the token
+                const response = await axios.get("/api/admin/users", {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Pass the token
+                    },
+                });
                 setMenuItems(response.data);
                 setFilteredItems(response.data); // Mặc định hiển thị tất cả người dùng
             } catch (error) {
