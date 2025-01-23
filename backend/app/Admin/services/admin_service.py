@@ -100,28 +100,72 @@ class AdminService:
         return db_user
 
     @staticmethod
+    # def delete_user(db: Session, user_id: int, current_admin_id: int) -> User:
+    #     """Delete user"""
+    #     db_user = AdminService.get_user(db, user_id)
+    #     db_user_cart = AdminService.get_cart(db,user_id)
+    #     if not db_user:
+    #         raise HTTPException(
+    #             status_code=status.HTTP_404_NOT_FOUND,
+    #             detail="Không tìm thấy user"
+    #         )
+
+    #     # Kiểm tra quyền
+    #     # 1. Không thể xóa tài khoản admin
+    #     if db_user.role == 1:
+    #         raise HTTPException(
+    #             status_code=status.HTTP_403_FORBIDDEN,
+    #             detail="Không thể xóa tài khoản admin"
+    #         )
+
+    #     db.delete(db_user)
+    #     db.delete(db_user_cart)
+    #     db.commit()
+    #     return db_user
+    @staticmethod
     def delete_user(db: Session, user_id: int, current_admin_id: int) -> User:
-        """Delete user"""
+        """Delete user along with their bookings, orders, and shopping cart"""
+        # Get the user by ID
         db_user = AdminService.get_user(db, user_id)
-        db_user_cart = AdminService.get_cart(db,user_id)
         if not db_user:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Không tìm thấy user"
             )
 
-        # Kiểm tra quyền
-        # 1. Không thể xóa tài khoản admin
+        # Check permissions
+        # 1. Cannot delete admin account
         if db_user.role == 1:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Không thể xóa tài khoản admin"
             )
 
+        # Delete shopping cart
+        db_user_cart = AdminService.get_cart(db, user_id)
+        if db_user_cart:
+            db.delete(db_user_cart)
+
+        # Delete bookings
+        db_bookings = db.query(Booking).filter(Booking.user_id == user_id).all()
+        for booking in db_bookings:
+            db.delete(booking)
+
+        # Delete orders and related order dishes
+        db_orders = db.query(Order).filter(Order.user_id == user_id).all()
+        for order in db_orders:
+            # Delete order dishes for the order
+            db_order_dishes = db.query(OrderDish).filter(OrderDish.order_id == order.order_id).all()
+            for order_dish in db_order_dishes:
+                db.delete(order_dish)
+            db.delete(order)
+
+        # Finally, delete the user
         db.delete(db_user)
-        db.delete(db_user_cart)
         db.commit()
+
         return db_user
+
 
     @staticmethod
     def create_dine_in_order(db: Session, order_data: admin_schema.DineInOrderCreate) -> Order:
