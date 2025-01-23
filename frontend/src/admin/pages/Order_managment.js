@@ -11,7 +11,12 @@ function Order_managment() {
     useEffect(() => {
         const fetchMenuItems = async () => {
             try {
-                const response = await axios.get("/api/orders/orders/get_orders"); // Gọi API lấy tất cả món ăn
+                const token = localStorage.getItem("authToken"); // Retrieve the token
+                const response = await axios.get("/api/admin/orders", {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Pass the token
+                    },
+                });
                 setMenuItems(response.data);
                 setFilteredItems(response.data); // Mặc định hiển thị tất cả món ăn
             } catch (error) {
