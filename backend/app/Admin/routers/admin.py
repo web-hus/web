@@ -37,6 +37,22 @@ async def create_user(
     """Create new user"""
     return AdminService.create_user(db, user)
 
+@router.get("/users/{user_id}", response_model=admin_schema.User)
+async def get_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+    current_admin: User = Depends(get_current_admin)
+):
+    """Get user by ID"""
+    db_user = AdminService.get_user_by_id(db, user_id)
+    if not db_user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Không tìm thấy người dùng"
+        )
+    return db_user
+
+
 @router.get("/users", response_model=List[admin_schema.User])
 async def get_all_users(
     db: Session = Depends(get_db),

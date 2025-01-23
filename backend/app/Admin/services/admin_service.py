@@ -40,7 +40,7 @@ class AdminService:
         return db.query(User).offset(skip).limit(limit).all()
 
     @staticmethod
-    def get_user(db: Session, user_id: int) -> Optional[User]:
+    def get_user_by_id(db: Session, user_id: int) -> Optional[User]:
         """Get user by ID"""
         return db.query(User).filter(User.user_id == user_id).first()
     
