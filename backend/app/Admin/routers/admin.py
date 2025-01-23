@@ -27,7 +27,7 @@ def get_current_admin(db: Session = Depends(get_db), token: str = Depends(JWTBea
         )
     return user
 
-# User management routes
+# User management routes--------------------------------------------------------------------
 @router.post("/users", response_model=admin_schema.User)
 async def create_user(
     user: admin_schema.UserCreate,
@@ -64,7 +64,8 @@ async def delete_user(
     """Delete user"""
     return AdminService.delete_user(db, user_id, current_admin.user_id)
 
-# Dish management routes
+
+# Dish management routes -----------------------------------------------------
 @router.post("/dishes", response_model=dish_schema.Dish)
 async def create_dish(
     dish: dish_schema.DishCreate,
@@ -76,7 +77,7 @@ async def create_dish(
 
 @router.get("/dishes/{dish_id}", response_model=dish_schema.Dish)
 async def get_dish(
-    dish_id: int,
+    dish_id: str,
     db: Session = Depends(get_db),
     current_admin: User = Depends(get_current_admin)
 ):
@@ -91,7 +92,7 @@ async def get_dish(
 
 @router.put("/dishes/{dish_id}", response_model=dish_schema.Dish)
 async def update_dish(
-    dish_id: int,
+    dish_id: str,
     dish: dish_schema.DishUpdate,
     db: Session = Depends(get_db),
     current_admin: User = Depends(get_current_admin)
@@ -101,14 +102,15 @@ async def update_dish(
 
 @router.delete("/dishes/{dish_id}", response_model=dish_schema.Dish)
 async def delete_dish(
-    dish_id: int,
+    dish_id: str,
     db: Session = Depends(get_db),
     current_admin: User = Depends(get_current_admin)
 ):
     """Delete dish"""
     return DishService.delete_dish(db, dish_id)
 
-# Booking management routes
+
+# Booking management routes -------------------------------------------------------------
 @router.get("/bookings")
 async def get_all_bookings(
     db: Session = Depends(get_db),

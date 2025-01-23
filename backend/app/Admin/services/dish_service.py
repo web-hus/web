@@ -9,16 +9,15 @@ from ..schemas import dish_schema
 class DishService:
     @staticmethod
     def create_dish(db: Session, dish: dish_schema.DishCreate) -> Dish:
-        """Create a new dish"""
+        """Create a new dish based on the DishCreate schema."""
         db_dish = Dish(
-            name=dish.name,
-            description=dish.description,
+            # dish_id=dish.dish_id,
+            dish_name=dish.dish_name,
+            product_category=dish.product_category,
             price=dish.price,
-            image_url=dish.image_url,
-            product_category=dish.category_id,
-            availability=dish.is_available,
+            description=dish.description,
+            availability=dish.availability,
             created_at=datetime.utcnow(),
-            updated_at=datetime.utcnow()
         )
         db.add(db_dish)
         db.commit()
@@ -31,12 +30,12 @@ class DishService:
         return db.query(Dish).offset(skip).limit(limit).all()
 
     @staticmethod
-    def get_dish(db: Session, dish_id: int) -> Optional[Dish]:
+    def get_dish(db: Session, dish_id: str) -> Optional[Dish]:
         """Get dish by ID"""
         return db.query(Dish).filter(Dish.dish_id == dish_id).first()
 
     @staticmethod
-    def update_dish(db: Session, dish_id: int, dish: dish_schema.DishUpdate) -> Dish:
+    def update_dish(db: Session, dish_id: str, dish: dish_schema.DishUpdate) -> Dish:
         """Update dish"""
         db_dish = DishService.get_dish(db, dish_id)
         if not db_dish:
@@ -58,7 +57,7 @@ class DishService:
         return db_dish
 
     @staticmethod
-    def delete_dish(db: Session, dish_id: int) -> Dish:
+    def delete_dish(db: Session, dish_id: str) -> Dish:
         """Delete dish"""
         db_dish = DishService.get_dish(db, dish_id)
         if not db_dish:
