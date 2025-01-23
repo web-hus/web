@@ -3,18 +3,22 @@ import axios from "axios"; // Import axios
 import "../styles/Menu_managment.css";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
 
-function Menu_managment() {
-    const [menuItems, setMenuItems] = useState([]); // Lưu danh sách tất cả các món ăn
-    const [filteredItems, setFilteredItems] = useState([]); // Lưu danh sách món ăn đã lọc
+function MenuManagement() {
+    const [menuItems, setMenuItems] = useState([]); // Store all menu items
+    const [filteredItems, setFilteredItems] = useState([]); // Store filtered items
+    const [editingRow, setEditingRow] = useState(null); // Store row being edited
+    const [editedValues, setEditedValues] = useState({}); // Store edited values
 
-    // Fetch tất cả các món ăn từ backend
+    // Fetch all menu items from the backend
     useEffect(() => {
         const fetchMenuItems = async () => {
             try {
-                const response = await axios.get("/api/dish/dishes"); // Gọi API lấy tất cả món ăn
+                const response = await axios.get("/api/dish/dishes");
                 setMenuItems(response.data);
-                setFilteredItems(response.data); // Mặc định hiển thị tất cả món ăn
+                setFilteredItems(response.data); // Show all items by default
             } catch (error) {
                 console.error("Error fetching dishes:", error);
             }
@@ -23,16 +27,69 @@ function Menu_managment() {
         fetchMenuItems();
     }, []);
 
-    // Hàm xử lý khi chọn loại món ăn
+    // Handle filtering by category
     const handleFilterChange = (category) => {
         if (category === "All") {
-            // Nếu chọn "All", hiển thị tất cả món ăn
             setFilteredItems(menuItems);
         } else {
-            // Lọc món ăn theo loại được chọn
             const filtered = menuItems.filter((item) => item.product_category === category);
             setFilteredItems(filtered);
         }
+    };
+
+    // Handle delete action
+    const handleDelete = async (dishId) => {
+        try {
+            const token = localStorage.getItem("authToken");
+            await axios.delete(`/api/admin/dishes/${dishId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            setMenuItems((prev) => prev.filter((item) => item.dish_id !== dishId));
+            setFilteredItems((prev) => prev.filter((item) => item.dish_id !== dishId));
+        } catch (error) {
+            console.error("Error deleting dish:", error);
+        }
+    };
+
+    // Handle edit action
+    const handleEdit = (dishId) => {
+        setEditingRow(dishId);
+        const dish = menuItems.find((item) => item.dish_id === dishId);
+        setEditedValues(dish); // Pre-fill with current values
+    };
+
+    // Handle save action
+    const handleSave = async () => {
+        try {
+            const token = localStorage.getItem("authToken");
+            await axios.put(`/api/admin/dishes/${editedValues.dish_id}`, editedValues, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            setMenuItems((prev) =>
+                prev.map((item) =>
+                    item.dish_id === editedValues.dish_id ? { ...item, ...editedValues } : item
+                )
+            );
+            setFilteredItems((prev) =>
+                prev.map((item) =>
+                    item.dish_id === editedValues.dish_id ? { ...item, ...editedValues } : item
+                )
+            );
+            setEditingRow(null);
+        } catch (error) {
+            console.error("Error updating dish:", error);
+        }
+    };
+
+    // Handle cancel action
+    const handleCancel = () => {
+        setEditingRow(null);
+        setEditedValues({});
+    };
+
+    // Handle input change during editing
+    const handleInputChange = (field, value) => {
+        setEditedValues((prev) => ({ ...prev, [field]: value }));
     };
 
     return (
@@ -44,25 +101,14 @@ function Menu_managment() {
                         <th>STT</th>
                         <th>Món ăn</th>
                         <th>
-                            {/* <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Dropdown button
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div> */}
-
-                            {/* <div className="dropdown d-inline-block ms-2"> */}
                             <button
                                 className="btn btn-success btn-sm dropdown-toggle"
                                 type="button"
                                 id="categoryDropdown"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
-                            >Loại
+                            >
+                                Loại
                             </button>
                             <ul className="dropdown-menu" aria-labelledby="categoryDropdown">
                                 <li>
@@ -128,15 +174,86 @@ function Menu_managment() {
                     {filteredItems.map((item, index) => (
                         <tr key={item.dish_id}>
                             <th scope="row">{index + 1}</th>
-                            <td>{item.dish_name}</td>
-                            <td>{item.product_category}</td>
-                            <td>{item.price}</td>
-                            <td>{item.description}</td>
-                            <td>{item.availability ? "Còn hàng" : "Hết hàng"}</td>
-                            <td>
-                                <EditIcon></EditIcon>
-                                <DeleteIcon></DeleteIcon>
-                            </td>
+                            {editingRow === item.dish_id ? (
+                                <>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            value={editedValues.dish_name || ""}
+                                            onChange={(e) =>
+                                                handleInputChange("dish_name", e.target.value)
+                                            }
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            value={editedValues.product_category || ""}
+                                            onChange={(e) =>
+                                                handleInputChange("product_category", e.target.value)
+                                            }
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="number"
+                                            value={editedValues.price || ""}
+                                            onChange={(e) => handleInputChange("price", e.target.value)}
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            value={editedValues.description || ""}
+                                            onChange={(e) =>
+                                                handleInputChange("description", e.target.value)
+                                            }
+                                        />
+                                    </td>
+                                    <td>
+                                        <select
+                                            value={editedValues.availability ? "Còn hàng" : "Hết hàng"}
+                                            onChange={(e) =>
+                                                handleInputChange(
+                                                    "availability",
+                                                    e.target.value === "Còn hàng"
+                                                )
+                                            }
+                                        >
+                                            <option value="Còn hàng">Còn hàng</option>
+                                            <option value="Hết hàng">Hết hàng</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <SaveIcon
+                                            onClick={handleSave}
+                                            style={{ cursor: "pointer", marginRight: "8px" }}
+                                        />
+                                        <CancelIcon
+                                            onClick={handleCancel}
+                                            style={{ cursor: "pointer" }}
+                                        />
+                                    </td>
+                                </>
+                            ) : (
+                                <>
+                                    <td>{item.dish_name}</td>
+                                    <td>{item.product_category}</td>
+                                    <td>{item.price}</td>
+                                    <td>{item.description}</td>
+                                    <td>{item.availability ? "Còn hàng" : "Hết hàng"}</td>
+                                    <td>
+                                        <EditIcon
+                                            onClick={() => handleEdit(item.dish_id)}
+                                            style={{ cursor: "pointer", marginRight: "8px" }}
+                                        />
+                                        <DeleteIcon
+                                            onClick={() => handleDelete(item.dish_id)}
+                                            style={{ cursor: "pointer" }}
+                                        />
+                                    </td>
+                                </>
+                            )}
                         </tr>
                     ))}
                 </tbody>
@@ -145,4 +262,4 @@ function Menu_managment() {
     );
 }
 
-export default Menu_managment;
+export default MenuManagement;

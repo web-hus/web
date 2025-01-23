@@ -11,7 +11,7 @@ class DishService:
     def create_dish(db: Session, dish: dish_schema.DishCreate) -> Dish:
         """Create a new dish based on the DishCreate schema."""
         db_dish = Dish(
-            # dish_id=dish.dish_id,
+            dish_id=dish.dish_id,
             dish_name=dish.dish_name,
             product_category=dish.product_category,
             price=dish.price,
