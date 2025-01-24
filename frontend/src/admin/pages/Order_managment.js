@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Order_managment.css";
 import ChecklistIcon from '@mui/icons-material/Checklist';
+import axiosInstance from "../../api/api";
 
 function OrderManagement() {
     const [orders, setOrders] = useState([]); // Store list of orders
@@ -11,7 +12,7 @@ function OrderManagement() {
         const fetchOrders = async () => {
             try {
                 const token = localStorage.getItem("authToken"); // Retrieve the token
-                const response = await axios.get("/api/admin/orders", {
+                const response = await axiosInstance.get("/api/admin/orders", {
                     headers: {
                         Authorization: `Bearer ${token}`, // Pass the token
                     },

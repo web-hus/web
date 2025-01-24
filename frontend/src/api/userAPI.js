@@ -1,8 +1,9 @@
 import axios from "axios";
+import axiosInstance from "./api";
 
 export const getUserProfile = async () => {
   try {
-    const response = await axios.get("/api/profile/api/profile/me", {
+    const response = await axiosInstance.get("/api/profile/api/profile/me", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Add token if required
       },

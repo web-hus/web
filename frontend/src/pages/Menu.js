@@ -8,11 +8,15 @@ function Menu() {
   const [filteredDishes, setFilteredDishes] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 1000000]);
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
+  
 
   useEffect(() => {
     const fetchDishes = async () => {
       try {
         const data = await getAllDishes();
+        console.log(data)
+        console.log('Type of data:', typeof data);
+
         setDishes(data);
         setFilteredDishes(data);
       } catch (error) {
@@ -79,7 +83,8 @@ function Menu() {
       <div className="menuContent">
         <h1 className="menuTitle">Thực Đơn Nhà Hàng 3 Miền</h1>
         <div className="menuList">
-          {filteredDishes.length > 0 ? (
+          {filteredDishes.length > 0 ? 
+          (
             filteredDishes.map((dish) => {
               const fileExtension = dish.dish_name.toLowerCase().includes("png") ? "png" : "jpg";
               const encodedIDName = encodeURIComponent(dish.dish_id);

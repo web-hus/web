@@ -1,9 +1,10 @@
 // api/dishesApi.js
 import axios from "axios";
+import axiosInstance from "./api";
 
 export const getAllDishes = async () => {
   try {
-    const response = await axios.get("/api/dish/dishes"); // Đảm bảo API backend chạy tại URL này
+    const response = await axiosInstance.get('/api/dish/dishes'); // Đảm bảo API backend chạy tại URL này
     return response.data; // Trả về danh sách món ăn
   } catch (error) {
     console.error("Error fetching dishes:", error);
@@ -13,7 +14,7 @@ export const getAllDishes = async () => {
 
 export const getDishById = async (id) => {
   try {
-    const response = await axios.get(`/api/dish/dishes/${id}`); // Sử dụng axios để gọi API theo ID
+    const response = await axiosInstance.get(`/api/dish/dishes/${id}`); // Sử dụng axios để gọi API theo ID
     return response.data; // Trả về thông tin món ăn
   } catch (error) {
     console.error("Error fetching dish:", error);
@@ -23,7 +24,7 @@ export const getDishById = async (id) => {
 
 export const createCart = async () => {
   try {
-    const response = await axios.post(`/api/cart/cart`); // Make the POST request to create a new cart
+    const response = await axiosInstance.post(`/api/cart/cart`); // Make the POST request to create a new cart
     return response.data; // Return the response data, which should be the cart object
   } catch (error) {
     console.error('Tạo giỏ hàng thất bại:', error); // Handle error if the request fails
@@ -34,7 +35,7 @@ export const createCart = async () => {
 
 export const addToCart = async (cartData) => {
   try {
-    const response = await axios.post("/api/cart/cart/add-dish", cartData, {
+    const response = await axiosInstance.post("/api/cart/cart/add-dish", cartData, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Include token for authentication
       },
@@ -51,7 +52,7 @@ export const addToCart = async (cartData) => {
 
 export const getCartById = async (cartId) => {
   try {
-    const response = await axios.get(`/api/cart/cart/${cartId}`, {
+    const response = await axiosInstance.get(`/api/cart/cart/${cartId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("authToken")}`, // Add token if required
       },

@@ -4,6 +4,7 @@ import "../styles/Booking_managment.css";
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Modal from 'react-modal';
+import axiosInstance from "../../api/api";
 
 Modal.setAppElement("#root");
 
@@ -20,7 +21,7 @@ function BookingManagement() {
         const fetchBookings = async () => {
             try {
                 const token = localStorage.getItem("authToken");
-                const response = await axios.get("/api/admin/bookings", {
+                const response = await axiosInstance.get("/api/admin/bookings", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 const fetchedBookings = response.data;
@@ -28,7 +29,7 @@ function BookingManagement() {
                 // Fetch user data for each booking
                 const userResponses = await Promise.all(
                     fetchedBookings.map((booking) =>
-                        axios.get(`/api/admin/users/${booking.user_id}`, {
+                        axiosInstance.get(`/api/admin/users/${booking.user_id}`, {
                             headers: { Authorization: `Bearer ${token}` },
                         })
                     )
@@ -54,7 +55,7 @@ function BookingManagement() {
     useEffect(() => {
         const fetchMenuItems = async () => {
             try {
-                const response = await axios.get("/api/dish/dishes");
+                const response = await axiosInstance.get("/api/dish/dishes");
                 setMenuItems(response.data);
             } catch (error) {
                 console.error("Error fetching dishes:", error);

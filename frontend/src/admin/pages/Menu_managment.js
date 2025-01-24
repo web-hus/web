@@ -5,6 +5,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
+import axiosInstance from "../../api/api";
+
 
 function MenuManagement() {
     const [menuItems, setMenuItems] = useState([]); // Store all menu items
@@ -16,7 +18,7 @@ function MenuManagement() {
     useEffect(() => {
         const fetchMenuItems = async () => {
             try {
-                const response = await axios.get("/api/dish/dishes");
+                const response = await axiosInstance.get("/api/dish/dishes");
                 setMenuItems(response.data);
                 setFilteredItems(response.data); // Show all items by default
             } catch (error) {
@@ -41,7 +43,7 @@ function MenuManagement() {
     const handleDelete = async (dishId) => {
         try {
             const token = localStorage.getItem("authToken");
-            await axios.delete(`/api/admin/dishes/${dishId}`, {
+            await axiosInstance.delete(`/api/admin/dishes/${dishId}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setMenuItems((prev) => prev.filter((item) => item.dish_id !== dishId));
@@ -62,7 +64,7 @@ function MenuManagement() {
     const handleSave = async () => {
         try {
             const token = localStorage.getItem("authToken");
-            await axios.put(`/api/admin/dishes/${editedValues.dish_id}`, editedValues, {
+            await axiosInstance.put(`/api/admin/dishes/${editedValues.dish_id}`, editedValues, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setMenuItems((prev) =>

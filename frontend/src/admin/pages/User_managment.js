@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/User_managment.css";
+import axiosInstance from "../../api/api";
+
 
 function UserManagement() {
     const [menuItems, setMenuItems] = useState([]); // Lưu danh sách tất cả người dùng
@@ -12,7 +14,7 @@ function UserManagement() {
         const fetchMenuItems = async () => {
             try {
                 const token = localStorage.getItem("authToken"); // Retrieve the token
-                const response = await axios.get("/api/admin/users", {
+                const response = await axiosInstance.get("/api/admin/users", {
                     headers: {
                         Authorization: `Bearer ${token}`, // Pass the token
                     },
