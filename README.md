@@ -11,3 +11,11 @@ npm run start
 4. Thử nghiệm trang web trên http://localhost:3000/
 5. Tắt bằng Ctrl C
 6. Tắt container của Docker bằng docker-compose down -v
+
+người dùng admin: 
+- admin@gm.com
+- admin@123
+
+người dùng bình thường:
+- thuvokhanh05199@gmail.com
+- vothu921/

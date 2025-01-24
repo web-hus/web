@@ -13,7 +13,7 @@ echo "PostgreSQL is ready."
 
 # Restore the database
 echo "Restoring database from backup..."
-pg_restore --verbose --clean --no-owner --if-exists -U "$POSTGRES_USER" -d "$POSTGRES_DB" /docker-entrypoint-initdb.d/thuan_update_db.backup
+pg_restore --verbose --clean --no-owner --if-exists -U "$POSTGRES_USER" -d "$POSTGRES_DB" /docker-entrypoint-initdb.d/thuan_update_db_new.backup
 
 # Keep the container running
 wait

@@ -52,7 +52,7 @@ class AdminService:
     def update_user(db: Session, user_id: int, user_data: admin_schema.UserUpdate, current_admin_id: int) -> User:
         """Update user"""
         # Lấy thông tin user cần update
-        db_user = AdminService.get_user(db, user_id)
+        db_user = AdminService.get_user_by_id(db, user_id)
         if not db_user:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
@@ -102,7 +102,7 @@ class AdminService:
     @staticmethod
     # def delete_user(db: Session, user_id: int, current_admin_id: int) -> User:
     #     """Delete user"""
-    #     db_user = AdminService.get_user(db, user_id)
+    #     db_user = AdminService.get_user_by_id(db, user_id)
     #     db_user_cart = AdminService.get_cart(db,user_id)
     #     if not db_user:
     #         raise HTTPException(
@@ -126,7 +126,7 @@ class AdminService:
     def delete_user(db: Session, user_id: int, current_admin_id: int) -> User:
         """Delete user along with their bookings, orders, and shopping cart"""
         # Get the user by ID
-        db_user = AdminService.get_user(db, user_id)
+        db_user = AdminService.get_user_by_id(db, user_id)
         if not db_user:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
