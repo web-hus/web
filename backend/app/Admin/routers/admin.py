@@ -27,7 +27,7 @@ def get_current_admin(db: Session = Depends(get_db), token: str = Depends(JWTBea
         )
     return user
 
-# User management routes
+# User management routes--------------------------------------------------------------------
 @router.post("/users", response_model=admin_schema.User)
 async def create_user(
     user: admin_schema.UserCreate,
@@ -36,6 +36,22 @@ async def create_user(
 ):
     """Create new user"""
     return AdminService.create_user(db, user)
+
+@router.get("/users/{user_id}", response_model=admin_schema.User)
+async def get_user(
+    user_id: int,
+    db: Session = Depends(get_db),
+    current_admin: User = Depends(get_current_admin)
+):
+    """Get user by ID"""
+    db_user = AdminService.get_user_by_id(db, user_id)
+    if not db_user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Không tìm thấy người dùng"
+        )
+    return db_user
+
 
 @router.get("/users", response_model=List[admin_schema.User])
 async def get_all_users(
@@ -64,7 +80,8 @@ async def delete_user(
     """Delete user"""
     return AdminService.delete_user(db, user_id, current_admin.user_id)
 
-# Dish management routes
+
+# Dish management routes -----------------------------------------------------
 @router.post("/dishes", response_model=dish_schema.Dish)
 async def create_dish(
     dish: dish_schema.DishCreate,
@@ -76,7 +93,7 @@ async def create_dish(
 
 @router.get("/dishes/{dish_id}", response_model=dish_schema.Dish)
 async def get_dish(
-    dish_id: int,
+    dish_id: str,
     db: Session = Depends(get_db),
     current_admin: User = Depends(get_current_admin)
 ):
@@ -91,7 +108,7 @@ async def get_dish(
 
 @router.put("/dishes/{dish_id}", response_model=dish_schema.Dish)
 async def update_dish(
-    dish_id: int,
+    dish_id: str,
     dish: dish_schema.DishUpdate,
     db: Session = Depends(get_db),
     current_admin: User = Depends(get_current_admin)
@@ -101,14 +118,15 @@ async def update_dish(
 
 @router.delete("/dishes/{dish_id}", response_model=dish_schema.Dish)
 async def delete_dish(
-    dish_id: int,
+    dish_id: str,
     db: Session = Depends(get_db),
     current_admin: User = Depends(get_current_admin)
 ):
     """Delete dish"""
     return DishService.delete_dish(db, dish_id)
 
-# Booking management routes
+
+# Booking management routes -------------------------------------------------------------
 @router.get("/bookings")
 async def get_all_bookings(
     db: Session = Depends(get_db),

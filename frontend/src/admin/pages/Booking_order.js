@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/User_managment.css";
+import axiosInstance from "../../api/api";
+
 
 function Booking_order() {
     const [menuItems, setMenuItems] = useState([]); // Lưu danh sách tất cả người dùng
@@ -11,7 +13,7 @@ function Booking_order() {
     useEffect(() => {
         const fetchMenuItems = async () => {
             try {
-                const response = await axios.get("/users"); // Gọi API lấy danh sách người dùng
+                const response = await axiosInstance.get("/users"); // Gọi API lấy danh sách người dùng
                 setMenuItems(response.data);
                 setFilteredItems(response.data); // Mặc định hiển thị tất cả người dùng
             } catch (error) {

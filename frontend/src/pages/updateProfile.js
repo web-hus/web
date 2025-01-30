@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/UpdateProfile.css";
+import axiosInstance from "../api/api";
 
 const UpdateProfile = () => {
   const [formData, setFormData] = useState({
@@ -21,7 +22,7 @@ const UpdateProfile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get("/api/profile/api/profile/me", {
+        const response = await axiosInstance.get("/api/profile/api/profile/me", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
@@ -50,7 +51,7 @@ const UpdateProfile = () => {
     setErrorMessage("");
 
     try {
-      const response = await axios.put("/api/profile/api/profile/me", formData, {
+      const response = await axiosInstance.put("/api/profile/api/profile/me", formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },

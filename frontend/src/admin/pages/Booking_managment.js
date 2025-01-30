@@ -4,11 +4,13 @@ import "../styles/Booking_managment.css";
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Modal from 'react-modal';
+import axiosInstance from "../../api/api";
 
 Modal.setAppElement("#root");
 
 function BookingManagement() {
     const [bookings, setBookings] = useState([]);
+    const [users, setUsers] = useState({});
     const [menuItems, setMenuItems] = useState([]);
     const [cart, setCart] = useState([]);
     const [selectedBooking, setSelectedBooking] = useState(null);
@@ -18,20 +20,42 @@ function BookingManagement() {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const response = await axios.get("/api/admin/bookings");
-                setBookings(response.data);
+                const token = localStorage.getItem("authToken");
+                const response = await axiosInstance.get("/api/admin/bookings", {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                const fetchedBookings = response.data;
+
+                // Fetch user data for each booking
+                const userResponses = await Promise.all(
+                    fetchedBookings.map((booking) =>
+                        axiosInstance.get(`/api/admin/users/${booking.user_id}`, {
+                            headers: { Authorization: `Bearer ${token}` },
+                        })
+                    )
+                );
+
+                // Map user IDs to user data
+                const userMap = userResponses.reduce((map, res) => {
+                    map[res.data.user_id] = res.data;
+                    return map;
+                }, {});
+
+                setUsers(userMap);
+                setBookings(fetchedBookings);
             } catch (error) {
-                console.error("Error fetching bookings:", error);
+                console.error("Error fetching bookings or users:", error);
             }
         };
 
         fetchBookings();
     }, []);
+    
 
     useEffect(() => {
         const fetchMenuItems = async () => {
             try {
-                const response = await axios.get("/api/dish/dishes");
+                const response = await axiosInstance.get("/api/dish/dishes");
                 setMenuItems(response.data);
             } catch (error) {
                 console.error("Error fetching dishes:", error);
@@ -111,21 +135,24 @@ function BookingManagement() {
                     </tr>
                 </thead>
                 <tbody>
-                    {menuItems.map((item, index) => (
-                        <tr key={item.dish_id}>
-                            <th scope="row">{index + 1}</th>
-                            <td>{item.dish_name}</td>
-                            <td>{item.product_category}</td>
-                            <td>{item.price}</td>
-                            <td>{item.price}</td>
-                            <td>{item.price}</td>
-                            <td>{item.description}</td>
-                            <td>{item.availability ? "Còn hàng" : "Hết hàng"}</td>
-                            <td>
-                                <EditNoteIcon onClick={() => openModal(item)}></EditNoteIcon>
-                            </td>
-                        </tr>
-                    ))}
+                    {bookings.map((booking, index) => {
+                        const user = users[booking.user_id] || {};
+                        return (
+                            <tr key={booking.booking_id}>
+                                <td>{index + 1}</td>
+                                <td>{user.user_name || "Không rõ"}</td>
+                                <td>{user.phone || "Không rõ"}</td>
+                                <td>{booking.date}</td>
+                                <td>{booking.time}</td>
+                                <td>{booking.num_people}</td>
+                                <td>{booking.special_requests}</td>
+                                <td>{booking.status}</td>
+                                <td>
+                                    <EditNoteIcon onClick={() => openModal(booking)} />
+                                </td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
 

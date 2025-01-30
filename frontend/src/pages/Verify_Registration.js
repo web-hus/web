@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Log_Sign_In.css"; // Use the same CSS for consistent styling
 import axios from "axios";
+import axiosInstance from "../api/api";
 
 function VerifyRegistration() {
     const [message, setMessage] = useState(""); // Success message
@@ -23,7 +24,7 @@ function VerifyRegistration() {
             }
 
             try {
-                const response = await axios.post("http://localhost:8000/registration/verify", {
+                const response = await axiosInstance.post("/registration/verify", {
                     token: token,
                 });
 

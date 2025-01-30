@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+import axiosInstance from "../api/api";
 
 import "../styles/Payment.css";
 import { getUserProfile } from "../api/userAPI"; // Import the user profile API
@@ -19,10 +20,10 @@ const Payment = () => {
   const [dishes, setDishes] = useState([]);
   const [cartId, setCartId] = useState(null); // To store the cart ID
 
-  const CART_API_URL = "/api/cart/cart/";
-  const CREATE_ORDER_API_URL = "/api/orders/orders/";
-  const CREATE_PAYMENT_API_URL = "/api/payments/payments/";
-  const CLEAR_CART_API_URL = "/api/cart/cart/clear/"; // Endpoint to clear the cart
+  const CART_API_URL = "/api/cart/cart";
+  const CREATE_ORDER_API_URL = "/api/orders/orders";
+  const CREATE_PAYMENT_API_URL = "/api/payments/payments";
+  const CLEAR_CART_API_URL = "/api/cart/cart/clear"; // Endpoint to clear the cart
 
   const getAuthToken = () => localStorage.getItem("authToken");
 
@@ -39,7 +40,7 @@ const Payment = () => {
       }
 
       try {
-        const response = await axios.get(`${CART_API_URL}/${userId}`, {
+        const response = await axiosInstance.get(`${CART_API_URL}/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -89,7 +90,7 @@ const Payment = () => {
     const token = getAuthToken();
     try {
       // Make a call to clear the cart
-      await axios.delete(`${CLEAR_CART_API_URL}${cartId}`, {
+      await axiosInstance.delete(`${CLEAR_CART_API_URL}/${cartId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -116,7 +117,7 @@ const Payment = () => {
     };
 
     try {
-      const orderResponse = await axios.post(CREATE_ORDER_API_URL, orderData, {
+      const orderResponse = await axiosInstance.post(CREATE_ORDER_API_URL, orderData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -134,7 +135,7 @@ const Payment = () => {
       };
 
       console.log("PaymentData:", paymentData);
-      const paymentResponse = await axios.post(CREATE_PAYMENT_API_URL, paymentData, {
+      const paymentResponse = await axiosInstance.post(CREATE_PAYMENT_API_URL, paymentData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

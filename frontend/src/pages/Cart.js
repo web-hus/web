@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { getUserProfile } from "../api/userAPI"; // Import the user profile API
 import { getDishById } from "../api/dishesApi"; // Import getDishById function
 import DeleteIcon from '@mui/icons-material/Delete';
+import axiosInstance from "../api/api";
 
 const Cart = () => {
   const [cart, setCart] = useState(null); // Holds the entire cart response
@@ -40,7 +41,7 @@ const Cart = () => {
         }
 
         // Fetch cart data
-        const response = await axios.get(`${API_URL}/${userId}`, {
+        const response = await axiosInstance.get(`${API_URL}/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -76,7 +77,7 @@ const Cart = () => {
       }
 
       // Send the updated quantity to the backend
-      const response = await axios.put(
+      const response = await axiosInstance.put(
         `${API_URL}/update-quantity/${cart.cart_id}/${dishId}`,
         null,
         {
@@ -112,7 +113,7 @@ const Cart = () => {
         throw new Error("Authorization token is missing.");
       }
 
-      const response = await axios.delete(
+      const response = await axiosInstance.delete(
         `${API_URL}/remove-dish/${cart.cart_id}/${dishId}`,
         {
           headers: {

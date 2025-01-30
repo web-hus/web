@@ -1,9 +1,10 @@
 import axios from 'axios';
+import axiosInstance from './api';
 
 // Hàm đăng ký người dùng mới
 export const registerUser = async (userData) => {
   try {
-    const response = await axios.post(`/registration/register`, userData);
+    const response = await axiosInstance.post(`/registration/register`, userData);
     return response.data; // Trả về dữ liệu trả về từ API
   } catch (error) {
     console.error('Đăng ký thất bại:', error);
@@ -32,7 +33,7 @@ export const loginUser = async (loginData) => {
     // Send POST request with form data
     console.log(formData.toString());  // Outputs the URL-encoded data string
 
-    const response = await axios.post('/api/auth/auth/token',formData, {
+    const response = await axiosInstance.post('/api/auth/auth/token',formData, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded', // Ensure correct content type
       }
@@ -41,7 +42,7 @@ export const loginUser = async (loginData) => {
     const token = response.data.access_token; // Get the token from the response
 
     // Set the token in axios headers for future requests
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
     localStorage.setItem('authToken', token);
     
@@ -56,7 +57,7 @@ export const loginUser = async (loginData) => {
 
 export async function requestPasswordReset(email) {
   try {
-    const response = await axios.post('/password/forgot', { email });
+    const response = await axiosInstance.post('/password/forgot', { email });
     return response.data; // The response should include the message and expiration time
   } catch (error) {
     if (error.response) {
@@ -83,7 +84,7 @@ export async function updatePassword(password, confirmPassword) {
     }
     console.log(token)
     // Make the API call
-    const response = await axios.post('/password/reset', {
+    const response = await axiosInstance.post('/password/reset', {
       new_password: password,
       confirm_password: confirmPassword,
       token: token

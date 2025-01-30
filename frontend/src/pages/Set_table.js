@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getUserProfile } from "../api/userAPI"; // Import the user profile API
 
 import axios from "axios";
+import axiosInstance from "../api/api";
 
 import "../styles/Set_table.css";
 
@@ -50,7 +51,7 @@ function SetTable() {
     try {
       console.log(bookingData)
       // Make the API request to create a booking
-      const bookingResponse = await axios.post("/api/bookings/bookings/", bookingData, {
+      const bookingResponse = await axiosInstance.post("/api/bookings/bookings/", bookingData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -69,7 +70,7 @@ function SetTable() {
       };
       console.log(orderData)
       // Create the order after the booking is successful
-      const orderResponse = await axios.post("/api/orders/orders/", orderData, {
+      const orderResponse = await axiosInstance.post("/api/orders/orders/", orderData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

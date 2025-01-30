@@ -4,7 +4,7 @@ from datetime import datetime
 
 class DishBase(BaseModel):
     dish_name: str
-    product_category: int
+    product_category: str
     price: float = Field(..., gt=0)
     description: Optional[str] = None
     availability: int = Field(1, ge=0, le=1)  # 0: Hết hàng, 1: Còn hàng
