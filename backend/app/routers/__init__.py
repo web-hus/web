@@ -7,6 +7,7 @@ from .cart import router as cart_router
 from .dish import router as dish_router
 from .menu import router as menu_router
 from .password import router as password_router
+from .registration import router as registration_router
 
 __all__ = [
     "auth_router",
@@ -17,5 +18,6 @@ __all__ = [
     "cart_router",
     "dish_router",
     "menu_router",
-    "password_router"
+    "password_router",
+    "registration_router"
 ]

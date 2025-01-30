@@ -137,3 +137,283 @@
   cursor: pointer;
   margin-left: 20px;
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.462);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 800px;
+  height: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.tab-header {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.tab-header button {
+  padding: 10px 20px; /* Điều chỉnh kích thước nút */
+  cursor: pointer;
+  border-radius: 8px; /* Bo góc mềm mại hơn */
+  font-size: 16px; /* Tăng kích thước chữ */
+  background-color: white; /* Màu nền mặc định */
+  border: none; /* Bỏ viền */
+  transition: all 0.3s ease; /* Hiệu ứng mượt mà */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Bóng nhẹ ban đầu */
+}
+
+.tab-header button:hover {
+  transform: translateY(-2px); /* Nổi lên nhẹ khi hover */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Bóng đậm hơn */
+}
+
+.tab-header button:active {
+  transform: translateY(1px); /* Nhấn xuống khi click */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4); /* Bóng nhỏ hơn */
+}
+
+.tab-header button.active {
+  font-weight: bold;
+  color: white;
+  background-color: rgb(255, 136, 0); /* Màu cam nổi bật */
+  box-shadow: 0px 4px 10px rgba(255, 136, 0, 0.5); /* Hiệu ứng bóng cùng tông màu */
+}
+
+.menu-item, .cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+h2 {
+  font-weight: bold; /* In đậm */
+  font-size: 30px; /* Tăng kích thước */
+  background: linear-gradient(45deg, #0e7a27, #4caf50, #a8e063); /* Gradient xanh lá */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* Ẩn màu gốc để hiện gradient */
+  display: inline-block;
+  text-align: center;
+  width: 100%; /* Căn giữa theo chiều ngang */
+  line-height: 1.2; /* Giữ cho text không bị lệch dòng */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.186); 
+}
+
+
+.menu-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr; /* Chia 3 cột với độ rộng khác nhau */
+  gap: 80px; /* Khoảng cách giữa các cột */
+  margin-bottom: 10px; /* Khoảng cách giữa tiêu đề và danh sách món ăn */
+  text-align: center; /* Căn giữa các tiêu đề */
+}
+
+.menu-header .menu-title, .menu-header .menu-price, .menu-header .menu-add {
+  font-weight: bold;
+  text-transform: uppercase; /* Viết hoa các tiêu đề */
+}
+
+
+
+.menu-item {
+  display: flex;
+  justify-content: space-between; /* Đảm bảo các phần tử trong mỗi dòng (tên, giá, nút) thẳng hàng */
+  align-items: center;
+  padding: 10px 0; /* Khoảng cách giữa các dòng */
+  border-bottom: 1px solid #ddd; /* Thêm đường viền dưới mỗi món ăn */
+  position: relative;
+}
+
+.dish-details {
+  display: flex;
+  flex-direction: row; /* Các phần tử con (tên món ăn, giá) nằm trên một dòng */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  flex-grow: 1;
+  font-size: 20px;
+  margin-right: 130px;
+  justify-content: space-between; 
+}
+
+.dish-name {
+  margin-right: 15px; /* Khoảng cách giữa tên món ăn và giá */
+  text-align: left; /* Căn lề trái */
+  width: 150px;
+}
+
+.dish-price {
+  color: rgb(234, 34, 34);
+  text-align: left;
+  width: 120px;
+  font-weight: 600;
+}
+
+.dish-img {
+  width: 95px; /* Điều chỉnh kích thước ảnh */
+  height: 80px;
+  margin-right: 0px; /* Khoảng cách giữa ảnh và thông tin */
+  border-radius: 10px;
+}
+
+.menu-item svg {
+  font-size: 30px; /* Điều chỉnh kích thước icon */
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  margin-right: 70px;
+}
+
+.menu-item svg:hover {
+  transform: scale(1.2);
+}
+
+/* .menu-header-cart {
+  display: grid;
+  justify-content: space-between;
+  padding: 0px 50px;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  grid-template-columns: 3fr 1fr 1fr 1fr; 
+}
+
+.menu-title-cart, .menu-price-cart, .menu-quantity, .menu-total {
+  width: 25%;
+  text-align: center;
+} */
+
+.menu-header-cart {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr; /* Chia cột cho các tiêu đề */
+  gap: 20px; /* Khoảng cách giữa các cột */
+  justify-content: space-between;
+  align-items: center; /* Căn giữa các mục theo chiều dọc */
+  padding: 0px 50px;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  text-align: center; /* Căn giữa tất cả nội dung trong các cột */
+}
+
+.menu-header-cart span {
+  font-size: 16px; /* Điều chỉnh kích thước chữ */
+  text-align: center; /* Căn giữa nội dung trong các cột */
+}
+
+.menu-title-cart {
+  text-align: left; /* Căn lề trái cho "Món ăn" */
+  padding-left: 10px; /* Đệm trái cho "Món ăn" */
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.dish-details-cart {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.dish-name-cart {
+  margin-left: 0px; 
+  margin-right: 50px;
+  text-align: left; /* Căn lề trái */
+  width: 110px;
+  flex-grow: 1;
+}
+
+.dish-price-cart {
+  text-align: left;
+  width: 120px;
+  font-weight: 600;
+  margin-right: 180px;
+  margin-left: -15px;
+}
+
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: -195px;
+}
+
+.cart-item-controls button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.cart-item-controls button:hover {
+  background-color: #ddd;
+}
+
+.cart-item-controls span {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.dish-total {
+  font-weight: bold;
+  font-size: 16px;
+  color: #d9534f;  /* Màu đỏ nổi bật */
+  margin-right: 50px;
+  margin-left: 5px;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 20px;
+}
+
+/* Định dạng cho nút thanh toán */
+.btn-success {
+  background-color: #28a745;  /* Màu xanh lá */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-success:hover {
+  background-color: #218838;  /* Màu xanh lá đậm khi hover */
+}
+
+.btn-danger {
+  background-color: #dc3545;  /* Màu đỏ */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;  /* Màu đỏ đậm khi hover */
+}

@@ -20,9 +20,11 @@ import NewPassword from "./pages/New_Password";
 import Home_admin from "./admin/pages/Home_admin";
 import Menu_managment from "./admin/pages/Menu_managment";
 import Order_managment from "./admin/pages/Order_managment"
+import Booking_managment from "./admin/pages/Booking_managment"
 import User_managment from "./admin/pages/User_managment";
 import Dashboard from "./admin/pages/Dashboard";
 import UpdateProfile from "./pages/updateProfile";
+import VerifyRegistration from "./pages/Verify_Registration";
 
 import { getUserProfile } from "./api/userAPI";
 
@@ -80,7 +82,7 @@ function App() {
           <Route path="/news" exact element={<News />} />
           <Route path="/food/:id" exact element={<FoodDes />} />
           <Route path="/update_Profile" exact element={<UpdateProfile />} />
-
+          <Route path="/verify-registration" exact element={<VerifyRegistration/>}/>
           {/* Authenticated User Routes */}
           <Route
             path="/set_table"
@@ -90,7 +92,7 @@ function App() {
           <Route path="/Payment" element={<Payment />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/LostPassword" exact element={<LostPassword />} />
-          <Route path="/NewPassword" exact element={<NewPassword />} />
+          <Route path="/reset-password" exact element={<NewPassword />} />
 
           {/* Admin-Only Routes */}
           <Route
@@ -112,6 +114,10 @@ function App() {
           <Route
             path="/Order_managment"
             element={isAdmin ? <Order_managment /> : <NotAuthorizedHandler />}
+          />
+          <Route
+            path="/Booking_managment"
+            element={isAdmin ? <Booking_managment /> : <NotAuthorizedHandler />}
           />
 
           {/* Catch-All Route for Unknown Paths */}

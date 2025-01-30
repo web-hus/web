@@ -51,16 +51,28 @@
   white-space: nowrap; /* Không cho chữ xuống dòng */
 }
 
-.table thead th:first-child {
-  width: 5%; /* Cột STT */
+.table thead th:nth-child(1) {
+  width: 5% !important; 
+}
+
+.table thead th:nth-child(2) {
+  width: 15% !important; 
 }
 
 .table thead th:nth-child(3) {
-  width: 40%; /* Cột Mô tả */
+  width: 10% !important; 
+}
+
+.table thead th:nth-child(4) {
+  width: 10% !important; 
+}
+
+.table thead th:nth-child(5) {
+  width: 45% !important; 
 }
 
 .table thead th:last-child {
-  width: 10%; /* Cột Trạng thái */
+  width: 5%; 
 }
 
 /* Định dạng cho cột STT */
@@ -74,7 +86,7 @@
 
 /* Màu xen kẽ cho các dòng */
 .table tbody tr:nth-child(odd) {
-  background-color: #ffbaba; /* Màu nền xám nhạt */
+  background-color: #cffbcb; /* Màu nền xám nhạt */
 }
 
 .table tbody tr:nth-child(even) {

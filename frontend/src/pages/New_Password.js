@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/Log_Sign_In.css"; // Use the same CSS for consistent styling
-// import { updatePassword } from "../api/Log_Sign_In_Api"; // API to update the password
+import { updatePassword } from "../api/Log_Sign_In_Api"; // API to update the password
 
 function NewPassword() {
   const [formData, setFormData] = useState({ password: "", confirmPassword: "" });
@@ -20,10 +20,10 @@ function NewPassword() {
 
     try {
       // Call API to update the password
-      // const response = await updatePassword({ password: formData.password });
+      const response = await updatePassword(formData.password, formData.confirmPassword);
       setMessage("Đặt lại mật khẩu thành công!");
     } catch (err) {
-      setError("Error: " + err.response.data.detail || "Đã xảy ra lỗi.");
+      setError("Error: " + err.response || "Đã xảy ra lỗi.");
     }
   };
 

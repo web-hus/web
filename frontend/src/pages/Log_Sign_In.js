@@ -50,9 +50,9 @@ function Log_Sign_In() {
           phone: RegisterFormData.phone,
         });
 
-        console.log("Registration successful:", response);
+        // console.log("Registration successful:", response);
       alert(
-        `Registration successful! Cart created with ID: ${response.cart_id}. Please log in.`
+        `Chúng tôi vừa gửi Email xác thực cho bạn. Hãy kiểm tra địa chỉ Email của bạn!`
       );
 
         // Reset registration form data after successful registration
@@ -215,7 +215,7 @@ function Log_Sign_In() {
                   type="password"
                   id="password"
                   required
-                  pattern="^(?=.*\d)(?=.*[!@#$%^&*()\-=+[\]{}|;:,.<>?\/])[A-Za-z\d!@#$%^&*()\-=+[\]{}|;:,.<>?\/]{8,}$"
+                  pattern = "^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$"
                   title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ số và một ký tự đặc biệt."
                   value={RegisterFormData.password}
                   onChange={(e) =>

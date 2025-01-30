@@ -8,6 +8,7 @@ from ..Admin.schemas import admin_schema
 from ..auth.auth_bearer import JWTBearer
 from ..auth.auth_handler import decodeJWT
 from ..core.security import get_password
+from app.database import SessionLocal
 
 router = APIRouter(
     prefix="/api/profile",
@@ -74,3 +75,10 @@ async def update_profile(
     db.commit()
     db.refresh(user)
     return user
+
+@router.get("/users")
+async def get_users():
+    db: Session = SessionLocal()
+    dishes = db.query(User).all()  # Lấy tất cả món ăn từ DB
+    db.close()
+    return dishes

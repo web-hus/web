@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .database import engine
+from .database import engine, ensure_pending_users_table
 from .models import Base
 from .routers import (
     auth_router,
@@ -10,14 +10,18 @@ from .routers import (
     order_router,
     cart_router,
     dish_router,
-    menu_router,
     password_router,
+    registration_router
 )
 from .routers.profile import router as profile_router
 from .Admin.routers.admin import router as admin_router
 
+
+
 # Tạo bảng nếu chưa tồn tại
 Base.metadata.create_all(bind=engine)
+ensure_pending_users_table()
+
 
 app = FastAPI(
     title="Restaurant Management System",
@@ -45,9 +49,9 @@ app.include_router(order_router, prefix="/api/orders", tags=["orders"])
 app.include_router(profile_router, prefix="/api/profile", tags=["profile"])
 app.include_router(cart_router, prefix="/api/cart", tags=["cart"])
 app.include_router(dish_router, prefix="/api/dish", tags=["dish"])
-app.include_router(menu_router, prefix="/api/menu", tags=["menu"])
-app.include_router(password_router, prefix="/api/password", tags=["password"])
-
+# app.include_router(menu_router, prefix="/api/menu", tags=["menu"])
+app.include_router(password_router, tags=["password"])
+app.include_router(registration_router, tags=["registration"])
      
 
 app.include_router(admin_router)
